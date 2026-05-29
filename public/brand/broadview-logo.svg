@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" fill="none" role="img" aria-label="Broadview Lending">
+  <rect x="0" y="4" width="40" height="40" rx="10" fill="#1A56DB"/>
+  <path d="M20 14L28 22H24V32H16V22H12L20 14Z" fill="white"/>
+  <path d="M14 34H26V36H14V34Z" fill="white" fill-opacity="0.85"/>
+  <text x="52" y="22" fill="#0F172A" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="17" font-weight="700" letter-spacing="-0.02em">Broadview</text>
+  <text x="52" y="38" fill="#64748B" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="500" letter-spacing="0.06em">LENDING</text>
+</svg>

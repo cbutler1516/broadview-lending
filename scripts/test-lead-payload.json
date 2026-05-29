@@ -1,0 +1,21 @@
+{
+  "submissionId": "550e8400-e29b-41d4-a716-446655440001",
+  "firstName": "QA",
+  "lastName": "Test",
+  "email": "qa@test.com",
+  "phone": "5551234567",
+  "tcpaConsent": true,
+  "funnelType": "purchase",
+  "answers": {
+    "purchasePrice": "$400,000",
+    "downPayment": "$20,000",
+    "creditScore": "700-739",
+    "firstTimeHomebuyer": "yes",
+    "veteran": "no",
+    "workingWithRealtor": "yes",
+    "timeline": "1-3-months"
+  },
+  "utmSource": "google",
+  "utmMedium": "cpc",
+  "utmCampaign": "qa-test"
+}

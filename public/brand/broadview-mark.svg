@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Broadview Lending">
+  <rect width="48" height="48" rx="12" fill="#1A56DB"/>
+  <path d="M24 12L34 22H29V34H19V22H14L24 12Z" fill="white"/>
+  <path d="M17 36H31V38H17V36Z" fill="white" fill-opacity="0.85"/>
+</svg>
