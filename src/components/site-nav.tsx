@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Refinance", href: "/funnel/refinance" },
   { label: "VA", href: "/funnel/va" },
   { label: "FHA", href: "/funnel/fha" },
-  { label: "HELOC", href: "/funnel/heloc" },
+  { label: "Home Equity", href: "/heloc" },
   { label: "Learn", href: "/learn" },
 ];
 

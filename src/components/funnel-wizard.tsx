@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils/cn";
 
 type FunnelWizardProps = {
   definition: FunnelDefinition;
+  campaignPage?: string;
 };
 
 type WizardPhase = "questions" | "lead-capture" | "realtor" | "results";
@@ -27,7 +28,7 @@ function formatCurrencyInput(value: string) {
   return `$${Number(digits).toLocaleString()}`;
 }
 
-export function FunnelWizard({ definition }: FunnelWizardProps) {
+export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [stepIndex, setStepIndex] = useState(0);
   const [phase, setPhase] = useState<WizardPhase>("questions");
@@ -112,6 +113,7 @@ export function FunnelWizard({ definition }: FunnelWizardProps) {
     formData.set("answers", JSON.stringify(answers));
     formData.set("submissionId", submissionId);
     formData.set("sessionId", sessionId);
+    if (campaignPage) formData.set("campaignPage", campaignPage);
     appendAttributionToFormData(formData);
 
     startTransition(async () => {
@@ -172,8 +174,16 @@ export function FunnelWizard({ definition }: FunnelWizardProps) {
         onSubmit={handleLeadSubmit}
         isPending={isPending}
         error={submitError}
-        title="See Your Personalized Mortgage Strategy"
-        subtitle="Your answers are ready. Enter your details to unlock program recommendations tailored to your goal."
+        title={
+          definition.type === "heloc"
+            ? "See Your Equity Strategy Snapshot"
+            : "See Your Personalized Mortgage Strategy"
+        }
+        subtitle={
+          definition.type === "heloc"
+            ? "Your answers help us prepare. Tell us how to reach you so a Broadview mortgage advisor can personally review your information and walk through your options."
+            : "Your answers help us prepare a personalized strategy. Tell us how to reach you so an advisor can review your goals and next steps."
+        }
       />
     );
   }

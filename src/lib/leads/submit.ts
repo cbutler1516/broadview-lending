@@ -34,6 +34,65 @@ function deriveAgentNeeded(answers: Record<string, string>): boolean {
   );
 }
 
+function deriveHelocLeadData(
+  answers: Record<string, string>,
+  campaignPage?: string,
+): NonNullable<LeadPayload["heloc"]> {
+  const occupancy = answers.occupancy;
+  const propertyType = answers.propertyType;
+  const equityGoal = answers.equityGoal;
+  const isInvestment =
+    occupancy === "investment" ||
+    equityGoal === "purchase-investment-property" ||
+    propertyType === "multi-unit";
+
+  return {
+    equity_goal: equityGoal,
+    occupancy,
+    property_type: propertyType,
+    estimated_property_value:
+      answers.estimatedPropertyValue ?? answers.propertyValue,
+    mortgage_balance: answers.mortgageBalance,
+    desired_equity_amount:
+      answers.desiredEquityAmount ?? answers.desiredEquityAccess,
+    owner_occupied_vs_investment: isInvestment
+      ? "investment"
+      : "owner_occupied",
+    campaign_page: campaignPage,
+  };
+}
+
+function buildLeadTags(
+  result: FunnelResult,
+  input: SubmitLeadInput,
+): string[] {
+  const tags = [...result.tags];
+
+  if (input.funnelType === "heloc") {
+    const heloc = deriveHelocLeadData(input.answers, input.campaignPage);
+    if (heloc.equity_goal) tags.push(`equity_goal:${heloc.equity_goal}`);
+    if (heloc.occupancy) tags.push(`occupancy:${heloc.occupancy}`);
+    if (heloc.property_type) tags.push(`property_type:${heloc.property_type}`);
+    if (heloc.estimated_property_value) {
+      tags.push(`estimated_property_value:${heloc.estimated_property_value}`);
+    }
+    if (heloc.mortgage_balance) {
+      tags.push(`mortgage_balance:${heloc.mortgage_balance}`);
+    }
+    if (heloc.desired_equity_amount) {
+      tags.push(`desired_equity_amount:${heloc.desired_equity_amount}`);
+    }
+    if (heloc.owner_occupied_vs_investment) {
+      tags.push(
+        `owner_occupied_vs_investment:${heloc.owner_occupied_vs_investment}`,
+      );
+    }
+    if (heloc.campaign_page) tags.push(`campaign_page:${heloc.campaign_page}`);
+  }
+
+  return [...new Set(tags)];
+}
+
 function normalizePhone(phone: string): string {
   const digits = phone.replace(/\D/g, "");
   if (digits.length === 10) return digits;
@@ -97,6 +156,12 @@ export async function submitLeadToPlatform(
   const result = generateFunnelResult(input.funnelType, input.answers);
   const now = new Date().toISOString();
   const normalizedPhone = normalizePhone(input.phone);
+  const helocLeadData =
+    input.funnelType === "heloc"
+      ? deriveHelocLeadData(input.answers, input.campaignPage)
+      : undefined;
+  const leadTags = buildLeadTags(result, input);
+  const enrichedResult: FunnelResult = { ...result, tags: leadTags };
 
   const leadPayload: LeadPayload = {
     firstName: input.firstName,
@@ -109,7 +174,7 @@ export async function submitLeadToPlatform(
     tcpaConsentAt: now,
     funnelType: input.funnelType,
     answers: input.answers,
-    result,
+    result: enrichedResult,
     leadSource: input.leadSource,
     utmSource: input.utmSource,
     utmMedium: input.utmMedium,
@@ -118,6 +183,8 @@ export async function submitLeadToPlatform(
     utmTerm: input.utmTerm,
     gclid: input.gclid,
     fbclid: input.fbclid,
+    campaignPage: input.campaignPage,
+    heloc: helocLeadData,
     submissionId: input.submissionId,
     sessionId: input.sessionId,
     ipAddress: ctx.ipAddress,
@@ -136,7 +203,7 @@ export async function submitLeadToPlatform(
       success: true,
       leadId: duplicate.id,
       duplicate: true,
-      result: duplicate.result ?? result,
+      result: duplicate.result ?? enrichedResult,
       crmSynced: true,
     };
   }
@@ -164,7 +231,7 @@ export async function submitLeadToPlatform(
 
     return {
       success: true,
-      result,
+      result: enrichedResult,
       storageWarning: "Lead saved to CRM only — database storage unavailable.",
       crmSynced: true,
     };
@@ -184,21 +251,21 @@ export async function submitLeadToPlatform(
     user_agent: ctx.userAgent,
     funnel_type: input.funnelType,
     answers: input.answers,
-    result,
-    lead_grade: result.leadGrade,
-    mortgage_opportunity_score: result.mortgageOpportunityScore,
-    readiness_score: result.readinessScore,
-    urgency_score: result.urgencyScore,
-    lead_quality_score: result.leadQualityScore,
-    agent_referral_score: result.agentReferralScore,
-    estimated_loan_amount: result.estimatedLoanAmount ?? null,
-    credit_tier: result.creditTier ?? null,
-    recommended_program: result.recommendedPrograms.join(", "),
-    recommended_follow_up: getRecommendedFollowUp(result),
+    result: enrichedResult,
+    lead_grade: enrichedResult.leadGrade,
+    mortgage_opportunity_score: enrichedResult.mortgageOpportunityScore,
+    readiness_score: enrichedResult.readinessScore,
+    urgency_score: enrichedResult.urgencyScore,
+    lead_quality_score: enrichedResult.leadQualityScore,
+    agent_referral_score: enrichedResult.agentReferralScore,
+    estimated_loan_amount: enrichedResult.estimatedLoanAmount ?? null,
+    credit_tier: enrichedResult.creditTier ?? null,
+    recommended_program: enrichedResult.recommendedPrograms.join(", "),
+    recommended_follow_up: getRecommendedFollowUp(enrichedResult),
     realtor_referral: null,
     agent_needed: deriveAgentNeeded(input.answers),
     timeline: extractTimeline(input.answers),
-    tags: result.tags,
+    tags: leadTags,
     lead_source: input.leadSource ?? null,
     utm_source: input.utmSource ?? null,
     utm_medium: input.utmMedium ?? null,
@@ -230,7 +297,7 @@ export async function submitLeadToPlatform(
           success: true,
           leadId: existing.id,
           duplicate: true,
-          result: existing.result ?? result,
+          result: existing.result ?? enrichedResult,
           crmSynced: true,
         };
       }
@@ -265,9 +332,11 @@ export async function submitLeadToPlatform(
       leadId,
       sessionId: input.sessionId,
       metadata: {
-        leadGrade: result.leadGrade,
+        leadGrade: enrichedResult.leadGrade,
         crmSynced,
         crmProviders: crmResults.map((r) => r.provider),
+        campaignPage: input.campaignPage,
+        heloc: helocLeadData,
         utmSource: input.utmSource,
         utmMedium: input.utmMedium,
         utmCampaign: input.utmCampaign,
@@ -283,7 +352,7 @@ export async function submitLeadToPlatform(
   return {
     success: true,
     leadId,
-    result,
+    result: enrichedResult,
     crmSynced,
   };
 }

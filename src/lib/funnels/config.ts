@@ -129,8 +129,91 @@ const refinanceQuestions: FunnelQuestion[] = [
 
 const helocQuestions: FunnelQuestion[] = [
   {
-    id: "propertyValue",
+    id: "equityGoal",
+    label: "What would access to your home equity make possible?",
+    description:
+      "Start with the reason. Your answers help us prepare for a real advisor conversation.",
+    type: "single-select",
+    options: [
+      { value: "remodel-home", label: "Remodel my home" },
+      { value: "consolidate-debt", label: "Consolidate debt" },
+      { value: "buy-another-home", label: "Buy another home" },
+      { value: "purchase-investment-property", label: "Purchase an investment property" },
+      { value: "increase-cash-flow", label: "Increase monthly cash flow" },
+      { value: "business-opportunity", label: "Fund a business opportunity" },
+      { value: "education", label: "Pay for education" },
+      { value: "build-adu", label: "Build an ADU" },
+      { value: "emergency-funds", label: "Access emergency funds" },
+      { value: "not-sure", label: "I'm not sure yet" },
+    ],
+    required: true,
+  },
+  {
+    id: "goalDetail",
+    label: "What kind of project are you planning?",
+    type: "single-select",
+    options: [
+      { value: "kitchen-bath", label: "Kitchen, bath, or interior remodel" },
+      { value: "addition-adu", label: "Addition, ADU, or major construction" },
+      { value: "repairs-upgrades", label: "Repairs, systems, or energy upgrades" },
+      { value: "still-planning", label: "Still planning the scope" },
+    ],
+    required: true,
+    condition: (a) => a.equityGoal === "remodel-home" || a.equityGoal === "build-adu",
+  },
+  {
+    id: "goalDetail",
+    label: "What are you hoping improves after consolidation?",
+    type: "single-select",
+    options: [
+      { value: "lower-monthly-payments", label: "Lower monthly payments" },
+      { value: "fewer-payments", label: "Fewer payments to manage" },
+      { value: "pay-down-faster", label: "A clearer payoff strategy" },
+      { value: "understand-options", label: "I want to understand my options" },
+    ],
+    required: true,
+    condition: (a) =>
+      a.equityGoal === "consolidate-debt" ||
+      a.equityGoal === "increase-cash-flow",
+  },
+  {
+    id: "goalDetail",
+    label: "What kind of property goal are you exploring?",
+    type: "single-select",
+    options: [
+      { value: "move-up-home", label: "Move-up primary home" },
+      { value: "second-home", label: "Second home" },
+      { value: "rental-property", label: "Rental property" },
+      { value: "portfolio-growth", label: "Portfolio growth" },
+    ],
+    required: true,
+    condition: (a) =>
+      a.equityGoal === "buy-another-home" ||
+      a.equityGoal === "purchase-investment-property",
+  },
+  {
+    id: "goalDetail",
+    label: "How would this equity access support you?",
+    type: "single-select",
+    options: [
+      { value: "flexibility", label: "More financial flexibility" },
+      { value: "safety-net", label: "A safety net for unexpected costs" },
+      { value: "business-growth", label: "A business or career opportunity" },
+      { value: "education-planning", label: "Education or family planning" },
+      { value: "advisor-guidance", label: "I need help thinking it through" },
+    ],
+    required: true,
+    condition: (a) =>
+      a.equityGoal === "business-opportunity" ||
+      a.equityGoal === "education" ||
+      a.equityGoal === "emergency-funds" ||
+      a.equityGoal === "not-sure",
+  },
+  {
+    id: "estimatedPropertyValue",
     label: "What's your estimated property value?",
+    description:
+      "A rough estimate is fine. A full review comes later if you decide to move forward.",
     type: "currency",
     required: true,
   },
@@ -141,7 +224,7 @@ const helocQuestions: FunnelQuestion[] = [
     required: true,
   },
   {
-    id: "desiredEquityAccess",
+    id: "desiredEquityAmount",
     label: "How much equity would you like to access?",
     type: "currency",
     required: true,
@@ -156,11 +239,13 @@ const helocQuestions: FunnelQuestion[] = [
   {
     id: "occupancy",
     label: "How do you use this property?",
+    description:
+      "Most Home Equity Solutions start with a primary residence, but we can also review investment and rental-property goals.",
     type: "single-select",
     options: [
-      { value: "primary", label: "Primary residence" },
+      { value: "owner-occupied", label: "Primary residence / owner-occupied" },
       { value: "second-home", label: "Second home" },
-      { value: "investment", label: "Investment property" },
+      { value: "investment", label: "Investment or rental property" },
     ],
     required: true,
   },
@@ -173,6 +258,13 @@ const helocQuestions: FunnelQuestion[] = [
       { value: "condo", label: "Condo / Townhome" },
       { value: "multi-unit", label: "Multi-unit (2-4 units)" },
     ],
+    required: true,
+  },
+  {
+    id: "timeline",
+    label: "When would you like to access your equity?",
+    type: "single-select",
+    options: timelineOptions,
     required: true,
   },
 ];
@@ -280,11 +372,11 @@ export const funnelDefinitions: FunnelDefinition[] = [
   },
   {
     type: "heloc",
-    title: "Home Equity (HELOC)",
+    title: "Home Equity Solutions",
     subtitle:
-      "Estimate how much equity you may access without refinancing your first mortgage.",
+      "Check potential HELOC and home equity paths with a real advisor by your side.",
     icon: "💰",
-    href: "/funnel/heloc",
+    href: "/heloc",
     questions: helocQuestions,
   },
   {

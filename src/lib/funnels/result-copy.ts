@@ -58,11 +58,11 @@ export function getResultCopy(result: FunnelResult): ResultCopy {
       };
     case "heloc":
       return {
-        headline: "Your Home Equity Strategy",
-        interpretation: `${prefix} you may have meaningful home equity to explore. A HELOC can provide flexible access to equity without replacing your first mortgage, subject to credit and property review.`,
+        headline: "Your Personalized Home Equity Strategy",
+        interpretation: `${prefix} potential options may include a HELOC, a cash-out refinance, or another home equity structure. This is not a loan approval or commitment to lend.`,
         nextStep:
-          "Book a consultation to review HELOC limits, draw structure, and whether equity access aligns with your goals.",
-        pathsIntro: `${pathsIntro} a home equity line of credit (HELOC) as a potential path`,
+          "A Broadview mortgage advisor will personally review your information and walk through your options with you.",
+        pathsIntro: `${pathsIntro} a home equity line of credit (HELOC) and cash-out refinance as potential paths`,
       };
     case "va":
       return {

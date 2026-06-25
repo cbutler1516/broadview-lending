@@ -9,6 +9,7 @@ import { brand } from "@/lib/brand/config";
 
 type FunnelPageProps = {
   params: Promise<{ type: string }>;
+  searchParams?: Promise<{ campaign_page?: string }>;
 };
 
 const funnelSeoKeys: Record<string, keyof typeof pageMetadata> = {
@@ -35,8 +36,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function FunnelPage({ params }: FunnelPageProps) {
+export default async function FunnelPage({ params, searchParams }: FunnelPageProps) {
   const { type } = await params;
+  const query = searchParams ? await searchParams : {};
   const definition = getFunnelDefinition(type);
 
   if (!definition || definition.questions.length === 0) {
@@ -50,15 +52,26 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         <div className="section-container mb-8 max-w-xl">
           <p className="text-sm font-medium text-brand">{definition.title}</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-            Let&apos;s find your mortgage strategy
+            {definition.type === "heloc"
+              ? "Let's build your home equity strategy"
+              : "Let's build your mortgage strategy"}
           </h1>
           <p className="mt-3 text-muted">{definition.subtitle}</p>
+          {definition.type === "heloc" && (
+            <p className="mt-3 text-sm leading-relaxed text-foreground">
+              Your answers help us prepare. A real Broadview mortgage advisor will
+              personally review your information and walk through your options.
+            </p>
+          )}
           <p className="mt-3 text-sm font-medium text-foreground">
             {brand.trust.funnelDuration}
           </p>
         </div>
         <div className="section-container">
-          <FunnelWizard definition={definition} />
+          <FunnelWizard
+            definition={definition}
+            campaignPage={query.campaign_page}
+          />
         </div>
       </main>
       <ComplianceFooter />

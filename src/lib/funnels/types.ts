@@ -62,6 +62,20 @@ export type FunnelResult = {
   estimatedLoanAmount?: number;
   creditTier?: string;
   tags: string[];
+  equityStrategy?: {
+    goal: string;
+    equityAccessScore: number;
+    estimatedAvailableEquity: number;
+    initialRecommendation: string;
+    whyItFits: string;
+    otherOptionsWorthDiscussing: string[];
+    estimatedNextSteps: string[];
+    questionsToAskAdvisor: string[];
+    potentialHelocPath: string;
+    cashOutAlternative: string;
+    keepCurrentMortgageNote: string;
+    recommendedNextStep: string;
+  };
 };
 
 export type RealtorReferralChoice = "yes" | "no" | "already-working";
@@ -92,4 +106,15 @@ export type LeadPayload = {
   utmTerm?: string;
   gclid?: string;
   fbclid?: string;
+  campaignPage?: string;
+  heloc?: {
+    equity_goal?: string;
+    occupancy?: string;
+    property_type?: string;
+    estimated_property_value?: string;
+    mortgage_balance?: string;
+    desired_equity_amount?: string;
+    owner_occupied_vs_investment?: "owner_occupied" | "investment";
+    campaign_page?: string;
+  };
 };

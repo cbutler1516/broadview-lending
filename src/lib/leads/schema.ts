@@ -37,6 +37,7 @@ export const submitLeadInputSchema = z.object({
   utmTerm: z.string().optional(),
   gclid: z.string().optional(),
   fbclid: z.string().optional(),
+  campaignPage: z.string().optional(),
 });
 
 export type SubmitLeadInput = z.infer<typeof submitLeadInputSchema> & {
@@ -105,6 +106,7 @@ export function parseSubmitLeadFormData(formData: FormData) {
     utmTerm: formData.get("utmTerm") || undefined,
     gclid: formData.get("gclid") || undefined,
     fbclid: formData.get("fbclid") || undefined,
+    campaignPage: formData.get("campaignPage") || undefined,
   });
 
   if (!parsed.success) {

@@ -32,11 +32,8 @@ export function FunnelCard({ funnel, className }: FunnelCardProps) {
   const content = (
     <>
       <div className="flex items-start justify-between gap-3">
-        <span
-          className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-light text-xl"
-          aria-hidden
-        >
-          {funnel.icon}
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-light" aria-hidden>
+          <span className="h-2.5 w-2.5 rounded-full bg-brand" />
         </span>
         <span className="rounded-full bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-muted">
           ~60 sec

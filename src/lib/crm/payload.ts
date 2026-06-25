@@ -28,7 +28,10 @@ export function buildCrmLeadPayload(lead: LeadPayload) {
       summary: lead.result.summary,
       highlights: lead.result.highlights,
       recommendedFollowUp: getRecommendedFollowUp(lead.result),
+      tags: lead.result.tags,
+      equityStrategy: lead.result.equityStrategy,
     },
+    heloc: lead.heloc,
     realtorReferral: lead.realtorReferral ?? null,
     tcpa: {
       consent: lead.tcpaConsent,
@@ -45,6 +48,7 @@ export function buildCrmLeadPayload(lead: LeadPayload) {
       utmTerm: lead.utmTerm,
       gclid: lead.gclid,
       fbclid: lead.fbclid,
+      campaignPage: lead.campaignPage,
     },
     metadata: {
       ipAddress: lead.ipAddress,

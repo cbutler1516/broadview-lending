@@ -33,9 +33,9 @@ export const defaultMetadata: Metadata = {
 
 export const pageMetadata = {
   home: {
-    title: "Seattle & Washington Mortgage Lender | Home Loans & Refinance",
+    title: "Mortgage Strategy Platform | Home Loans & Home Equity",
     description:
-      "Check your mortgage options with Broadview Lending. Purchase, refinance, VA, FHA, jumbo, and HELOC strategies for homebuyers and homeowners — Seattle, Washington, and nationwide.",
+      "Build your mortgage strategy with Broadview Lending. Smart digital tools prepare the conversation; real mortgage advisors help you buy, refinance, or access home equity with confidence.",
   },
   purchase: {
     title: "Purchase Mortgage | Home Loan Options",
@@ -58,9 +58,9 @@ export const pageMetadata = {
       "Explore FHA mortgage options with flexible down payment requirements. First-time homebuyer guidance from a licensed mortgage lender serving Washington and beyond.",
   },
   heloc: {
-    title: "HELOC & Home Equity | Access Your Equity",
+    title: "Home Equity Solutions | HELOC Options",
     description:
-      "See how much home equity you may be able to access with a HELOC strategy. Educational guidance for homeowners — not a commitment to lend.",
+      "Check potential HELOC and home equity options with Broadview Lending. Smart digital tools plus real mortgage advisor guidance.",
   },
   learn: {
     title: "Mortgage Education Hub | Home Buying & Refinance Guides",

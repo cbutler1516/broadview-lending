@@ -30,17 +30,25 @@ export const brand = {
     emailHref: "mailto:info@broadviewlending.com",
   },
 
+  logos: {
+    fullLogoPath: "/brand/broadview-barrett-lockup-full.png",
+    headerLogoPath: "/brand/broadview-header-logo.png",
+    mobileLogoPath: "/brand/broadview-mobile-mark.png",
+    footerLogoPath: "/brand/broadview-barrett-lockup-footer.png",
+    markPath: "/brand/broadview-mark-official.png",
+  },
+
   ctas: {
-    primary: "Check My Mortgage Options",
-    secondary: "Book a Strategy Call",
-    funnelStart: "Get Started",
-    seeStrategy: "See My Strategy",
-    bookConsultation: "Book a Strategy Call",
+    primary: "Build My Mortgage Strategy",
+    secondary: "Talk With A Mortgage Advisor",
+    funnelStart: "Explore Your Options",
+    seeStrategy: "See My Personalized Strategy",
+    bookConsultation: "Talk With A Mortgage Advisor",
   },
 
   trust: {
     leadCapture:
-      "No spam. No obligation. Just a personalized mortgage strategy.",
+      "No call-center feel. No pressure. Just a more prepared conversation with a real advisor.",
     funnelDuration: "Takes about 60 seconds · No credit pull to start",
     equalHousing: "Equal Housing Opportunity",
   },
@@ -53,7 +61,7 @@ export const brand = {
     educationalNotice:
       "Information provided through this website is for educational and pre-qualification purposes only and does not constitute a loan offer or rate lock.",
     resultsEligibility:
-      "Final eligibility depends on full application, credit, income, assets, property, and underwriting review.",
+      "Final eligibility depends on full application, credit, income, assets, property, occupancy, lien position, and underwriting review.",
     resultsPrefix: "Based on the information you provided,",
     resultsProgramsPrefix: "Potential options may include",
   },
@@ -116,9 +124,9 @@ export const brand = {
   },
 
   positioning: {
-    tagline: "Smarter residential mortgage strategy starts here.",
+    tagline: "Technology prepares the conversation. People create confidence.",
     description:
-      "A modern mortgage strategy platform for purchase, refinance, FHA, VA, jumbo, and home equity lending — built around your goals, not a one-size-fits-all rate quote.",
+      "A Mortgage Strategy Platform that uses smart digital tools to understand your goals quickly, then connects you with real advisor guidance before recommending a loan.",
     residentialFocus:
       "Broadview Lending specializes in residential home loans for buyers and homeowners nationwide, with strong expertise across Washington State and the Pacific Northwest.",
   },

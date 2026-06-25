@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/brand/config";
+import { helocLandingPages } from "@/lib/heloc/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -11,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/funnel/heloc",
     "/funnel/va",
     "/funnel/fha",
+    "/heloc",
+    ...helocLandingPages.map((page) => page.path),
     "/learn",
     "/contact",
     "/privacy",
@@ -22,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}${path}`,
     lastModified,
     changeFrequency: path === "" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : path.startsWith("/funnel") ? 0.9 : 0.7,
+    priority:
+      path === "" ? 1 : path.startsWith("/heloc") || path.startsWith("/funnel") ? 0.9 : 0.7,
   }));
 }

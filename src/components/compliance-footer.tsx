@@ -8,6 +8,7 @@ import {
   loanOfficers,
 } from "@/lib/brand/config";
 import { ContactLink } from "@/components/contact-link";
+import { BrandLogo } from "@/components/brand-logo";
 
 export function ComplianceFooter() {
   return (
@@ -15,14 +16,10 @@ export function ComplianceFooter() {
       <div className="section-container py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="inline-flex">
-              <Image
-                src="/brand/broadview-logo.svg"
-                alt={brand.companyName}
-                width={160}
-                height={28}
-              />
-            </Link>
+            <BrandLogo
+              variant="full"
+              className="h-auto max-h-28 w-auto max-w-56 object-contain"
+            />
             <p className="mt-4 text-sm text-muted">{companyLicensing.legalEntity}</p>
             <p className="mt-1 text-sm text-muted">{companyLicensing.companyNmlsId}</p>
             <div className="mt-4 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted">

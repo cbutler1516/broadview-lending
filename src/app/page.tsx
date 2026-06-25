@@ -5,6 +5,7 @@ import { ComplianceFooter } from "@/components/compliance-footer";
 import { FunnelSelectionGrid } from "@/components/funnel-selection-grid";
 import { HomepageCtas } from "@/components/homepage-ctas";
 import { BookingLink } from "@/components/booking-link";
+import { WhatHappensNext } from "@/components/what-happens-next";
 import { contentCategories } from "@/lib/content/hub";
 import { brand, siteUrl } from "@/lib/brand/config";
 import { buildPageMetadata } from "@/lib/brand/seo";
@@ -13,43 +14,39 @@ export const metadata: Metadata = buildPageMetadata("home");
 
 const whyBroadview = [
   {
-    title: "50+ Lending Partners",
-    body: "As a mortgage broker and lender, we compare options across a broad network to help find competitive residential rates and terms.",
+    title: "Technology Accelerates Understanding",
+    body: "Your answers help us prepare quickly so the advisor conversation starts with context, not a blank intake script.",
   },
   {
-    title: "Purchase-First Strategy",
-    body: "Built for homebuyers and homeowners — purchase, refinance, FHA, VA, jumbo, and HELOC paths tailored to your situation.",
+    title: "People Create Confidence",
+    body: "A real mortgage advisor reviews your information, answers questions, and helps you understand the trade-offs.",
+  },
+  {
+    title: "Goal-First Guidance",
+    body: "We start with what you want to accomplish, then discuss loan options only after the strategy is clear.",
   },
   {
     title: "Licensed & Transparent",
     body: `${brand.nmlsDisplay}. Licensed across multiple states with clear disclosures and Equal Housing commitment.`,
   },
-  {
-    title: "Human Guidance",
-    body: "Your online strategy is the starting point — a licensed mortgage advisor helps you move from options to application.",
-  },
 ];
 
-const processSteps = [
+const platformSteps = [
   {
-    step: "01",
-    title: "Choose Your Goal",
-    body: "Buy, refinance, access equity, or explore VA and FHA options.",
+    title: "Discover",
+    body: "Tell us what you want your mortgage or home equity decision to make possible.",
   },
   {
-    step: "02",
-    title: "Answer a Few Questions",
-    body: "About 60 seconds of qualification questions — no credit pull to start.",
+    title: "Understand",
+    body: "We ask only the details needed to understand your situation and prepare the conversation.",
   },
   {
-    step: "03",
-    title: "Get Your Strategy",
-    body: "See potential loan paths and a personalized next step — locked until you opt in.",
+    title: "Recommend",
+    body: "You receive an initial strategy, not a generic product pitch or approval promise.",
   },
   {
-    step: "04",
-    title: "Book a Strategy Call",
-    body: "Talk with a mortgage advisor about programs, payments, and timeline.",
+    title: "Connect & Guide",
+    body: "A real advisor walks through your options and helps you move forward with confidence.",
   },
 ];
 
@@ -60,7 +57,7 @@ const loanTypes = [
   "Jumbo Mortgages",
   "Rate & Term Refinance",
   "Cash-Out Refinance",
-  "HELOC / Home Equity",
+  "Home Equity Solutions / HELOC",
 ];
 
 export default function HomePage() {
@@ -89,15 +86,18 @@ export default function HomePage() {
         <section className="border-b border-border bg-surface">
           <div className="section-container py-16 md:py-24">
             <div className="mx-auto max-w-4xl text-center">
-              <p className="text-sm font-medium text-brand">
-                {brand.legalEntity} · {brand.nmlsDisplay}
-              </p>
+              <p className="text-sm font-medium text-brand">{brand.positioning.tagline}</p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl md:leading-[1.08]">
-                Find the right home loan strategy — not just a rate quote.
+                Every mortgage starts with a conversation. Every great mortgage starts with a strategy.
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                {brand.positioning.description} Serving homebuyers and homeowners
-                in Washington, Seattle, and nationwide.
+                Whether you&apos;re buying your first home, refinancing, or accessing
+                your equity, we&apos;ll help you understand your options before
+                recommending a loan.
+              </p>
+              <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-foreground">
+                Technology helps us understand your situation quickly. People help you
+                make the right decision.
               </p>
               <HomepageCtas location="hero" />
               <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
@@ -109,11 +109,11 @@ export default function HomePage() {
           <div className="section-container">
             <div className="mb-10 max-w-2xl">
               <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-                What are you looking to do?
+                What would you like to accomplish?
               </h2>
               <p className="mt-3 text-muted">
-                Choose a path to see potential mortgage options. Qualification
-                questions come first — contact info only when your strategy is ready.
+                Choose a goal so we can build a smarter mortgage strategy around the
+                life decision behind the loan.
               </p>
             </div>
             <FunnelSelectionGrid />
@@ -124,9 +124,12 @@ export default function HomePage() {
           <div className="section-container">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-                Residential mortgage expertise
+                A Mortgage Strategy Platform, not another mortgage website
               </h2>
-              <p className="mt-3 text-muted">{brand.positioning.residentialFocus}</p>
+              <p className="mt-3 text-muted">
+                People don&apos;t want a mortgage. They want a home, flexibility,
+                financial freedom, or a trusted guide for a major decision.
+              </p>
             </div>
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {whyBroadview.map((item) => (
@@ -142,12 +145,11 @@ export default function HomePage() {
         <section className="py-16 md:py-20">
           <div className="section-container">
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              How it works
+              The Broadview strategy flow
             </h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {processSteps.map((item) => (
-                <div key={item.step}>
-                  <span className="text-4xl font-light text-brand/30">{item.step}</span>
+              {platformSteps.map((item) => (
+                <div key={item.title}>
                   <h3 className="mt-2 font-semibold">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
                 </div>
@@ -159,11 +161,11 @@ export default function HomePage() {
         <section className="border-y border-border bg-surface py-16 md:py-20">
           <div className="section-container">
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              Home loan options we help with
+              Loan options come after the strategy
             </h2>
             <p className="mt-3 max-w-2xl text-muted">
-              Conventional, government, and equity solutions for primary residences —
-              not private money or hard money lending.
+              We can help compare conventional, government, refinance, and home
+              equity paths, but the conversation starts with your goal.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {loanTypes.map((type) => (
@@ -217,8 +219,8 @@ export default function HomePage() {
                   Ready to talk through your options?
                 </h2>
                 <p className="mx-auto mt-4 max-w-lg text-white/85">
-                  Start with a 60-second strategy check, or book a call with a licensed
-                  mortgage advisor serving Washington and nationwide borrowers.
+                  Start with a personalized strategy assessment, or talk with a
+                  licensed mortgage advisor serving Washington and nationwide borrowers.
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Link
@@ -243,6 +245,7 @@ export default function HomePage() {
         </section>
       </main>
 
+      <WhatHappensNext className="border-t border-border bg-surface-muted" />
       <ComplianceFooter />
     </>
   );

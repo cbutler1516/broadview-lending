@@ -22,7 +22,7 @@ export function LeadCaptureForm({
   return (
     <div className="mx-auto w-full max-w-xl">
       <div className="card-elevated p-5 sm:p-6 md:p-8">
-        <p className="text-sm font-medium text-brand">Almost there</p>
+        <p className="text-sm font-medium text-brand">Prepare the conversation</p>
         <h2 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
           {title}
         </h2>

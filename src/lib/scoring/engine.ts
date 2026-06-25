@@ -208,40 +208,170 @@ function buildRefinanceResult(answers: FunnelAnswers): FunnelResult {
 }
 
 function buildHelocResult(answers: FunnelAnswers): FunnelResult {
-  const value = parseCurrency(answers.propertyValue);
+  const value = parseCurrency(answers.estimatedPropertyValue ?? answers.propertyValue);
   const balance = parseCurrency(answers.mortgageBalance);
-  const desired = parseCurrency(answers.desiredEquityAccess);
+  const desired = parseCurrency(
+    answers.desiredEquityAmount ?? answers.desiredEquityAccess,
+  );
+  const occupancy = answers.occupancy ?? "owner-occupied";
+  const propertyType = answers.propertyType ?? "single-family";
+  const equityGoal = answers.equityGoal ?? "something-else";
+  const isInvestment =
+    occupancy === "investment" ||
+    equityGoal === "purchase-investment-property" ||
+    propertyType === "multi-unit";
   const equity = Math.max(value - balance, 0);
-  const availableEquity = Math.round(equity * 0.85);
+  const maxCombinedLoanToValue = isInvestment ? 0.75 : 0.85;
+  const availableEquity = Math.max(
+    0,
+    Math.round(value * maxCombinedLoanToValue - balance),
+  );
   const creditPoints = creditScoreToPoints(answers.creditScore);
+  const equityPercent = value > 0 ? (equity / value) * 100 : 0;
+  const cltvAfterDesired =
+    value > 0 ? ((balance + desired) / value) * 100 : 100;
 
   const readinessScore = Math.round(
-    creditPoints * 0.5 + Math.min((equity / value) * 100, 50),
+    creditPoints * 0.45 +
+      Math.min(equityPercent, 45) +
+      (desired > 0 && desired <= availableEquity ? 10 : 0),
   );
-  const urgencyScore = desired > 50000 ? 75 : 50;
+  const urgencyScore = timelineToUrgency(answers.timeline);
   const leadQualityScore = Math.round(readinessScore * 0.6 + urgencyScore * 0.4);
+  const equityAccessScore = Math.min(
+    100,
+    Math.round(
+      creditPoints * 0.35 +
+        Math.min(equityPercent, 45) +
+        (desired > 0 && desired <= availableEquity ? 20 : 5),
+    ),
+  );
+
+  const goalLabels: Record<string, string> = {
+    "remodel-home": "Remodel my home",
+    "consolidate-debt": "Consolidate debt",
+    "buy-another-home": "Buy another home",
+    "purchase-investment-property": "Purchase an investment property",
+    "increase-cash-flow": "Increase monthly cash flow",
+    "business-opportunity": "Fund a business opportunity",
+    education: "Pay for education",
+    "build-adu": "Build an ADU",
+    "emergency-funds": "Access emergency funds",
+    "not-sure": "I'm not sure yet",
+  };
+
+  const goalTags: Record<string, string> = {
+    "remodel-home": "equity_goal:home_improvement",
+    "consolidate-debt": "equity_goal:debt_consolidation",
+    "buy-another-home": "equity_goal:buy_another_home",
+    "purchase-investment-property": "equity_goal:investment_property",
+    "increase-cash-flow": "equity_goal:increase_cash_flow",
+    "business-opportunity": "equity_goal:business_opportunity",
+    education: "equity_goal:education",
+    "build-adu": "equity_goal:build_adu",
+    "emergency-funds": "equity_goal:emergency_funds",
+    "not-sure": "equity_goal:not_sure",
+  };
+
+  const recommendationByGoal: Record<string, string> = {
+    "remodel-home":
+      "Based on what you've shared, a Home Equity Line of Credit may allow you to access equity for improvements while preserving your current first mortgage and interest rate.",
+    "consolidate-debt":
+      "Based on what you've shared, a Home Equity Solution may help you explore whether consolidating higher-interest debt could improve monthly cash flow.",
+    "buy-another-home":
+      "Based on what you've shared, your home equity may be part of a next-home strategy, especially if preserving your current first mortgage is valuable.",
+    "purchase-investment-property":
+      "Based on what you've shared, your equity may support an investor strategy that should be reviewed alongside DSCR possibilities, reserves, and cash-flow impact.",
+    "increase-cash-flow":
+      "Based on what you've shared, a Home Equity Solution may be worth discussing as part of a broader cash-flow strategy.",
+    "business-opportunity":
+      "Based on what you've shared, accessing equity for a business opportunity deserves a careful risk and repayment conversation before choosing a structure.",
+    education:
+      "Based on what you've shared, home equity may be one way to fund education, but it should be compared with repayment timing and other funding options.",
+    "build-adu":
+      "Based on what you've shared, a Home Equity Line of Credit or renovation-focused second lien may help fund ADU planning while preserving your current first mortgage.",
+    "emergency-funds":
+      "Based on what you've shared, a Home Equity Solution may create access to funds for unexpected needs, but the repayment structure should be reviewed carefully.",
+    "not-sure":
+      "Based on what you've shared, the next best step is a guided home equity conversation to clarify what flexibility you need and which structures are worth comparing.",
+  };
+
+  const whyItFits = isInvestment
+    ? "This fits as an initial strategy because investor equity decisions depend on leverage, reserves, property cash flow, and whether the next move strengthens the portfolio."
+    : "This fits as an initial strategy because it may let you explore equity access without automatically replacing your current first mortgage.";
+
+  const potentialHelocPath = isInvestment
+    ? "Potential investment-property equity path, including HELOC availability review, DSCR possibilities, and portfolio cash-flow considerations."
+    : "Potential owner-occupied HELOC path that may help access equity while keeping the current first mortgage in place.";
+
+  const cashOutAlternative =
+    "Potential options may also include a cash-out refinance if one new loan, a larger equity need, or fixed-payment structure is a better fit after full review.";
+
+  const keepCurrentMortgageNote =
+    "Keeping the current first mortgage may matter when the existing rate or terms are stronger than today's replacement options.";
 
   return {
     funnelType: "heloc",
-    mortgageOpportunityScore: Math.round(desired / 1000 + equity / 10000),
+    mortgageOpportunityScore: equityAccessScore,
     readinessScore,
     urgencyScore,
     leadQualityScore,
-    agentReferralScore: 10,
+    agentReferralScore: 20,
     leadGrade: scoreToGrade(leadQualityScore),
-    recommendedPrograms: ["heloc"],
+    recommendedPrograms: ["heloc", "cash-out-refi"],
     recommendedNextStep:
-      "Book a consultation to review HELOC options and available equity.",
-    summary: `You may have access to approximately $${availableEquity.toLocaleString()} in home equity.`,
+      "A Broadview mortgage advisor should review your equity position, lien structure, and goal before recommending a path.",
+    summary: `Based on the information you provided, estimated available equity may be around $${availableEquity.toLocaleString()}. This is not a loan approval or commitment to lend.`,
     highlights: [
       `Estimated available equity: $${availableEquity.toLocaleString()}`,
       desired <= availableEquity
-        ? "Your desired access amount appears within typical HELOC ranges."
-        : "Your desired amount may require additional review or alternative strategies.",
+        ? "Your desired access amount appears within the preliminary equity range you provided."
+        : "Your desired amount may require additional review, a different lien structure, or an alternative strategy.",
+      `Estimated CLTV after desired equity access: ${cltvAfterDesired.toFixed(0)}%.`,
+      isInvestment
+        ? "Investment and rental-property equity options may involve stricter guidelines, reserves, and cash-flow review."
+        : "Owner-occupied HELOC paths often focus on flexibility, home improvements, debt consolidation, emergency funds, or keeping a favorable first mortgage.",
+      keepCurrentMortgageNote,
     ],
     estimatedLoanAmount: desired,
     creditTier: creditScoreToTier(answers.creditScore),
-    tags: ["heloc", answers.occupancy ?? "primary"],
+    tags: [
+      "heloc",
+      "home_equity_solutions",
+      goalTags[equityGoal] ?? "equity_goal:something_else",
+      `occupancy:${occupancy}`,
+      `property_type:${propertyType}`,
+      isInvestment ? "investment" : "owner_occupied",
+      isInvestment ? "owner_occupied_vs_investment:investment" : "owner_occupied_vs_investment:owner_occupied",
+    ],
+    equityStrategy: {
+      goal: goalLabels[equityGoal] ?? goalLabels["not-sure"],
+      equityAccessScore,
+      estimatedAvailableEquity: availableEquity,
+      initialRecommendation:
+        recommendationByGoal[equityGoal] ?? recommendationByGoal["not-sure"],
+      whyItFits,
+      otherOptionsWorthDiscussing: [
+        "Cash-out refinance",
+        "Closed-end second mortgage",
+        isInvestment ? "DSCR or investor financing" : "Bridge financing",
+      ],
+      estimatedNextSteps: [
+        "Advisor review of your equity estimate, current lien, and goal.",
+        "Discussion of payment comfort, timeline, and whether preserving your first mortgage matters.",
+        "Comparison of potential home equity structures before choosing a path.",
+      ],
+      questionsToAskAdvisor: [
+        "How would this strategy affect my monthly cash flow?",
+        "What are the trade-offs of keeping my current first mortgage?",
+        "Which option gives me flexibility without creating unnecessary risk?",
+      ],
+      potentialHelocPath,
+      cashOutAlternative,
+      keepCurrentMortgageNote,
+      recommendedNextStep:
+        "A Broadview mortgage advisor will personally review your information and walk through your options with you.",
+    },
   };
 }
 
