@@ -5,6 +5,10 @@ import { ComplianceFooter } from "@/components/compliance-footer";
 import { BookingLink } from "@/components/booking-link";
 import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 import { WhatHappensNext } from "@/components/what-happens-next";
+import { HeroMedia } from "@/components/hero-media";
+import { AdvisorTrustSection } from "@/components/advisor-trust-section";
+import { TestimonialMediaSection } from "@/components/testimonial-media-section";
+import { homeEquityBackgroundVideo, heygenTestimonials } from "@/lib/media/assets";
 import { brand, siteUrl } from "@/lib/brand/config";
 import {
   getHelocFunnelHref,
@@ -99,22 +103,27 @@ export default function HelocHubPage() {
               <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
             </div>
 
-            <aside className="card-elevated p-6 md:p-8">
-              <p className="text-sm font-medium text-brand">What happens next</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                Smart digital intake, followed by human guidance.
-              </h2>
-              <div className="mt-5 space-y-3">
-                {trustItems.map((item) => (
-                  <p
-                    key={item}
-                    className="rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm text-muted"
-                  >
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </aside>
+            <HeroMedia
+              video={homeEquityBackgroundVideo}
+              fallback={
+                <aside className="card-elevated p-6 md:p-8">
+                  <p className="text-sm font-medium text-brand">What happens next</p>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+                    Smart digital intake, followed by human guidance.
+                  </h2>
+                  <div className="mt-5 space-y-3">
+                    {trustItems.map((item) => (
+                      <p
+                        key={item}
+                        className="rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm text-muted"
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                </aside>
+              }
+            />
           </div>
         </section>
 
@@ -233,6 +242,22 @@ export default function HelocHubPage() {
             </div>
           </div>
         </section>
+
+        <AdvisorTrustSection
+          heading="Your home equity decision deserves a real conversation."
+          paragraphs={[
+            "Your answers help us prepare. The real value comes from the conversation that follows.",
+            "A Broadview advisor will personally review your information and walk through your home equity and mortgage options.",
+          ]}
+        />
+
+        <TestimonialMediaSection
+          eyebrow="Real stories"
+          heading="Homeowners who explored their equity with guidance"
+          subheading="We start with your goal, then explain the trade-offs before recommending a path."
+          testimonials={heygenTestimonials}
+          className="border-y border-border bg-surface-muted"
+        />
 
         <WhatHappensNext className="border-y border-border bg-surface-muted" />
 

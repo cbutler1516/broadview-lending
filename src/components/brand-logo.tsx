@@ -20,16 +20,16 @@ export function BrandLogo({
         <Image
           src={brand.logos.headerLogoPath}
           alt={`${brand.companyName} powered by ${brand.parentCompany}`}
-          width={780}
-          height={235}
+          width={760}
+          height={212}
           priority
           className={cn("hidden h-10 w-auto sm:block lg:h-12", className)}
         />
         <Image
           src={brand.logos.mobileLogoPath}
           alt={brand.companyName}
-          width={240}
-          height={227}
+          width={232}
+          height={208}
           priority
           className={cn("block h-9 w-auto sm:hidden", className)}
         />
@@ -55,14 +55,14 @@ export function BrandLogo({
   const logo = {
     full: {
       src: brand.logos.fullLogoPath,
-      width: 884,
-      height: 495,
+      width: 885,
+      height: 496,
       className: "h-auto w-auto",
     },
     mark: {
       src: brand.logos.markPath,
-      width: 240,
-      height: 227,
+      width: 232,
+      height: 208,
       className: "h-10 w-auto",
     },
   }[variant];

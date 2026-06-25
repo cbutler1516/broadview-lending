@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
 import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 import { WhatHappensNext } from "@/components/what-happens-next";
+import { HeroMedia } from "@/components/hero-media";
+import { homeEquityBackgroundVideo } from "@/lib/media/assets";
 import { brand } from "@/lib/brand/config";
 import {
   getHelocFunnelHref,
@@ -84,26 +86,31 @@ export function HomeEquityLandingPage({ page }: HomeEquityLandingPageProps) {
             <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
           </div>
 
-          <aside className="card-elevated p-6 md:p-8">
-            <p className="text-sm font-medium text-brand">
-              You are starting a strategy conversation
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-              A real advisor reviews your situation.
-            </h2>
-            <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
-              {[
-                "Someone will call you.",
-                "Someone will answer your questions.",
-                "Someone will walk you through your options.",
-                homeEquityCopy.notAlone,
-              ].map((item) => (
-                <li key={item} className="rounded-xl bg-surface-muted px-4 py-3">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <HeroMedia
+            video={homeEquityBackgroundVideo}
+            fallback={
+              <aside className="card-elevated p-6 md:p-8">
+                <p className="text-sm font-medium text-brand">
+                  You are starting a strategy conversation
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+                  A real advisor reviews your situation.
+                </h2>
+                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
+                  {[
+                    "Someone will call you.",
+                    "Someone will answer your questions.",
+                    "Someone will walk you through your options.",
+                    homeEquityCopy.notAlone,
+                  ].map((item) => (
+                    <li key={item} className="rounded-xl bg-surface-muted px-4 py-3">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            }
+          />
         </div>
       </section>
 

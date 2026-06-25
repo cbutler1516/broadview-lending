@@ -7,6 +7,10 @@ import { HomepageCtas } from "@/components/homepage-ctas";
 import { BookingLink } from "@/components/booking-link";
 import { WhatHappensNext } from "@/components/what-happens-next";
 import { TrustBadgeRow } from "@/components/trust-badge-row";
+import { HeroMedia } from "@/components/hero-media";
+import { AdvisorTrustSection } from "@/components/advisor-trust-section";
+import { TestimonialMediaSection } from "@/components/testimonial-media-section";
+import { heroBackgroundVideo, heygenTestimonials } from "@/lib/media/assets";
 import { contentCategories } from "@/lib/content/hub";
 import { brand, siteUrl } from "@/lib/brand/config";
 import { buildPageMetadata } from "@/lib/brand/seo";
@@ -121,7 +125,10 @@ export default function HomePage() {
                 <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
               </div>
 
-              <div className="relative">
+              <HeroMedia
+                video={heroBackgroundVideo}
+                fallback={
+                  <div className="relative">
                 <div className="card-elevated overflow-hidden p-0">
                   <div
                     className="px-7 pb-7 pt-8"
@@ -168,7 +175,9 @@ export default function HomePage() {
                     </span>
                   </div>
                 </div>
-              </div>
+                  </div>
+                }
+              />
             </div>
 
             <TrustBadgeRow className="mt-14" />
@@ -235,7 +244,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="border-y border-border bg-surface py-16 md:py-20">
+        <AdvisorTrustSection className="border-y border-border bg-surface-muted" />
+
+        <section className="border-b border-border bg-surface py-16 md:py-20">
           <div className="section-container">
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
               Loan options come after the strategy
@@ -256,6 +267,14 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <TestimonialMediaSection
+          eyebrow="Real stories"
+          heading="Hear it from people we've helped"
+          subheading="Technology prepares the conversation. People make the difference."
+          testimonials={heygenTestimonials}
+          className="border-b border-border bg-surface-muted"
+        />
 
         <section className="py-16 md:py-20">
           <div className="section-container">
