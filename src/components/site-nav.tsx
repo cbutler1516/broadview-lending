@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/brand-logo";
 import { BookingLink } from "@/components/booking-link";
 import { cn } from "@/lib/utils/cn";
@@ -20,37 +21,55 @@ type SiteNavProps = {
   className?: string;
 };
 
+function isActiveLink(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function SiteNav({ className }: SiteNavProps) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-border/80 bg-surface/95 backdrop-blur-md",
+        "site-header sticky top-0 z-50 border-b border-border/70 bg-surface/85 backdrop-blur-xl",
         className,
       )}
     >
-      <div className="section-container flex h-16 items-center justify-between gap-4">
+      <div className="section-container flex h-16 items-center justify-between gap-6 lg:h-20">
         <BrandLogo />
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-3 py-2 text-sm text-muted transition-colors hover:bg-surface-muted hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <BookingLink location="nav_desktop" className="btn-primary ml-2 py-2.5 text-sm">
+          {navLinks.map((link) => {
+            const active = isActiveLink(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors",
+                  active
+                    ? "bg-brand-light text-brand"
+                    : "text-muted hover:bg-surface-muted hover:text-foreground",
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <BookingLink
+            location="nav_desktop"
+            className="btn-primary ml-3 px-5 py-2.5 text-sm"
+          >
             Book Call
           </BookingLink>
         </nav>
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-border p-2 lg:hidden"
+          className="inline-flex items-center justify-center rounded-xl border border-border p-2.5 text-foreground transition-colors hover:bg-surface-muted lg:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
@@ -66,21 +85,30 @@ export function SiteNav({ className }: SiteNavProps) {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-surface lg:hidden">
+        <div className="border-t border-border bg-surface/95 backdrop-blur-xl lg:hidden">
           <nav className="section-container flex flex-col gap-1 py-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-foreground hover:bg-surface-muted"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActiveLink(pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
+                    active
+                      ? "bg-brand-light text-brand"
+                      : "text-foreground hover:bg-surface-muted",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <BookingLink
               location="nav_mobile"
-              className="btn-primary mt-2 text-center"
+              className="btn-primary mt-3 text-center"
               onClick={() => setOpen(false)}
             >
               Book Call

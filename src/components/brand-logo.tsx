@@ -23,7 +23,7 @@ export function BrandLogo({
           width={780}
           height={235}
           priority
-          className={cn("hidden h-11 w-auto sm:block", className)}
+          className={cn("hidden h-10 w-auto sm:block lg:h-12", className)}
         />
         <Image
           src={brand.logos.mobileLogoPath}
@@ -31,7 +31,7 @@ export function BrandLogo({
           width={240}
           height={227}
           priority
-          className={cn("block h-10 w-auto sm:hidden", className)}
+          className={cn("block h-9 w-auto sm:hidden", className)}
         />
       </>
     );
@@ -39,8 +39,15 @@ export function BrandLogo({
     if (!href) return image;
 
     return (
-      <Link href={href} className="inline-flex shrink-0 items-center">
+      <Link
+        href={href}
+        aria-label={`${brand.companyName} home`}
+        className="group inline-flex shrink-0 flex-col justify-center"
+      >
         {image}
+        <span className="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.14em] text-muted/80 lg:block">
+          Powered by {brand.parentCompany}
+        </span>
       </Link>
     );
   }

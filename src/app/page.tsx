@@ -6,6 +6,7 @@ import { FunnelSelectionGrid } from "@/components/funnel-selection-grid";
 import { HomepageCtas } from "@/components/homepage-ctas";
 import { BookingLink } from "@/components/booking-link";
 import { WhatHappensNext } from "@/components/what-happens-next";
+import { TrustBadgeRow } from "@/components/trust-badge-row";
 import { contentCategories } from "@/lib/content/hub";
 import { brand, siteUrl } from "@/lib/brand/config";
 import { buildPageMetadata } from "@/lib/brand/seo";
@@ -83,25 +84,94 @@ export default function HomePage() {
       <SiteNav />
 
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
+        <section className="relative overflow-hidden border-b border-border bg-surface">
+          <div
+            className="pointer-events-none absolute inset-0 -z-10"
+            aria-hidden
+            style={{
+              background:
+                "radial-gradient(60% 50% at 80% 0%, rgba(26,86,219,0.07) 0%, rgba(26,86,219,0) 70%), radial-gradient(40% 40% at 0% 100%, rgba(26,86,219,0.05) 0%, rgba(26,86,219,0) 70%)",
+            }}
+          />
           <div className="section-container py-16 md:py-24">
-            <div className="mx-auto max-w-4xl text-center">
-              <p className="text-sm font-medium text-brand">{brand.positioning.tagline}</p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl md:leading-[1.08]">
-                Every mortgage starts with a conversation. Every great mortgage starts with a strategy.
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                Whether you&apos;re buying your first home, refinancing, or accessing
-                your equity, we&apos;ll help you understand your options before
-                recommending a loan.
-              </p>
-              <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-foreground">
-                Technology helps us understand your situation quickly. People help you
-                make the right decision.
-              </p>
-              <HomepageCtas location="hero" />
-              <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
+            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="text-center lg:text-left">
+                <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-brand shadow-[var(--shadow-soft)]">
+                  {brand.positioning.tagline}
+                </p>
+                <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-[3.4rem] md:leading-[1.07]">
+                  Every mortgage starts with a conversation.{" "}
+                  <span className="text-brand">
+                    Every great mortgage starts with a strategy.
+                  </span>
+                </h1>
+                <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted lg:mx-0">
+                  Whether you&apos;re buying your first home, refinancing, or accessing
+                  your equity, we&apos;ll help you understand your options before
+                  recommending a loan.
+                </p>
+                <p className="mx-auto mt-4 max-w-xl leading-relaxed text-foreground lg:mx-0">
+                  Technology helps us understand your situation quickly. People help
+                  you make the right decision.
+                </p>
+                <HomepageCtas
+                  location="hero"
+                  className="lg:justify-start"
+                />
+                <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
+              </div>
+
+              <div className="relative">
+                <div className="card-elevated overflow-hidden p-0">
+                  <div
+                    className="px-7 pb-7 pt-8"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, var(--brand-light) 0%, rgba(255,255,255,0) 70%)",
+                    }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(180deg,#2f6bf0_0%,var(--brand-blue)_55%,var(--brand-blue-dark)_100%)] text-base font-semibold text-white shadow-[0_8px_18px_rgba(26,86,219,0.28)]">
+                        BL
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold leading-tight">
+                          Your Broadview Advisor
+                        </p>
+                        <p className="mt-0.5 inline-flex items-center gap-1.5 text-xs text-muted">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                          Reviewing your information
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 space-y-3">
+                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-sm leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
+                        Let&apos;s walk through your options together — no pressure,
+                        no call center.
+                      </div>
+                      <div className="ml-auto max-w-[80%] rounded-2xl rounded-tr-sm bg-brand px-4 py-3 text-sm leading-relaxed text-white shadow-[0_8px_18px_rgba(26,86,219,0.22)]">
+                        I want to use my equity but keep my current rate.
+                      </div>
+                      <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-sm leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
+                        Smart goal. Here&apos;s a strategy worth discussing on our call.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-3 border-t border-border px-7 py-4">
+                    <span className="text-xs font-medium text-muted">
+                      {brand.nmlsDisplay}
+                    </span>
+                    <span className="rounded-full bg-surface-muted px-3 py-1 text-xs font-semibold text-foreground">
+                      Equal Housing Opportunity
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <TrustBadgeRow className="mt-14" />
           </div>
         </section>
 
@@ -147,10 +217,17 @@ export default function HomePage() {
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
               The Broadview strategy flow
             </h2>
+            <p className="mt-3 max-w-2xl text-muted">
+              A simple progression designed to help you decide with confidence —
+              not to rush you into a loan.
+            </p>
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {platformSteps.map((item) => (
-                <div key={item.title}>
-                  <h3 className="mt-2 font-semibold">{item.title}</h3>
+              {platformSteps.map((item, i) => (
+                <div key={item.title} className="card-elevated p-6">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-light text-base font-semibold text-brand">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-5 font-semibold">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
                 </div>
               ))}
