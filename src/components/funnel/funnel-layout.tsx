@@ -10,6 +10,7 @@ type FunnelLayoutProps = {
   panel: {
     sections: BuilderSectionState[];
     goal?: string;
+    propertyAddress?: string;
     estimatedEquity?: string;
     timeline?: string;
     options?: string[];
@@ -31,6 +32,7 @@ export function FunnelLayout({ children, panel }: FunnelLayoutProps) {
           <LiveStrategyPanel
             sections={panel.sections}
             goal={panel.goal}
+            propertyAddress={panel.propertyAddress}
             estimatedEquity={panel.estimatedEquity}
             timeline={panel.timeline}
             options={panel.options}
@@ -71,6 +73,7 @@ export function FunnelLayout({ children, panel }: FunnelLayoutProps) {
             compact
             sections={panel.sections}
             goal={panel.goal}
+            propertyAddress={panel.propertyAddress}
             estimatedEquity={panel.estimatedEquity}
             timeline={panel.timeline}
             options={panel.options}

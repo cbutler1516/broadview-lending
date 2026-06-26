@@ -7,6 +7,7 @@ import { StrategyBuilderProgress } from "@/components/funnel/strategy-builder-pr
 type LiveStrategyPanelProps = {
   sections: BuilderSectionState[];
   goal?: string;
+  propertyAddress?: string;
   estimatedEquity?: string;
   timeline?: string;
   options?: string[];
@@ -20,6 +21,7 @@ type LiveStrategyPanelProps = {
 export function LiveStrategyPanel({
   sections,
   goal,
+  propertyAddress,
   estimatedEquity,
   timeline,
   options = [],
@@ -49,6 +51,9 @@ export function LiveStrategyPanel({
         <div className="mt-6 space-y-4 border-t border-white/20 pt-4">
           {goal && (
             <PanelRow label="Goal" value={goal} animate />
+          )}
+          {propertyAddress && (
+            <PanelRow label="Property" value={propertyAddress} animate />
           )}
           {estimatedEquity && (
             <PanelRow label="Estimated Equity" value={estimatedEquity} animate />

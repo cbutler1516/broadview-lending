@@ -14,6 +14,7 @@ type FunnelQuestionStepProps = {
   phaseLabel: string;
   onAnswer: (value: string) => void;
   rewardKey?: number;
+  contextOverride?: string;
 };
 
 const currencyRanges: Record<string, { min: number; max: number }> = {
@@ -31,6 +32,7 @@ export function FunnelQuestionStep({
   phaseLabel,
   onAnswer,
   rewardKey = 0,
+  contextOverride,
 }: FunnelQuestionStepProps) {
   const isCredit = question.id === "creditScore";
   const isGoal =
@@ -40,6 +42,7 @@ export function FunnelQuestionStep({
   const useSlider =
     question.type === "currency" && currencyRanges[question.id];
   const context =
+    contextOverride ??
     question.description ??
     defaultContextForQuestion(question.id);
 

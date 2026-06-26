@@ -32,7 +32,7 @@ import { appendAttributionToFormData } from "@/lib/analytics/attribution";
 import { LeadCaptureForm } from "@/components/lead-capture-form";
 import { RealtorReferralPrompt } from "@/components/realtor-referral-prompt";
 import { FunnelLayout } from "@/components/funnel/funnel-layout";
-import { HomeEquityGoalHero } from "@/components/funnel/home-equity-goal-hero";
+import { HelocLeadFirstStep } from "@/components/funnel/heloc-lead-first-step";
 import {
   FunnelGoalStep,
   FunnelQuestionStep,
@@ -82,6 +82,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const [submitError, setSubmitError] = useState<string | undefined>();
   const [rewardKey, setRewardKey] = useState(0);
   const [showReward, setShowReward] = useState(false);
+  const [contactCaptured, setContactCaptured] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [submissionId] = useState(() => createSubmissionId());
   const [sessionId] = useState(() => getOrCreateSessionId());
@@ -105,7 +106,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   );
 
   const currentQuestion = pendingQuestions[stepIndex];
-  const hasResult = Boolean(result);
+  const hasResult = Boolean(result) && (phase === "results" || phase === "confirmed");
 
   const builderSections = useMemo(
     () =>
@@ -125,6 +126,14 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       : null;
 
   const phaseLabel = getPhaseLabel(currentSection, hasResult);
+  const displayedPhaseLabel =
+    definition.type === "heloc" && phase === "goal"
+      ? "Finding Your Property"
+      : definition.type === "heloc" && phase === "lead-capture"
+        ? "Preparing Your Strategy"
+        : definition.type === "heloc" && contactCaptured
+          ? "Personalizing Your Review"
+          : phaseLabel;
 
   const estimatedEquity = computeEstimatedEquity(answers);
   const goalLine =
@@ -212,7 +221,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   function finishBuilding(nextAnswers: Record<string, string>) {
     const computed = generateFunnelResult(definition.type, nextAnswers);
     setResult(computed);
-    setPhase("results");
+    setPhase(definition.type === "heloc" && contactCaptured ? "confirmed" : "results");
   }
 
   function handleGoalSelect(value: string) {
@@ -234,9 +243,43 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     setStepIndex(0);
   }
 
-  function previewGoal(value: string) {
-    if (definition.type !== "heloc") return;
-    setAnswers((current) => ({ ...current, equityGoal: value }));
+  function handleHelocAddress(value: string) {
+    triggerReward();
+    setAnswers((current) => ({ ...current, propertyAddress: value }));
+    trackEvent({
+      event: "question_answered",
+      funnelType: definition.type,
+      sessionId,
+      step: "propertyAddress",
+      metadata: { value },
+    });
+  }
+
+  function handleHelocCredit(value: string) {
+    triggerReward();
+    setAnswers((current) => ({ ...current, creditScore: value }));
+    trackEvent({
+      event: "question_answered",
+      funnelType: definition.type,
+      sessionId,
+      step: "creditScore",
+      metadata: { value },
+    });
+  }
+
+  function handleHelocCashNeeded(value: string) {
+    triggerReward();
+    const nextAnswers = { ...answers, desiredEquityAmount: value };
+    setAnswers(nextAnswers);
+    setResult(generateFunnelResult(definition.type, nextAnswers));
+    trackEvent({
+      event: "question_answered",
+      funnelType: definition.type,
+      sessionId,
+      step: "desiredEquityAmount",
+      metadata: { value },
+    });
+    setPhase("lead-capture");
   }
 
   function handleAnswer(value: string) {
@@ -271,7 +314,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   }
 
   function handleLeadSubmit(formData: FormData) {
-    if (hasSubmittedRef.current || isPending || !result) return;
+    if (hasSubmittedRef.current || isPending) return;
 
     formData.set("funnelType", definition.type);
     formData.set("answers", JSON.stringify(answers));
@@ -284,11 +327,15 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       const response = await submitLead({ success: false }, formData);
       if (response.success && response.result) {
         hasSubmittedRef.current = true;
+        setContactCaptured(true);
         setSubmitError(undefined);
         setLeadId(response.leadId);
         setResult(response.result);
 
-        if (
+        if (definition.type === "heloc") {
+          setPhase("building");
+          setStepIndex(0);
+        } else if (
           definition.type === "purchase" &&
           (answers.workingWithRealtor === "no" ||
             answers.workingWithRealtor === "looking")
@@ -318,12 +365,13 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const panelProps = {
     sections: builderSections,
     goal: goalLine,
+    propertyAddress: answers.propertyAddress,
     estimatedEquity: estimatedEquity || undefined,
     timeline: timelineLabel,
     options: panelOptions,
     advisorNotes,
     conversationTopics,
-    phaseLabel,
+    phaseLabel: displayedPhaseLabel,
   };
 
   function frame(node: ReactNode) {
@@ -367,8 +415,12 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
           onSubmit={handleLeadSubmit}
           isPending={isPending}
           error={submitError}
-          title="Where should we send your strategy?"
-          subtitle="Your personalized strategy is almost ready. A Broadview advisor personally reviews every recommendation."
+          title={definition.type === "heloc" ? "Great news. Where should we send it?" : "Where should we send your strategy?"}
+          subtitle={
+            definition.type === "heloc"
+              ? "Great news. We have enough information to begin preparing your personalized home equity strategy."
+              : "Your personalized strategy is almost ready. A Broadview advisor personally reviews every recommendation."
+          }
         />
       </FunnelLayout>,
     );
@@ -376,26 +428,30 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
 
   const mainContent =
     phase === "goal" && definition.type === "heloc" ? (
-      <HomeEquityGoalHero
-        options={goalStepOptions}
-        initialGoal={answers.equityGoal}
-        panel={panelProps}
-        onPreview={previewGoal}
-        onSelect={handleGoalSelect}
+      <HelocLeadFirstStep
+        phaseLabel={displayedPhaseLabel}
+        onAddress={handleHelocAddress}
+        onCredit={handleHelocCredit}
+        onCashNeeded={handleHelocCashNeeded}
       />
     ) : phase === "goal" ? (
       <FunnelGoalStep
         prompt={goalContext.goalPrompt}
         options={goalStepOptions}
-        phaseLabel={phaseLabel}
+        phaseLabel={displayedPhaseLabel}
         onSelect={handleGoalSelect}
       />
     ) : currentQuestion ? (
       <FunnelQuestionStep
         question={currentQuestion}
-        phaseLabel={phaseLabel}
+        phaseLabel={displayedPhaseLabel}
         onAnswer={handleAnswer}
         rewardKey={rewardKey}
+        contextOverride={
+          definition.type === "heloc" && contactCaptured
+            ? "This helps your advisor personalize your strategy before the conversation."
+            : undefined
+        }
       />
     ) : null;
 
