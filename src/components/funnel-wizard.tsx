@@ -3,6 +3,18 @@
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { getActiveQuestions } from "@/lib/funnels/config";
 import type { FunnelDefinition, FunnelResult } from "@/lib/funnels/types";
+import { resolveGoalEntry, labelForGoalValue } from "@/lib/funnels/goal-entry";
+import {
+  computeBuilderSections,
+  computeEstimatedEquity,
+  formatTimeline,
+  getConversationTopics,
+  getPhaseLabel,
+  getQuestionSection,
+} from "@/lib/funnels/strategy-builder";
+import { funnelResultToSnapshot, snapshotGoalLine } from "@/lib/funnels/result-snapshot";
+import { generateFunnelResult } from "@/lib/scoring/engine";
+import { formatProgramLabel } from "@/lib/funnels/result-copy";
 import { submitLead, saveRealtorReferral } from "@/actions/submit-lead";
 import {
   trackEvent,
@@ -10,55 +22,143 @@ import {
   createSubmissionId,
 } from "@/lib/analytics/events";
 import { appendAttributionToFormData } from "@/lib/analytics/attribution";
-import { LeadCaptureForm } from "./lead-capture-form";
-import { FunnelResults } from "./funnel-results";
-import { RealtorReferralPrompt } from "./realtor-referral-prompt";
-import { cn } from "@/lib/utils/cn";
+import { LeadCaptureForm } from "@/components/lead-capture-form";
+import { RealtorReferralPrompt } from "@/components/realtor-referral-prompt";
+import { FunnelLayout } from "@/components/funnel/funnel-layout";
+import {
+  FunnelGoalStep,
+  FunnelQuestionStep,
+  FunnelRewardPulse,
+} from "@/components/funnel/funnel-question-step";
+import { FunnelStrategyResults } from "@/components/funnel/funnel-strategy-results";
+import { homeEquityCopy } from "@/lib/heloc/content";
 
 type FunnelWizardProps = {
   definition: FunnelDefinition;
   campaignPage?: string;
 };
 
-type WizardPhase = "questions" | "lead-capture" | "realtor" | "results";
+type WizardPhase =
+  | "goal"
+  | "building"
+  | "results"
+  | "lead-capture"
+  | "realtor"
+  | "confirmed";
 
-function formatCurrencyInput(value: string) {
-  const digits = value.replace(/\D/g, "");
-  if (!digits) return "";
-  return `$${Number(digits).toLocaleString()}`;
-}
+const purchaseGoalOptions = [
+  { value: "first-home", label: "Buying my first home" },
+  { value: "move-up", label: "Moving to a bigger home" },
+  { value: "investment", label: "Buying an investment property" },
+  { value: "exploring", label: "Still exploring" },
+];
 
 export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const goalContext = useMemo(
+    () => resolveGoalEntry(definition.type, campaignPage),
+    [definition.type, campaignPage],
+  );
+
+  const [answers, setAnswers] = useState<Record<string, string>>(
+    () => goalContext.prefilledAnswers,
+  );
   const [stepIndex, setStepIndex] = useState(0);
-  const [phase, setPhase] = useState<WizardPhase>("questions");
+  const [phase, setPhase] = useState<WizardPhase>(
+    goalContext.showGoalStep ? "goal" : "building",
+  );
   const [result, setResult] = useState<FunnelResult | null>(null);
   const [leadId, setLeadId] = useState<string | undefined>();
   const [realtorChoice, setRealtorChoice] = useState<
     "yes" | "no" | "already-working" | undefined
   >();
   const [submitError, setSubmitError] = useState<string | undefined>();
+  const [rewardKey, setRewardKey] = useState(0);
+  const [showReward, setShowReward] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [submissionId] = useState(() => createSubmissionId());
   const [sessionId] = useState(() => getOrCreateSessionId());
   const hasSubmittedRef = useRef(false);
   const hasTrackedLeadCaptureRef = useRef(false);
+  const hasTrackedPreviewRef = useRef(false);
 
   const activeQuestions = useMemo(
     () => getActiveQuestions(definition, answers),
     [definition, answers],
   );
 
-  const currentQuestion = activeQuestions[stepIndex];
-  const progress = ((stepIndex + 1) / activeQuestions.length) * 100;
+  const pendingQuestions = useMemo(
+    () =>
+      activeQuestions.filter((q) => {
+        if (q.id === "equityGoal" && answers.equityGoal) return false;
+        if (q.id === "refinanceGoal" && answers.refinanceGoal) return false;
+        return !answers[q.id]?.trim();
+      }),
+    [activeQuestions, answers],
+  );
+
+  const currentQuestion = pendingQuestions[stepIndex];
+  const hasResult = Boolean(result);
+
+  const builderSections = useMemo(
+    () =>
+      computeBuilderSections(
+        definition,
+        answers,
+        currentQuestion?.id,
+        hasResult,
+      ),
+    [definition, answers, currentQuestion?.id, hasResult],
+  );
+
+  const currentSection = currentQuestion
+    ? getQuestionSection(currentQuestion.id)
+    : hasResult
+      ? "strategy"
+      : null;
+
+  const phaseLabel = getPhaseLabel(currentSection, hasResult);
+
+  const estimatedEquity = computeEstimatedEquity(answers);
+  const goalLine =
+    answers.equityGoal || answers.refinanceGoal
+      ? labelForGoalValue(answers.equityGoal ?? answers.refinanceGoal!)
+      : goalContext.goalLabel;
+
+  const timelineLabel = formatTimeline(answers.timeline);
+
+  const panelOptions = result
+    ? result.recommendedPrograms.map(formatProgramLabel)
+    : [];
+
+  const advisorNotes =
+    definition.type === "heloc"
+      ? [homeEquityCopy.advisorReview]
+      : ["Technology prepares the conversation. A real advisor helps you decide."];
+
+  const conversationTopics = getConversationTopics(definition, answers);
+
+  const goalStepOptions = useMemo(() => {
+    if (definition.type === "heloc") {
+      return (
+        definition.questions.find((q) => q.id === "equityGoal")?.options ?? []
+      );
+    }
+    if (definition.type === "refinance") {
+      return (
+        definition.questions.find((q) => q.id === "refinanceGoal")?.options ?? []
+      );
+    }
+    return purchaseGoalOptions;
+  }, [definition]);
 
   useEffect(() => {
     trackEvent({
       event: "funnel_started",
       funnelType: definition.type,
       sessionId,
+      metadata: { campaignPage: campaignPage ?? "" },
     });
-  }, [definition.type, sessionId]);
+  }, [definition.type, sessionId, campaignPage]);
 
   useEffect(() => {
     if (phase === "lead-capture" && !hasTrackedLeadCaptureRef.current) {
@@ -72,20 +172,64 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   }, [phase, definition.type, sessionId]);
 
   useEffect(() => {
-    if (phase === "results" && result) {
+    if (phase === "results" && result && !hasTrackedPreviewRef.current) {
+      hasTrackedPreviewRef.current = true;
+      trackEvent({
+        event: "results_viewed",
+        funnelType: definition.type,
+        sessionId,
+        metadata: { preview: true, leadGrade: result.leadGrade },
+      });
+    }
+  }, [phase, result, definition.type, sessionId]);
+
+  useEffect(() => {
+    if (phase === "confirmed" && result && leadId) {
       trackEvent({
         event: "results_viewed",
         funnelType: definition.type,
         leadId,
         sessionId,
-        metadata: { leadGrade: result.leadGrade },
+        metadata: { leadGrade: result.leadGrade, submitted: true },
       });
     }
-  }, [phase, result, definition.type, leadId, sessionId]);
+  }, [phase, result, leadId, definition.type, sessionId]);
+
+  function triggerReward() {
+    setShowReward(true);
+    setRewardKey((k) => k + 1);
+    window.setTimeout(() => setShowReward(false), 650);
+  }
+
+  function finishBuilding(nextAnswers: Record<string, string>) {
+    const computed = generateFunnelResult(definition.type, nextAnswers);
+    setResult(computed);
+    setPhase("results");
+  }
+
+  function handleGoalSelect(value: string) {
+    triggerReward();
+    const patch: Record<string, string> = { ...answers };
+    if (definition.type === "heloc") patch.equityGoal = value;
+    else if (definition.type === "refinance") patch.refinanceGoal = value;
+    else if (value === "first-home") patch.firstTimeHomebuyer = "yes";
+    else if (value === "exploring") patch.timeline = "exploring";
+    setAnswers(patch);
+    trackEvent({
+      event: "question_answered",
+      funnelType: definition.type,
+      sessionId,
+      step: "goal-step",
+      metadata: { value },
+    });
+    setPhase("building");
+    setStepIndex(0);
+  }
 
   function handleAnswer(value: string) {
     if (!currentQuestion) return;
 
+    triggerReward();
     const nextAnswers = { ...answers, [currentQuestion.id]: value };
     setAnswers(nextAnswers);
 
@@ -97,9 +241,16 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       metadata: { value },
     });
 
-    const nextQuestions = getActiveQuestions(definition, nextAnswers);
-    if (stepIndex >= nextQuestions.length - 1) {
-      setPhase("lead-capture");
+    const nextPending = getActiveQuestions(definition, nextAnswers).filter(
+      (q) => {
+        if (q.id === "equityGoal" && nextAnswers.equityGoal) return false;
+        if (q.id === "refinanceGoal" && nextAnswers.refinanceGoal) return false;
+        return !nextAnswers[q.id]?.trim();
+      },
+    );
+
+    if (stepIndex >= nextPending.length - 1) {
+      finishBuilding(nextAnswers);
       return;
     }
 
@@ -107,7 +258,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   }
 
   function handleLeadSubmit(formData: FormData) {
-    if (hasSubmittedRef.current || isPending) return;
+    if (hasSubmittedRef.current || isPending || !result) return;
 
     formData.set("funnelType", definition.type);
     formData.set("answers", JSON.stringify(answers));
@@ -131,7 +282,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
         ) {
           setPhase("realtor");
         } else {
-          setPhase("results");
+          setPhase("confirmed");
         }
       } else {
         setSubmitError(response.error ?? "Something went wrong. Please try again.");
@@ -141,131 +292,91 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
 
   function handleRealtorChoice(choice: "yes" | "no" | "already-working") {
     setRealtorChoice(choice);
-
     if (leadId) {
       void saveRealtorReferral({
         leadId,
         realtorReferral: choice,
         sessionId,
       });
-    } else {
-      trackEvent({
-        event: "realtor_referral_requested",
-        funnelType: definition.type,
-        sessionId,
-        metadata: { choice },
-      });
     }
-
-    setPhase("results");
+    setPhase("confirmed");
   }
 
-  if (phase === "results" && result) {
-    return <FunnelResults result={result} realtorReferral={realtorChoice} />;
+  const panelProps = {
+    sections: builderSections,
+    goal: goalLine,
+    estimatedEquity: estimatedEquity || undefined,
+    timeline: timelineLabel,
+    options: panelOptions,
+    advisorNotes,
+    conversationTopics,
+    phaseLabel,
+  };
+
+  const snapshot = result ? funnelResultToSnapshot(result) : null;
+
+  if ((phase === "results" || phase === "confirmed") && result && snapshot) {
+    return (
+      <FunnelLayout panel={panelProps}>
+        <FunnelStrategyResults
+          result={result}
+          snapshot={snapshot}
+          goalLine={snapshotGoalLine(result, answers)}
+          preview={phase === "results"}
+          submitted={phase === "confirmed"}
+          onRequestReview={
+            phase === "results" ? () => setPhase("lead-capture") : undefined
+          }
+          realtorReferral={realtorChoice}
+        />
+      </FunnelLayout>
+    );
   }
 
   if (phase === "realtor") {
-    return <RealtorReferralPrompt onSelect={handleRealtorChoice} />;
+    return (
+      <FunnelLayout panel={panelProps}>
+        <RealtorReferralPrompt onSelect={handleRealtorChoice} />
+      </FunnelLayout>
+    );
   }
 
   if (phase === "lead-capture") {
     return (
-      <LeadCaptureForm
-        onSubmit={handleLeadSubmit}
-        isPending={isPending}
-        error={submitError}
-        title={
-          definition.type === "heloc"
-            ? "See Your Equity Strategy Snapshot"
-            : "See Your Personalized Mortgage Strategy"
-        }
-        subtitle={
-          definition.type === "heloc"
-            ? "Your answers help us prepare. Tell us how to reach you so a Broadview mortgage advisor can personally review your information and walk through your options."
-            : "Your answers help us prepare a personalized strategy. Tell us how to reach you so an advisor can review your goals and next steps."
-        }
-      />
+      <FunnelLayout panel={panelProps}>
+        <LeadCaptureForm
+          variant="strategy"
+          onSubmit={handleLeadSubmit}
+          isPending={isPending}
+          error={submitError}
+          title="Where should we send your strategy?"
+          subtitle="Your personalized strategy is almost ready. A Broadview advisor personally reviews every recommendation."
+        />
+      </FunnelLayout>
     );
   }
 
-  if (!currentQuestion) return null;
+  const mainContent =
+    phase === "goal" ? (
+      <FunnelGoalStep
+        prompt={goalContext.goalPrompt}
+        options={goalStepOptions}
+        phaseLabel={phaseLabel}
+        onSelect={handleGoalSelect}
+      />
+    ) : currentQuestion ? (
+      <FunnelQuestionStep
+        question={currentQuestion}
+        phaseLabel={phaseLabel}
+        onAnswer={handleAnswer}
+        rewardKey={rewardKey}
+      />
+    ) : null;
 
   return (
-    <div className="mx-auto w-full max-w-xl">
-      <div className="mb-8">
-        <div className="mb-3 flex items-center justify-between text-sm text-muted">
-          <span>
-            Step {stepIndex + 1} of {activeQuestions.length}
-          </span>
-          <span>{Math.round(progress)}%</span>
-        </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-surface-muted">
-          <div
-            className="h-full rounded-full bg-brand transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      <div className="card-elevated p-5 sm:p-6 md:p-8">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
-          {currentQuestion.label}
-        </h2>
-        {currentQuestion.description && (
-          <p className="mt-2 text-muted">{currentQuestion.description}</p>
-        )}
-
-        <div className="mt-8">
-          {currentQuestion.type === "single-select" && currentQuestion.options && (
-            <div className="grid gap-3">
-              {currentQuestion.options.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => handleAnswer(option.value)}
-                  className={cn(
-                    "rounded-xl border border-border px-4 py-4 text-left text-sm font-medium transition-colors hover:border-brand hover:bg-brand-light",
-                    answers[currentQuestion.id] === option.value &&
-                      "border-brand bg-brand-light",
-                  )}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {(currentQuestion.type === "currency" ||
-            currentQuestion.type === "percentage") && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const input = form.elements.namedItem("value") as HTMLInputElement;
-                if (input.value.trim()) handleAnswer(input.value);
-              }}
-            >
-              <input
-                name="value"
-                type="text"
-                inputMode="decimal"
-                placeholder={
-                  currentQuestion.type === "currency" ? "$350,000" : "6.5%"
-                }
-                className="input-field"
-                onChange={(e) => {
-                  if (currentQuestion.type === "currency") {
-                    e.target.value = formatCurrencyInput(e.target.value);
-                  }
-                }}
-              />
-              <button type="submit" className="btn-primary mt-4 w-full">
-                Continue
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      <FunnelRewardPulse show={showReward} />
+      <FunnelLayout panel={panelProps}>{mainContent}</FunnelLayout>
+    </>
   );
 }

@@ -10,6 +10,7 @@ type LeadCaptureFormProps = {
   onSubmit: (formData: FormData) => void;
   isPending?: boolean;
   error?: string;
+  variant?: "default" | "strategy";
 };
 
 export function LeadCaptureForm({
@@ -18,18 +19,32 @@ export function LeadCaptureForm({
   onSubmit,
   isPending,
   error,
+  variant = "default",
 }: LeadCaptureFormProps) {
+  const isStrategy = variant === "strategy";
+
   return (
-    <div className="mx-auto w-full max-w-xl">
-      <div className="card-elevated p-5 sm:p-6 md:p-8">
-        <p className="text-sm font-medium text-brand">Prepare the conversation</p>
-        <h2 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+    <div className="funnel-step-enter mx-auto w-full max-w-xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+        Final Details
+      </p>
+      <div className="mt-6 rounded-2xl border border-border bg-surface p-5 sm:p-6 md:p-8 shadow-[var(--shadow-soft)]">
+        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
           {title}
         </h2>
-        <p className="mt-2 text-muted">{subtitle}</p>
-        <p className="mt-3 text-sm font-medium text-foreground">
-          {brand.trust.leadCapture}
-        </p>
+        <p className="mt-3 leading-relaxed text-muted">{subtitle}</p>
+        {isStrategy && (
+          <p className="mt-4 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm leading-relaxed text-foreground">
+            We&apos;ll use your phone number only to discuss the strategy
+            you&apos;re requesting. No pressure. No obligation. Just a
+            conversation.
+          </p>
+        )}
+        {!isStrategy && (
+          <p className="mt-3 text-sm font-medium text-foreground">
+            {brand.trust.leadCapture}
+          </p>
+        )}
 
         <form action={onSubmit} className="mt-8 space-y-4">
           {error && (
@@ -70,7 +85,7 @@ export function LeadCaptureForm({
             autoComplete="tel"
           />
 
-          <label className="flex items-start gap-3 rounded-xl border border-border bg-surface-muted p-4 text-sm leading-relaxed text-muted">
+          <label className="flex items-start gap-3 rounded-xl border border-border bg-surface-muted p-4 text-sm leading-relaxed">
             <input
               name="tcpaConsent"
               type="checkbox"
@@ -78,8 +93,15 @@ export function LeadCaptureForm({
               required
               className="mt-1 h-4 w-4 shrink-0 rounded border-border text-brand focus:ring-brand"
             />
-            <span>
-              {tcpaConsentText}{" "}
+            <span className="text-muted">
+              {isStrategy ? (
+                <>
+                  I agree to be contacted about the strategy I requested.{" "}
+                  {tcpaConsentText}{" "}
+                </>
+              ) : (
+                <>{tcpaConsentText} </>
+              )}
               <Link href={complianceLinks.privacy} className="text-brand underline">
                 Privacy Policy
               </Link>{" "}
@@ -90,12 +112,17 @@ export function LeadCaptureForm({
             </span>
           </label>
 
-          <button type="submit" disabled={isPending} className="btn-primary w-full py-3.5">
-            {isPending ? "Building your strategy..." : brand.ctas.seeStrategy}
+          <button
+            type="submit"
+            disabled={isPending}
+            className="btn-primary w-full py-3.5"
+          >
+            {isPending ? "Sending your strategy…" : "Send My Strategy"}
           </button>
 
           <p className="text-center text-xs leading-relaxed text-muted">
-            {brand.disclaimers.short} Results are educational — not a loan approval.
+            {brand.disclaimers.short} Results are educational — not a loan
+            approval.
           </p>
         </form>
       </div>
