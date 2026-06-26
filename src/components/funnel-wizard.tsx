@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+  type ReactNode,
+} from "react";
 import { getActiveQuestions } from "@/lib/funnels/config";
 import type { FunnelDefinition, FunnelResult } from "@/lib/funnels/types";
 import { resolveGoalEntry, labelForGoalValue } from "@/lib/funnels/goal-entry";
@@ -25,6 +32,7 @@ import { appendAttributionToFormData } from "@/lib/analytics/attribution";
 import { LeadCaptureForm } from "@/components/lead-capture-form";
 import { RealtorReferralPrompt } from "@/components/realtor-referral-prompt";
 import { FunnelLayout } from "@/components/funnel/funnel-layout";
+import { HomeEquityGoalHero } from "@/components/funnel/home-equity-goal-hero";
 import {
   FunnelGoalStep,
   FunnelQuestionStep,
@@ -64,7 +72,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   );
   const [stepIndex, setStepIndex] = useState(0);
   const [phase, setPhase] = useState<WizardPhase>(
-    goalContext.showGoalStep ? "goal" : "building",
+    definition.type === "heloc" || goalContext.showGoalStep ? "goal" : "building",
   );
   const [result, setResult] = useState<FunnelResult | null>(null);
   const [leadId, setLeadId] = useState<string | undefined>();
@@ -226,6 +234,11 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     setStepIndex(0);
   }
 
+  function previewGoal(value: string) {
+    if (definition.type !== "heloc") return;
+    setAnswers((current) => ({ ...current, equityGoal: value }));
+  }
+
   function handleAnswer(value: string) {
     if (!currentQuestion) return;
 
@@ -313,10 +326,15 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     phaseLabel,
   };
 
+  function frame(node: ReactNode) {
+    if (definition.type !== "heloc") return node;
+    return <div className="section-container py-10 md:py-14">{node}</div>;
+  }
+
   const snapshot = result ? funnelResultToSnapshot(result) : null;
 
   if ((phase === "results" || phase === "confirmed") && result && snapshot) {
-    return (
+    return frame(
       <FunnelLayout panel={panelProps}>
         <FunnelStrategyResults
           result={result}
@@ -329,20 +347,20 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
           }
           realtorReferral={realtorChoice}
         />
-      </FunnelLayout>
+      </FunnelLayout>,
     );
   }
 
   if (phase === "realtor") {
-    return (
+    return frame(
       <FunnelLayout panel={panelProps}>
         <RealtorReferralPrompt onSelect={handleRealtorChoice} />
-      </FunnelLayout>
+      </FunnelLayout>,
     );
   }
 
   if (phase === "lead-capture") {
-    return (
+    return frame(
       <FunnelLayout panel={panelProps}>
         <LeadCaptureForm
           variant="strategy"
@@ -352,12 +370,20 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
           title="Where should we send your strategy?"
           subtitle="Your personalized strategy is almost ready. A Broadview advisor personally reviews every recommendation."
         />
-      </FunnelLayout>
+      </FunnelLayout>,
     );
   }
 
   const mainContent =
-    phase === "goal" ? (
+    phase === "goal" && definition.type === "heloc" ? (
+      <HomeEquityGoalHero
+        options={goalStepOptions}
+        initialGoal={answers.equityGoal}
+        panel={panelProps}
+        onPreview={previewGoal}
+        onSelect={handleGoalSelect}
+      />
+    ) : phase === "goal" ? (
       <FunnelGoalStep
         prompt={goalContext.goalPrompt}
         options={goalStepOptions}
@@ -373,10 +399,19 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       />
     ) : null;
 
+  if (phase === "goal" && definition.type === "heloc") {
+    return (
+      <>
+        <FunnelRewardPulse show={showReward} />
+        {mainContent}
+      </>
+    );
+  }
+
   return (
     <>
       <FunnelRewardPulse show={showReward} />
-      <FunnelLayout panel={panelProps}>{mainContent}</FunnelLayout>
+      {frame(<FunnelLayout panel={panelProps}>{mainContent}</FunnelLayout>)}
     </>
   );
 }

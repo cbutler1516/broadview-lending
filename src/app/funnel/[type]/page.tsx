@@ -66,22 +66,31 @@ export default async function FunnelPage({ params, searchParams }: FunnelPagePro
   }
 
   const goalEntry = resolveGoalEntry(definition.type, query.campaign_page);
+  const isHomeEquityStrategy = definition.type === "heloc";
 
   return (
     <>
-      <SiteNav />
+      <SiteNav variant="strategy" />
       <main className="flex-1">
-        <CinematicHero
-          theme={themeForFunnel(type)}
-          size="sm"
-          eyebrow={definition.title}
-          title={goalEntry.headline}
-          subtitle={definition.subtitle}
-          note={brand.trust.funnelDuration}
-        />
+        {!isHomeEquityStrategy && (
+          <CinematicHero
+            theme={themeForFunnel(type)}
+            size="sm"
+            eyebrow={definition.title}
+            title={goalEntry.headline}
+            subtitle={definition.subtitle}
+            note={brand.trust.funnelDuration}
+          />
+        )}
 
-        <section className="border-t border-border py-10 md:py-14">
-          <div className="section-container">
+        <section
+          className={
+            isHomeEquityStrategy
+              ? ""
+              : "border-t border-border py-10 md:py-14"
+          }
+        >
+          <div className={isHomeEquityStrategy ? "" : "section-container"}>
             <FunnelWizard
               definition={definition}
               campaignPage={query.campaign_page}

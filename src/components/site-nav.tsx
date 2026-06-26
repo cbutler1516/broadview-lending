@@ -19,6 +19,7 @@ const navLinks = [
 
 type SiteNavProps = {
   className?: string;
+  variant?: "default" | "strategy";
 };
 
 function isActiveLink(pathname: string, href: string) {
@@ -26,44 +27,63 @@ function isActiveLink(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function SiteNav({ className }: SiteNavProps) {
+export function SiteNav({ className, variant = "default" }: SiteNavProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const strategy = variant === "strategy";
 
   return (
     <header
       className={cn(
         "site-header sticky top-0 z-50 border-b border-border/70 bg-surface/85 backdrop-blur-xl",
+        strategy && "bg-surface/72 shadow-none",
         className,
       )}
     >
-      <div className="section-container flex h-16 items-center justify-between gap-6 lg:h-20">
+      <div
+        className={cn(
+          "section-container flex h-16 items-center justify-between gap-6 lg:h-20",
+          strategy && "h-14 lg:h-16",
+        )}
+      >
         <BrandLogo />
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => {
-            const active = isActiveLink(pathname, link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors",
-                  active
-                    ? "bg-brand-light text-brand"
-                    : "text-muted hover:bg-surface-muted hover:text-foreground",
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          {strategy ? (
+            <Link
+              href="/"
+              className="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface-muted hover:text-foreground"
+            >
+              Back Home
+            </Link>
+          ) : (
+            navLinks.map((link) => {
+              const active = isActiveLink(pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors",
+                    active
+                      ? "bg-brand-light text-brand"
+                      : "text-muted hover:bg-surface-muted hover:text-foreground",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })
+          )}
           <BookingLink
             location="nav_desktop"
-            className="btn-primary ml-3 px-5 py-2.5 text-sm"
+            className={cn(
+              "btn-primary ml-3 px-5 py-2.5 text-sm",
+              strategy && "px-4 py-2",
+            )}
           >
-            Book Call
+            {strategy ? "Talk With An Advisor" : "Book Call"}
           </BookingLink>
         </nav>
 
@@ -87,31 +107,41 @@ export function SiteNav({ className }: SiteNavProps) {
       {open && (
         <div className="border-t border-border bg-surface/95 backdrop-blur-xl lg:hidden">
           <nav className="section-container flex flex-col gap-1 py-4">
-            {navLinks.map((link) => {
-              const active = isActiveLink(pathname, link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
-                    active
-                      ? "bg-brand-light text-brand"
-                      : "text-foreground hover:bg-surface-muted",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            {strategy ? (
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-3.5 py-3 text-[15px] font-medium text-foreground transition-colors hover:bg-surface-muted"
+              >
+                Back Home
+              </Link>
+            ) : (
+              navLinks.map((link) => {
+                const active = isActiveLink(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "rounded-xl px-3.5 py-3 text-[15px] font-medium transition-colors",
+                      active
+                        ? "bg-brand-light text-brand"
+                        : "text-foreground hover:bg-surface-muted",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })
+            )}
             <BookingLink
               location="nav_mobile"
               className="btn-primary mt-3 text-center"
               onClick={() => setOpen(false)}
             >
-              Book Call
+              {strategy ? "Talk With An Advisor" : "Book Call"}
             </BookingLink>
           </nav>
         </div>
