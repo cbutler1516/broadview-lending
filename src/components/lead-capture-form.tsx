@@ -22,22 +22,27 @@ export function LeadCaptureForm({
   variant = "default",
 }: LeadCaptureFormProps) {
   const isStrategy = variant === "strategy";
+  const eyebrow = isStrategy ? "Where Should We Send It?" : "Final Details";
+  const helperCopy = isStrategy
+    ? "Your advisor has enough to begin preparing. Share the best way to reach you, and we’ll send the strategy there too."
+    : brand.trust.leadCapture;
 
   return (
     <div className="funnel-step-enter mx-auto w-full max-w-xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
-        Final Details
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
+        {eyebrow}
       </p>
-      <div className="mt-6 rounded-2xl border border-border bg-surface p-5 sm:p-6 md:p-8 shadow-[var(--shadow-soft)]">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+      <div className="mt-5 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-6 md:p-8">
+        <h2 className="text-[1.55rem] font-semibold leading-tight tracking-tight sm:text-2xl md:text-3xl">
           {title}
         </h2>
-        <p className="mt-3 leading-relaxed text-muted">{subtitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+          {isStrategy ? helperCopy : subtitle}
+        </p>
         {isStrategy && (
-          <p className="mt-4 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm leading-relaxed text-foreground">
-            We&apos;ll use your phone number only to discuss the strategy
-            you&apos;re requesting. No pressure. No obligation. Just a
-            conversation.
+          <p className="mt-4 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-3 text-sm leading-relaxed text-foreground">
+            No pressure and no obligation. This simply lets a Broadview advisor
+            follow up with useful recommendations.
           </p>
         )}
         {!isStrategy && (
@@ -46,13 +51,13 @@ export function LeadCaptureForm({
           </p>
         )}
 
-        <form action={onSubmit} className="mt-8 space-y-4">
+        <form action={onSubmit} className="mt-7 space-y-3.5 sm:mt-8 sm:space-y-4">
           {error && (
             <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
             </p>
           )}
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4">
             <input
               name="firstName"
               required
@@ -85,7 +90,7 @@ export function LeadCaptureForm({
             autoComplete="tel"
           />
 
-          <label className="flex items-start gap-3 rounded-xl border border-border bg-surface-muted p-4 text-sm leading-relaxed">
+          <label className="flex items-start gap-3 rounded-2xl border border-border bg-surface-muted p-4 text-sm leading-relaxed">
             <input
               name="tcpaConsent"
               type="checkbox"
@@ -96,7 +101,7 @@ export function LeadCaptureForm({
             <span className="text-muted">
               {isStrategy ? (
                 <>
-                  I agree to be contacted about the strategy I requested.{" "}
+                  I agree to be contacted about my home equity strategy.{" "}
                   {tcpaConsentText}{" "}
                 </>
               ) : (
@@ -117,7 +122,7 @@ export function LeadCaptureForm({
             disabled={isPending}
             className="btn-primary w-full py-3.5"
           >
-            {isPending ? "Sending your strategy…" : "Send My Strategy"}
+            {isPending ? "Preparing your strategy…" : "Send My Strategy"}
           </button>
 
           <p className="text-center text-xs leading-relaxed text-muted">

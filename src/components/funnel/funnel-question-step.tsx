@@ -57,27 +57,27 @@ export function FunnelQuestionStep({
       key={`${question.id}-${rewardKey}`}
       className="funnel-step-enter mx-auto w-full max-w-xl"
     >
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
         {phaseLabel}
       </p>
 
-      <div className="mt-6 rounded-2xl border border-border bg-surface p-5 sm:p-6 md:p-8 shadow-[var(--shadow-soft)]">
+      <div className="mt-5 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-6 md:p-8">
         {introTitle && (
-          <div className="mb-7 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-4">
+          <div className="mb-6 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-4 sm:mb-7">
             <p className="text-sm font-semibold text-brand">{introTitle}</p>
             {context && (
               <p className="mt-2 text-sm leading-relaxed text-muted">{context}</p>
             )}
           </div>
         )}
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+        <h2 className="text-[1.55rem] font-semibold leading-tight tracking-tight sm:text-2xl md:text-3xl">
           {question.label}
         </h2>
         {context && !introTitle && (
           <p className="mt-3 text-sm leading-relaxed text-muted">{context}</p>
         )}
 
-        <div className="mt-8">
+        <div className="mt-7 sm:mt-8">
           {question.type === "single-select" && question.options && (
             <>
               {isCredit ? (
@@ -151,13 +151,13 @@ function defaultContextForQuestion(id: string): string | undefined {
     purchasePrice:
       "This helps us understand how much flexibility your budget may provide.",
     downPayment:
-      "Down payment affects monthly payment and planning options.",
+      "A rough number is fine. This helps your advisor understand payment comfort.",
     estimatedPropertyValue:
-      "A rough estimate is fine. This helps us understand how much flexibility your home equity may provide.",
+      "Your best estimate is enough. Your advisor can review the details later.",
     mortgageBalance:
-      "Your remaining balance helps estimate available equity.",
+      "A ballpark balance helps us understand the equity picture.",
     desiredEquityAmount:
-      "Knowing your target helps compare home equity strategies.",
+      "This gives your advisor a practical range to plan around.",
     homeValue:
       "This helps estimate equity and whether refinancing may be worth exploring.",
     currentBalance:
@@ -165,13 +165,13 @@ function defaultContextForQuestion(id: string): string | undefined {
     currentRate:
       "Your current rate helps compare whether a new structure makes sense.",
     creditScore:
-      "Credit range helps us prepare realistic options for review.",
+      "No credit pull here. This helps prepare a more realistic conversation.",
     timeline:
-      "Timeline helps us prioritize the right next step for your situation.",
+      "Your ideal timing helps your advisor prioritize what to discuss first.",
     propertyType:
-      "Property type helps your advisor prepare relevant options.",
+      "This helps your advisor focus on options that match the property.",
     occupancy:
-      "How you use the property shapes which equity options may fit.",
+      "How you use the home can shape the strategies worth comparing.",
     workingWithRealtor:
       "This helps us prepare the right purchase timeline conversation.",
   };
