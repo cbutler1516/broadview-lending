@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/buy",
     "/refinance",
     "/heloc",
+    "/commercial",
     "/learn",
     "/tools",
     "/guides",

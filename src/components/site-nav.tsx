@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Buy", href: "/buy" },
   { label: "Refinance", href: "/refinance" },
   { label: "Home Equity", href: "/heloc" },
+  { label: "Commercial", href: "/commercial" },
   { label: "Guides", href: "/guides" },
   { label: "Tools", href: "/tools" },
   { label: "Learn", href: "/learn" },

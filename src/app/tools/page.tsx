@@ -4,6 +4,7 @@ import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
 import { CinematicHero } from "@/components/media/cinematic-hero";
+import { DecisionPath } from "@/components/experience/decision-path";
 import { calculators } from "@/lib/content/calculators";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -47,6 +48,7 @@ export default function ToolsPage() {
         />
 
         <div className="section-container py-14 md:py-18">
+          <DecisionPath active={2} className="mb-10" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {calculators.map((calc) => {
               const isLive = calc.status === "live";

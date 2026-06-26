@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
-import { EcosystemHub } from "@/components/landing/ecosystem-hub";
+import { EcosystemExperience } from "@/components/experience/ecosystem-experience";
+import { buyExperience } from "@/lib/experience/goals";
 import { siteUrl } from "@/lib/brand/config";
 
 export const metadata: Metadata = {
-  title: "Home Buying | Loan Programs & Strategy",
+  title: "Home Buying | Start With Your Goal",
   description:
-    "Explore home buying strategies with Broadview Lending — first-time buyer, low down payment, FHA, VA, conventional, jumbo, physician, and self-employed loans.",
+    "Goal-first home buying guidance from Broadview Lending — first home, move-up, military benefits, low down payment, and jumbo strategies with a real advisor.",
   openGraph: { url: `${siteUrl}/buy` },
 };
 
@@ -15,7 +16,7 @@ export default function BuyHubPage() {
   return (
     <>
       <SiteNav />
-      <EcosystemHub ecosystem="buy" />
+      <EcosystemExperience config={buyExperience} />
       <ComplianceFooter />
     </>
   );

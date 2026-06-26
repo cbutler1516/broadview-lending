@@ -3,6 +3,7 @@ import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
 import { CinematicHero } from "@/components/media/cinematic-hero";
+import { DecisionPath } from "@/components/experience/decision-path";
 import { decisionGuides } from "@/lib/content/decision-guides";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -39,6 +40,7 @@ export default function GuidesHubPage() {
         />
 
         <div className="section-container py-14 md:py-18">
+          <DecisionPath active={0} className="mb-10" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {decisionGuides.map((guide) => (
               <TrackedLink

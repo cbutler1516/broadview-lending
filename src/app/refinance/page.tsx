@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
-import { EcosystemHub } from "@/components/landing/ecosystem-hub";
+import { EcosystemExperience } from "@/components/experience/ecosystem-experience";
+import { refinanceExperience } from "@/lib/experience/goals";
 import { siteUrl } from "@/lib/brand/config";
 
 export const metadata: Metadata = {
-  title: "Refinancing | Lower Payment, Cash-Out & More",
+  title: "Refinancing | Start With Your Goal",
   description:
-    "Explore refinance strategies with Broadview Lending — lower your payment, cash-out, remove mortgage insurance, consolidate debt, and rate-and-term options.",
+    "Goal-first refinance guidance from Broadview Lending — lower payment, access cash, remove MI, consolidate debt, and more with a real advisor.",
   openGraph: { url: `${siteUrl}/refinance` },
 };
 
@@ -15,7 +16,7 @@ export default function RefinanceHubPage() {
   return (
     <>
       <SiteNav />
-      <EcosystemHub ecosystem="refinance" />
+      <EcosystemExperience config={refinanceExperience} />
       <ComplianceFooter />
     </>
   );

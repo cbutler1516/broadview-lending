@@ -3,6 +3,7 @@ import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
 import { CinematicHero } from "@/components/media/cinematic-hero";
+import { DecisionPath } from "@/components/experience/decision-path";
 import {
   getArticlesByCategory,
   knowledgeCategories,
@@ -37,6 +38,7 @@ export default function LearnPage() {
         />
 
         <div className="section-container space-y-14 py-14 md:py-18">
+          <DecisionPath active={1} />
           {knowledgeCategories.map((category) => {
             const articles = getArticlesByCategory(category.slug);
             if (articles.length === 0) return null;
