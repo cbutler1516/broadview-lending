@@ -15,7 +15,27 @@ export type AnalyticsEventName =
   | "booking_cta_clicked"
   | "contact_page_viewed"
   | "phone_clicked"
-  | "email_clicked";
+  | "email_clicked"
+  // Platform engagement + content events
+  | "landing_page_viewed"
+  | "article_viewed"
+  | "article_completed"
+  | "calculator_started"
+  | "calculator_completed"
+  | "tool_cta_clicked"
+  | "advisor_cta_clicked"
+  | "internal_link_clicked"
+  | "video_engaged"
+  | "scroll_depth"
+  | "time_on_page"
+  // Intelligence layer events
+  | "strategy_snapshot_viewed"
+  | "decision_guide_started"
+  | "decision_guide_completed"
+  | "comparison_viewed"
+  | "advisor_insight_expanded"
+  | "life_event_viewed"
+  | "location_viewed";
 
 export type AnalyticsPayload = {
   event: AnalyticsEventName;
@@ -82,4 +102,24 @@ export function trackConversionEvent(
   funnelType?: string,
 ) {
   void trackEvent({ event, funnelType, metadata });
+}
+
+/** Internal-linking analytics: every cross-page link can report its path. */
+export function trackInternalLink(
+  to: string,
+  context: { from?: string; group?: string; label?: string } = {},
+) {
+  trackConversionEvent("internal_link_clicked", {
+    to,
+    ...(context.from ? { from: context.from } : {}),
+    ...(context.group ? { group: context.group } : {}),
+    ...(context.label ? { label: context.label } : {}),
+  });
+}
+
+export function trackAdvisorCta(location: string, context?: string) {
+  trackConversionEvent("advisor_cta_clicked", {
+    location,
+    ...(context ? { context } : {}),
+  });
 }

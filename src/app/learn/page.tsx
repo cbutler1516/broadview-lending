@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
-import { contentCategories, featuredArticles } from "@/lib/content/hub";
+import { TrackedLink } from "@/components/tracked-link";
+import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import {
+  getArticlesByCategory,
+  knowledgeCategories,
+} from "@/lib/content/knowledge";
 import { buildPageMetadata } from "@/lib/brand/seo";
 
 export const metadata: Metadata = buildPageMetadata("learn");
@@ -11,70 +15,68 @@ export default function LearnPage() {
   return (
     <>
       <SiteNav />
-      <main className="flex-1 py-12 md:py-16">
-        <div className="section-container">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
-              Mortgage Education Hub
+      <main className="flex-1">
+        <section className="border-b border-border bg-surface">
+          <div className="section-container py-10 md:py-16">
+            <Breadcrumbs
+              items={[
+                { name: "Home", path: "/" },
+                { name: "Learn", path: "/learn" },
+              ]}
+            />
+            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
+              The Mortgage Learning Center
             </h1>
-            <p className="mt-4 text-lg text-muted">
-              Practical guides for homebuyers and homeowners — purchase mortgages,
-              refinance strategies, VA and FHA loans, HELOCs, and Pacific Northwest
-              market insights.
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+              A structured library — not a blog — to help you understand your
+              options before recommending a loan. Clear answers, real examples, and
+              a real advisor when you&apos;re ready.
             </p>
           </div>
+        </section>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {contentCategories.map((cat) => (
-              <article
-                key={cat.slug}
-                id={cat.slug}
-                className="card-elevated scroll-mt-24 p-6"
+        <div className="section-container space-y-14 py-14 md:py-18">
+          {knowledgeCategories.map((category) => {
+            const articles = getArticlesByCategory(category.slug);
+            if (articles.length === 0) return null;
+            return (
+              <section
+                key={category.slug}
+                id={category.slug}
+                className="scroll-mt-28"
               >
-                <h2 className="text-lg font-semibold">{cat.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {cat.description}
-                </p>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-16">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              Featured Articles
-            </h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {featuredArticles.map((article) =>
-                article.external ? (
-                  <a
-                    key={article.title}
-                    href={article.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-elevated block p-6"
-                  >
-                    <p className="text-xs font-medium uppercase tracking-wider text-brand">
-                      {article.category}
-                    </p>
-                    <h3 className="mt-2 font-semibold">{article.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{article.excerpt}</p>
-                  </a>
-                ) : (
-                  <Link
-                    key={article.title}
-                    href={article.href}
-                    className="card-elevated block p-6"
-                  >
-                    <p className="text-xs font-medium uppercase tracking-wider text-brand">
-                      {article.category}
-                    </p>
-                    <h3 className="mt-2 font-semibold">{article.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{article.excerpt}</p>
-                  </Link>
-                ),
-              )}
-            </div>
-          </div>
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                      {category.title}
+                    </h2>
+                    <p className="mt-1 text-muted">{category.description}</p>
+                  </div>
+                </div>
+                <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {articles.map((article) => (
+                    <TrackedLink
+                      key={article.slug}
+                      href={`/learn/${article.slug}`}
+                      group="learn_hub"
+                      label={article.title}
+                      className="card-elevated group flex flex-col p-6"
+                    >
+                      <p className="text-xs font-medium uppercase tracking-wider text-brand">
+                        {article.readingTime} read
+                      </p>
+                      <h3 className="mt-2 font-semibold group-hover:text-brand">
+                        {article.title}
+                      </h3>
+                      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
+                        {article.summary}
+                      </p>
+                    </TrackedLink>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </main>
       <ComplianceFooter />

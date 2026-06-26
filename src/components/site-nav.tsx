@@ -8,12 +8,11 @@ import { BookingLink } from "@/components/booking-link";
 import { cn } from "@/lib/utils/cn";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Buy", href: "/funnel/purchase" },
-  { label: "Refinance", href: "/funnel/refinance" },
-  { label: "VA", href: "/funnel/va" },
-  { label: "FHA", href: "/funnel/fha" },
+  { label: "Buy", href: "/buy" },
+  { label: "Refinance", href: "/refinance" },
   { label: "Home Equity", href: "/heloc" },
+  { label: "Guides", href: "/guides" },
+  { label: "Tools", href: "/tools" },
   { label: "Learn", href: "/learn" },
 ];
 
