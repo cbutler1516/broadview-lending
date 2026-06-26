@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { decisionGuides } from "@/lib/content/decision-guides";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -18,24 +18,25 @@ export default function GuidesHubPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Guides", path: "/guides" },
-              ]}
-            />
-            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-              Interactive Decision Guides
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-              A few thoughtful questions, then clear educational guidance. These
-              guides help you understand your options — they never imply approval or
-              qualification.
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="guides"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Guides", path: "/guides" },
+          ]}
+          eyebrow="Interactive decision guides"
+          title="Get clarity before you decide"
+          subtitle="A few thoughtful questions, then clear educational guidance. These guides help you understand your options — they never imply approval or qualification."
+          ctas={[
+            { label: "Build My Strategy", href: "/#funnels" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: "guides_hub_hero",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <div className="section-container py-14 md:py-18">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -2,8 +2,7 @@ import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
 import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 import { WhatHappensNext } from "@/components/what-happens-next";
-import { HeroMedia } from "@/components/hero-media";
-import { homeEquityBackgroundVideo } from "@/lib/media/assets";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { brand } from "@/lib/brand/config";
 import {
   getHelocFunnelHref,
@@ -58,62 +57,29 @@ export function HomeEquityLandingPage({ page }: HomeEquityLandingPageProps) {
 
   return (
     <main className="flex-1">
-      <section className="border-b border-border bg-surface">
-        <div className="section-container grid gap-10 py-14 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-20">
-          <div>
-            <p className="text-sm font-medium text-brand">{page.eyebrow}</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-              {page.h1}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-              {page.description}
-            </p>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground">
-              {homeEquityCopy.humanPromise}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={funnelHref} className="btn-primary">
-                {page.primaryCta}
-              </Link>
-              <BookingLink
-                location={`${page.slug}_hero`}
-                funnelType="heloc"
-                className="btn-secondary"
-              >
-                {page.secondaryCta}
-              </BookingLink>
-            </div>
-            <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
-          </div>
-
-          <HeroMedia
-            video={homeEquityBackgroundVideo}
-            caption="Your equity can create options — a real advisor helps choose the right one."
-            fallback={
-              <aside className="card-elevated p-6 md:p-8">
-                <p className="text-sm font-medium text-brand">
-                  You are starting a strategy conversation
-                </p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                  A real advisor reviews your situation.
-                </h2>
-                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
-                  {[
-                    "Someone will call you.",
-                    "Someone will answer your questions.",
-                    "Someone will walk you through your options.",
-                    homeEquityCopy.notAlone,
-                  ].map((item) => (
-                    <li key={item} className="rounded-xl bg-surface-muted px-4 py-3">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </aside>
-            }
-          />
-        </div>
-      </section>
+      <CinematicHero
+        theme="home-equity"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Home Equity", path: "/heloc" },
+          { name: page.h1, path: page.path },
+        ]}
+        eyebrow={page.eyebrow}
+        title={page.h1}
+        subtitle={page.description}
+        advisorPromise={homeEquityCopy.humanPromise}
+        note={brand.trust.funnelDuration}
+        ctas={[
+          { label: page.primaryCta, href: funnelHref },
+          {
+            label: page.secondaryCta,
+            booking: true,
+            bookingLocation: `${page.slug}_hero`,
+            bookingFunnelType: "heloc",
+            variant: "secondary",
+          },
+        ]}
+      />
 
       <section className="py-14 md:py-18">
         <div className="section-container grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-start">

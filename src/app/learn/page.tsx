@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
-import { HeroMedia } from "@/components/hero-media";
-import { learningStrategyVideo } from "@/lib/media/assets";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import {
   getArticlesByCategory,
   knowledgeCategories,
@@ -18,44 +16,25 @@ export default function LearnPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Learn", path: "/learn" },
-              ]}
-            />
-            <div className="mt-8 grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-              <div>
-                <h1 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-                  The Mortgage Learning Center
-                </h1>
-                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-                  A structured library — not a blog — to help you understand your
-                  options before recommending a loan. Clear answers, real
-                  examples, and a real advisor when you&apos;re ready.
-                </p>
-              </div>
-              <HeroMedia
-                video={learningStrategyVideo}
-                caption="We help you think it through — not just read about it."
-                aspectClassName="aspect-[16/10]"
-                fallback={
-                  <div className="card-elevated p-6 md:p-8">
-                    <p className="text-sm font-semibold text-brand">
-                      Strategy-first education
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">
-                      Every guide is built to help you make a better decision —
-                      and to prepare a better conversation with your advisor.
-                    </p>
-                  </div>
-                }
-              />
-            </div>
-          </div>
-        </section>
+        <CinematicHero
+          theme="learn"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Learn", path: "/learn" },
+          ]}
+          eyebrow="Mortgage Learning Center"
+          title="We help you think it through"
+          subtitle="A structured library — not a blog — to help you understand your options before recommending a loan. Clear answers, real examples, and a real advisor when you're ready."
+          ctas={[
+            { label: "Build My Strategy", href: "/#funnels" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: "learn_hub_hero",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <div className="section-container space-y-14 py-14 md:py-18">
           {knowledgeCategories.map((category) => {

@@ -284,6 +284,50 @@ export const officeOrConsultationImages: MediaAsset[] = [
   },
 ];
 
+// ---------------------------------------------------------------------------
+// Cinematic hero mapping
+// ---------------------------------------------------------------------------
+// One place that maps a page "theme" to its single hero video, so every
+// ecosystem stays consistent and we never load more than one hero per page.
+
+export type HeroTheme =
+  | "home"
+  | "buy"
+  | "refinance"
+  | "home-equity"
+  | "guides"
+  | "compare"
+  | "tools"
+  | "learn"
+  | "life"
+  | "locations"
+  | "commercial";
+
+export function heroVideoForTheme(theme: HeroTheme): MediaAsset {
+  switch (theme) {
+    case "home":
+      return heroBackgroundVideo;
+    case "buy":
+      return buyBackgroundVideo;
+    case "refinance":
+      return refinanceBackgroundVideo;
+    case "home-equity":
+      return homeEquityBackgroundVideo;
+    case "guides":
+    case "compare":
+      return funnelJourneyVideo;
+    case "tools":
+      return ctaBackgroundVideo;
+    case "learn":
+    case "life":
+      return learningStrategyVideo;
+    case "locations":
+      return buyBackgroundVideo;
+    case "commercial":
+      return commercialBackgroundVideo;
+  }
+}
+
 export const media = {
   heroBackgroundVideo,
   homeEquityBackgroundVideo,

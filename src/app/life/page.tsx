@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { lifeEvents } from "@/lib/content/life-events";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -18,23 +18,25 @@ export default function LifeHubPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Life Events", path: "/life" },
-              ]}
-            />
-            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-              Mortgage strategy for life&apos;s big moments
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-              The decisions that matter most rarely start with a loan. They start
-              with life. Here&apos;s how we&apos;d think it through together.
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="life"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Life Events", path: "/life" },
+          ]}
+          eyebrow="Life events"
+          title="Mortgage strategy for life's big moments"
+          subtitle="The decisions that matter most rarely start with a loan. They start with life. Here's how we'd think it through together."
+          ctas={[
+            { label: "Build My Strategy", href: "/#funnels" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: "life_hub_hero",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <div className="section-container py-14 md:py-18">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

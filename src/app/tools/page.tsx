@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { calculators } from "@/lib/content/calculators";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -26,24 +26,25 @@ export default function ToolsPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Tools", path: "/tools" },
-              ]}
-            />
-            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-              Calculator &amp; Strategy Center
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-              These aren&apos;t generic calculators — they&apos;re decision tools.
-              Each one ends with a personalized strategy snapshot and a real
-              advisor to talk it through.
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="tools"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Tools", path: "/tools" },
+          ]}
+          eyebrow="Calculator & Strategy Center"
+          title="Decision tools, not just calculators"
+          subtitle="Each tool ends with a personalized strategy snapshot and a real advisor to talk it through."
+          ctas={[
+            { label: "Build My Strategy", href: "/#funnels" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: "tools_hub_hero",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <div className="section-container py-14 md:py-18">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

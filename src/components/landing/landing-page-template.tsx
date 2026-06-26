@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
 import { RelatedContent } from "@/components/content/related-content";
 import { AdvisorNotes } from "@/components/trust/trust-modules";
@@ -47,58 +47,50 @@ export function LandingPageTemplate({ page }: LandingPageTemplateProps) {
       />
       <EngagementTracker contentId={page.path} contentType="landing" />
 
-      <section className="border-b border-border bg-surface">
-        <div className="section-container py-10 md:py-14">
-          <Breadcrumbs
-            items={[
-              { name: "Home", path: "/" },
-              { name: ecosystem.title, path: ecosystem.path },
-              { name: page.seo.title, path: page.path },
-            ]}
-          />
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-                {page.eyebrow}
-              </p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-                {page.h1}
-              </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-                {page.intro}
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href={page.funnelHref} className="btn-primary">
-                  {page.primaryCta}
-                </Link>
-                <BookingLink location={`landing_${page.slug}`} className="btn-secondary">
-                  {page.secondaryCta}
-                </BookingLink>
-              </div>
-              <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
-            </div>
+      <CinematicHero
+        theme={page.ecosystem}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: ecosystem.title, path: ecosystem.path },
+          { name: page.seo.title, path: page.path },
+        ]}
+        eyebrow={page.eyebrow}
+        title={page.h1}
+        subtitle={page.intro}
+        note={brand.trust.funnelDuration}
+        ctas={[
+          { label: page.primaryCta, href: page.funnelHref },
+          {
+            label: page.secondaryCta,
+            booking: true,
+            bookingLocation: `landing_${page.slug}`,
+            variant: "secondary",
+          },
+        ]}
+      />
 
-            <div className="card-elevated p-6 md:p-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-                Why this fits
-              </p>
-              <ul className="mt-5 space-y-3">
-                {page.highlights.map((highlight) => (
-                  <li
-                    key={highlight}
-                    className="flex items-start gap-3 text-sm leading-relaxed text-foreground"
+      <section className="border-b border-border py-12 md:py-16">
+        <div className="section-container">
+          <div className="card-elevated max-w-3xl p-6 md:p-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-brand">
+              Why this fits
+            </p>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              {page.highlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="flex items-start gap-3 text-sm leading-relaxed text-foreground"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-light text-xs font-semibold text-brand"
                   >
-                    <span
-                      aria-hidden
-                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-light text-xs font-semibold text-brand"
-                    >
-                      ✓
-                    </span>
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    ✓
+                  </span>
+                  {highlight}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

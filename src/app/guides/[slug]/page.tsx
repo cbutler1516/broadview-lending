@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { RelatedContent } from "@/components/content/related-content";
 import { DecisionGuideRunner } from "@/components/intelligence/decision-guide-runner";
 import { WhatHappensNext } from "@/components/what-happens-next";
@@ -41,28 +41,28 @@ export default async function GuidePage({ params }: PageProps) {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-14">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Guides", path: "/guides" },
-                { name: guide.title, path: `/guides/${guide.slug}` },
-              ]}
-            />
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-              {guide.eyebrow}
-            </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-              {guide.question}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-              {guide.intro}
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="guides"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Guides", path: "/guides" },
+            { name: guide.title, path: `/guides/${guide.slug}` },
+          ]}
+          eyebrow={guide.eyebrow}
+          title={guide.question}
+          subtitle={guide.intro}
+          ctas={[
+            { label: "Start This Guide", href: "#guide" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: `guide_${guide.slug}_hero`,
+              variant: "secondary",
+            },
+          ]}
+        />
 
-        <section className="py-12 md:py-16">
+        <section id="guide" className="scroll-mt-24 py-12 md:py-16">
           <div className="section-container">
             <DecisionGuideRunner guide={guide} />
           </div>

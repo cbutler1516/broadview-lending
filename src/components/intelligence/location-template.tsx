@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
 import { RelatedContent } from "@/components/content/related-content";
 import { WhatWeDiscuss } from "@/components/intelligence/what-we-discuss";
@@ -28,26 +28,28 @@ export function LocationTemplate({ location }: { location: LocationPage }) {
         metadata={{ location: location.slug }}
       />
 
-      <section className="border-b border-border bg-surface">
-        <div className="section-container py-10 md:py-14">
-          <Breadcrumbs
-            items={[
-              { name: "Home", path: "/" },
-              { name: "Locations", path: "/locations" },
-              { name: `${location.city}, ${location.stateAbbr}`, path: `/locations/${location.slug}` },
-            ]}
-          />
-          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-            {location.eyebrow}
-          </p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-            Mortgage strategy in {location.city}, {location.stateAbbr}
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-            {location.intro}
-          </p>
-        </div>
-      </section>
+      <CinematicHero
+        theme="locations"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Locations", path: "/locations" },
+          {
+            name: `${location.city}, ${location.stateAbbr}`,
+            path: `/locations/${location.slug}`,
+          },
+        ]}
+        eyebrow={location.eyebrow}
+        title={`Mortgage strategy in ${location.city}, ${location.stateAbbr}`}
+        subtitle={location.intro}
+        ctas={[
+          {
+            label: "Talk With A Local Advisor",
+            booking: true,
+            bookingLocation: `location_${location.slug}_hero`,
+          },
+          { label: "Build My Strategy", href: "/#funnels", variant: "secondary" },
+        ]}
+      />
 
       <section className="section-container grid gap-10 py-12 md:py-16 lg:grid-cols-2">
         <div>

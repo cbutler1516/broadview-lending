@@ -5,10 +5,10 @@ import { ComplianceFooter } from "@/components/compliance-footer";
 import { BookingLink } from "@/components/booking-link";
 import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 import { WhatHappensNext } from "@/components/what-happens-next";
-import { HeroMedia } from "@/components/hero-media";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { AdvisorTrustSection } from "@/components/advisor-trust-section";
 import { TestimonialMediaSection } from "@/components/testimonial-media-section";
-import { homeEquityBackgroundVideo, heygenTestimonials } from "@/lib/media/assets";
+import { heygenTestimonials } from "@/lib/media/assets";
 import { brand, siteUrl } from "@/lib/brand/config";
 import {
   getHelocFunnelHref,
@@ -72,61 +72,25 @@ export default function HelocHubPage() {
       />
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24">
-            <div>
-              <p className="text-sm font-medium text-brand">
-                Home Equity Solutions by Broadview Lending
-              </p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl md:leading-[1.08]">
-                Access your home equity with a real advisor by your side.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                {homeEquityCopy.humanPromise}
-              </p>
-              <p className="mt-5 max-w-2xl leading-relaxed text-foreground">
-                You are starting a strategy conversation. Your answers help us
-                prepare, and the real value comes from the conversation that follows.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href={getHelocFunnelHref("/heloc")} className="btn-primary">
-                  {homeEquityCopy.primaryCta}
-                </Link>
-                <BookingLink
-                  location="heloc_hub_hero"
-                  funnelType="heloc"
-                  className="btn-secondary"
-                >
-                  {homeEquityCopy.secondaryCta}
-                </BookingLink>
-              </div>
-              <p className="mt-4 text-sm text-muted">{brand.trust.funnelDuration}</p>
-            </div>
-
-            <HeroMedia
-              video={homeEquityBackgroundVideo}
-              caption="Your equity can create options — a real advisor helps choose the right one."
-              fallback={
-                <aside className="card-elevated p-6 md:p-8">
-                  <p className="text-sm font-medium text-brand">What happens next</p>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                    Smart digital intake, followed by human guidance.
-                  </h2>
-                  <div className="mt-5 space-y-3">
-                    {trustItems.map((item) => (
-                      <p
-                        key={item}
-                        className="rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm text-muted"
-                      >
-                        {item}
-                      </p>
-                    ))}
-                  </div>
-                </aside>
-              }
-            />
-          </div>
-        </section>
+        <CinematicHero
+          theme="home-equity"
+          size="lg"
+          eyebrow="Home Equity Solutions by Broadview Lending"
+          title="Access your home equity with a real advisor by your side."
+          subtitle={homeEquityCopy.humanPromise}
+          advisorPromise="You are starting a strategy conversation. Your answers help us prepare, and the real value comes from the conversation that follows."
+          note={brand.trust.funnelDuration}
+          ctas={[
+            { label: homeEquityCopy.primaryCta, href: getHelocFunnelHref("/heloc") },
+            {
+              label: homeEquityCopy.secondaryCta,
+              booking: true,
+              bookingLocation: "heloc_hub_hero",
+              bookingFunnelType: "heloc",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <section className="py-16 md:py-20">
           <div className="section-container">

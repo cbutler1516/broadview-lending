@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
 import { AdvisorTrustSection } from "@/components/advisor-trust-section";
 import { WhatHappensNext } from "@/components/what-happens-next";
-import { HeroMedia } from "@/components/hero-media";
-import type { MediaAsset } from "@/lib/media/assets";
+import { CinematicHero, type HeroCta } from "@/components/media/cinematic-hero";
 import {
   getLandingPagesByEcosystem,
   landingEcosystems,
@@ -13,64 +11,42 @@ import {
 
 type EcosystemHubProps = {
   ecosystem: LandingEcosystem;
-  /** Optional Living Architecture hero video for this ecosystem. */
-  heroVideo?: MediaAsset;
-  /** Optional glass caption rendered over the hero video. */
-  heroCaption?: string;
 };
 
-export function EcosystemHub({
-  ecosystem,
-  heroVideo,
-  heroCaption,
-}: EcosystemHubProps) {
+const ecosystemFunnel: Record<LandingEcosystem, string> = {
+  buy: "/funnel/purchase",
+  refinance: "/funnel/refinance",
+};
+
+export function EcosystemHub({ ecosystem }: EcosystemHubProps) {
   const meta = landingEcosystems[ecosystem];
   const pages = getLandingPagesByEcosystem(ecosystem);
+  const funnelHref = ecosystemFunnel[ecosystem] ?? "/#funnels";
+
+  const ctas: HeroCta[] = [
+    { label: "Build My Strategy", href: funnelHref },
+    {
+      label: "Talk With An Advisor",
+      booking: true,
+      bookingLocation: `${ecosystem}_hub_hero`,
+      variant: "secondary",
+    },
+  ];
 
   return (
     <main className="flex-1">
-      <section className="border-b border-border bg-surface">
-        <div className="section-container py-10 md:py-16">
-          <Breadcrumbs
-            items={[
-              { name: "Home", path: "/" },
-              { name: meta.title, path: meta.path },
-            ]}
-          />
-          <div
-            className={
-              heroVideo
-                ? "mt-8 grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]"
-                : "mt-8"
-            }
-          >
-            <div>
-              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-                {meta.title}
-              </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-                {meta.intro}
-              </p>
-            </div>
-            {heroVideo && (
-              <HeroMedia
-                video={heroVideo}
-                caption={heroCaption}
-                fallback={
-                  <div className="card-elevated p-6 md:p-8">
-                    <p className="text-sm font-semibold text-brand">
-                      {meta.title}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">
-                      {meta.intro}
-                    </p>
-                  </div>
-                }
-              />
-            )}
-          </div>
-        </div>
-      </section>
+      <CinematicHero
+        theme={ecosystem}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: meta.title, path: meta.path },
+        ]}
+        eyebrow={meta.title}
+        title={meta.title}
+        subtitle={meta.intro}
+        ctas={ctas}
+        size="lg"
+      />
 
       <section className="py-14 md:py-18">
         <div className="section-container">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
 import { RelatedContent } from "@/components/content/related-content";
 import { TrackedLink } from "@/components/tracked-link";
@@ -41,36 +41,31 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
       <EngagementTracker contentId={article.slug} contentType="article" />
 
       <article>
-        <header className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-14">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Learn", path: "/learn" },
-                ...(category
-                  ? [{ name: category.title, path: `/learn#${category.slug}` }]
-                  : []),
-                { name: article.title, path: `/learn/${article.slug}` },
-              ]}
-            />
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-              {article.eyebrow}
-            </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-              {article.title}
-            </h1>
-            <p className="mt-3 text-sm text-muted">
-              {article.readingTime} read · Updated{" "}
-              {new Date(article.updated).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-              })}
-            </p>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-              {article.intro}
-            </p>
-          </div>
-        </header>
+        <CinematicHero
+          theme="learn"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Learn", path: "/learn" },
+            ...(category
+              ? [{ name: category.title, path: `/learn#${category.slug}` }]
+              : []),
+            { name: article.title, path: `/learn/${article.slug}` },
+          ]}
+          eyebrow={article.eyebrow}
+          title={article.title}
+          subtitle={article.intro}
+          note={`${article.readingTime} read · Updated ${new Date(
+            article.updated,
+          ).toLocaleDateString("en-US", { year: "numeric", month: "long" })}`}
+          ctas={[
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: `article_${article.slug}_hero`,
+            },
+            { label: "Build My Strategy", href: "/#funnels", variant: "secondary" },
+          ]}
+        />
 
         <div className="section-container grid gap-12 py-12 md:py-16 lg:grid-cols-[1fr_280px]">
           <div className="max-w-2xl">

@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { RelatedContent } from "@/components/content/related-content";
 import { StrategySnapshot } from "@/components/intelligence/strategy-snapshot";
 import { AdvisorInsight } from "@/components/intelligence/advisor-insight";
@@ -25,26 +25,26 @@ export function LifeEventTemplate({ event }: { event: LifeEvent }) {
       />
       <InViewTracker event="life_event_viewed" metadata={{ event: event.slug }} />
 
-      <section className="border-b border-border bg-surface">
-        <div className="section-container py-10 md:py-14">
-          <Breadcrumbs
-            items={[
-              { name: "Home", path: "/" },
-              { name: "Life Events", path: "/life" },
-              { name: event.title, path: `/life/${event.slug}` },
-            ]}
-          />
-          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-            {event.eyebrow}
-          </p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-            {event.title}
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-            {event.intro}
-          </p>
-        </div>
-      </section>
+      <CinematicHero
+        theme="life"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Life Events", path: "/life" },
+          { name: event.title, path: `/life/${event.slug}` },
+        ]}
+        eyebrow={event.eyebrow}
+        title={event.title}
+        subtitle={event.intro}
+        ctas={[
+          { label: "Build My Strategy", href: "/#funnels" },
+          {
+            label: "Talk With An Advisor",
+            booking: true,
+            bookingLocation: `life_${event.slug}_hero`,
+            variant: "secondary",
+          },
+        ]}
+      />
 
       <section className="section-container grid gap-10 py-12 md:py-16 lg:grid-cols-2">
         <div>

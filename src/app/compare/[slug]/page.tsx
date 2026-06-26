@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
 import { RelatedContent } from "@/components/content/related-content";
 import { ComparisonView } from "@/components/intelligence/comparison-view";
@@ -56,27 +56,28 @@ export default async function ComparePage({ params }: PageProps) {
             ),
           }}
         />
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-14">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Compare", path: "/compare" },
-                { name: c.title, path: `/compare/${c.slug}` },
-              ]}
-            />
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-              {c.eyebrow}
-            </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-              {c.title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-              {c.intro}
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="compare"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Compare", path: "/compare" },
+            { name: c.title, path: `/compare/${c.slug}` },
+          ]}
+          eyebrow={c.eyebrow}
+          title={c.title}
+          subtitle={c.intro}
+          ctas={[
+            { label: "Compare My Options", href: "#comparison" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: `compare_${c.slug}_hero`,
+              variant: "secondary",
+            },
+          ]}
+        />
 
+        <div id="comparison" className="scroll-mt-24" />
         <ComparisonView
           slug={c.slug}
           a={c.a}

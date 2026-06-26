@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { locationPages } from "@/lib/content/locations";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -26,23 +26,24 @@ export default function LocationsHubPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Locations", path: "/locations" },
-              ]}
-            />
-            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-              Local guidance, real advisors
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-              Mortgage strategy with local market context. Starting in Washington and
-              growing across the West.
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="locations"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Locations", path: "/locations" },
+          ]}
+          eyebrow="Local authority"
+          title="Local guidance, real advisors"
+          subtitle="Mortgage strategy with local market context. Starting in Washington and growing across the West."
+          ctas={[
+            {
+              label: "Talk With A Local Advisor",
+              booking: true,
+              bookingLocation: "locations_hub_hero",
+            },
+            { label: "Build My Strategy", href: "/#funnels", variant: "secondary" },
+          ]}
+        />
 
         <div className="section-container space-y-12 py-14 md:py-18">
           {Object.entries(byState).map(([state, locs]) => (

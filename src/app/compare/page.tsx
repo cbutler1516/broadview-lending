@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { TrackedLink } from "@/components/tracked-link";
-import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { CinematicHero } from "@/components/media/cinematic-hero";
 import { comparisons } from "@/lib/content/comparisons";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -18,23 +18,25 @@ export default function CompareHubPage() {
     <>
       <SiteNav />
       <main className="flex-1">
-        <section className="border-b border-border bg-surface">
-          <div className="section-container py-10 md:py-16">
-            <Breadcrumbs
-              items={[
-                { name: "Home", path: "/" },
-                { name: "Compare", path: "/compare" },
-              ]}
-            />
-            <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-              Compare Your Options
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-              Fair, side-by-side comparisons of the decisions homeowners and buyers
-              face most — with the questions we&apos;d discuss together.
-            </p>
-          </div>
-        </section>
+        <CinematicHero
+          theme="compare"
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Compare", path: "/compare" },
+          ]}
+          eyebrow="Mortgage comparisons"
+          title="Compare your options"
+          subtitle="Fair, side-by-side comparisons of the decisions homeowners and buyers face most — with the questions we'd discuss together."
+          ctas={[
+            { label: "Build My Strategy", href: "/#funnels" },
+            {
+              label: "Talk With An Advisor",
+              booking: true,
+              bookingLocation: "compare_hub_hero",
+              variant: "secondary",
+            },
+          ]}
+        />
 
         <div className="section-container py-14 md:py-18">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
