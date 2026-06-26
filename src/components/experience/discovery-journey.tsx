@@ -2,11 +2,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils/cn";
 
 const defaultSteps = [
-  { step: "1", title: "What are you trying to accomplish?", body: "Start with the goal — not the product." },
-  { step: "2", title: "Let's understand your situation.", body: "A few thoughtful questions prepare the conversation." },
-  { step: "3", title: "Here's what we'd discuss together.", body: "Trade-offs, options, and questions — before any recommendation." },
-  { step: "4", title: "Build your strategy.", body: "Personalized guidance — never a generic pitch." },
-  { step: "5", title: "Talk with a Broadview advisor.", body: "A licensed advisor walks through it with you." },
+  { step: "1", title: "Choose your goal", body: "Start with what you're trying to accomplish." },
+  { step: "2", title: "Understand your situation", body: "A few questions build context." },
+  { step: "3", title: "Compare options", body: "Trade-offs before any recommendation." },
+  { step: "4", title: "Build your strategy", body: "Personalized guidance — not a pitch." },
+  { step: "5", title: "Talk with an advisor", body: "A licensed advisor walks through it with you." },
 ];
 
 type DiscoveryJourneyProps = {
@@ -21,7 +21,7 @@ type DiscoveryJourneyProps = {
 export function DiscoveryJourney({
   className,
   funnelHref = "/#start",
-  funnelLabel = "Build Your Strategy",
+  funnelLabel = "Continue Building My Strategy",
 }: DiscoveryJourneyProps) {
   return (
     <section className={cn("py-14 md:py-18", className)}>
@@ -30,7 +30,7 @@ export function DiscoveryJourney({
           <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
             How guidance works
           </h2>
-          <p className="mt-2 text-muted">Five steps. One human conversation at the end.</p>
+          <p className="mt-2 text-muted">Five steps. One conversation at the end.</p>
         </div>
 
         <ol className="mt-10 space-y-0">

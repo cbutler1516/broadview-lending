@@ -11,6 +11,8 @@ import {
   type Recommendations,
 } from "@/lib/intelligence/recommend";
 import { readVisitor } from "@/lib/intelligence/visitor";
+import { readWorkspace } from "@/lib/strategy/workspace";
+import { workspaceToRecommendContext } from "@/lib/strategy/recommend-context";
 import type { ResolvedLink } from "@/lib/content/types";
 import { cn } from "@/lib/utils/cn";
 
@@ -76,15 +78,17 @@ export function PersonalizedRecommendations({
     void Promise.resolve().then(() => {
       if (cancelled) return;
       const profile = readVisitor();
+      const workspace = readWorkspace();
       const ctx: RecommendationContext = {
         intent: profile.intent,
         funnelType: profile.lastFunnel,
         guideResult: profile.lastGuide,
         calcResult: profile.lastCalc,
-        location: profile.lastLocation,
+        location: profile.lastLocation ?? workspace.location,
         previousPath: profile.previousPath,
         leadSubmitted: profile.leadSubmitted,
         currentPath: pathname ?? undefined,
+        ...workspaceToRecommendContext(workspace, pathname ?? undefined),
         ...seed,
       };
       setRecs(recommend(ctx, limit));

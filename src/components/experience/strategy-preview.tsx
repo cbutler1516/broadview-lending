@@ -41,7 +41,7 @@ export function StrategyPreview({
               Continue
             </Link>
             <Link href={funnelHref} className="btn-secondary">
-              Build Your Strategy
+              Continue Building My Strategy
             </Link>
             <BookingLink
               location={bookingLocation}

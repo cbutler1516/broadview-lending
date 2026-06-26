@@ -7,6 +7,7 @@ import {
   evaluateGuide,
   type DecisionGuide,
 } from "@/lib/content/decision-guides";
+import { recordGuideComplete, recordGuideStarted } from "@/lib/strategy/workspace";
 
 type DecisionGuideRunnerProps = {
   guide: DecisionGuide;
@@ -25,6 +26,7 @@ export function DecisionGuideRunner({ guide }: DecisionGuideRunnerProps) {
     if (!started.current) {
       started.current = true;
       trackConversionEvent("decision_guide_started", { guide: guide.slug });
+      recordGuideStarted();
     }
     const nextAnswers = { ...answers, [current.id]: optionIndex };
     setAnswers(nextAnswers);
@@ -38,6 +40,7 @@ export function DecisionGuideRunner({ guide }: DecisionGuideRunnerProps) {
         guide: guide.slug,
         tier,
       });
+      recordGuideComplete(guide.slug);
     }
   }
 

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { CinematicHero } from "@/components/media/cinematic-hero";
@@ -7,7 +6,7 @@ import { ExperienceFlow } from "@/components/experience/experience-flow";
 import { DecisionPath } from "@/components/experience/decision-path";
 import { AdvisorPromise } from "@/components/experience/advisor-promise";
 import { DiscoveryJourney } from "@/components/experience/discovery-journey";
-import { BookingLink } from "@/components/booking-link";
+import { HomeStrategyLayer } from "@/components/strategy/home-strategy-layer";
 import { brand, siteUrl } from "@/lib/brand/config";
 import { buildPageMetadata } from "@/lib/brand/seo";
 
@@ -40,7 +39,7 @@ export default function HomePage() {
           theme="home"
           size="lg"
           title="What are you trying to accomplish?"
-          subtitle="People don't wake up wanting a mortgage. They wake up wanting a better future."
+          subtitle="Start with the goal. Your strategy builds from there."
           note={brand.trust.funnelDuration}
         />
 
@@ -54,29 +53,11 @@ export default function HomePage() {
         <AdvisorPromise />
 
         <DiscoveryJourney
-          funnelHref="/funnel/purchase"
+          funnelHref="/#start"
           className="border-t border-border bg-surface-muted"
         />
 
-        <section className="border-t border-border py-16 md:py-20">
-          <div className="section-container text-center">
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Ready for a real conversation?
-            </h2>
-            <p className="mx-auto mt-3 max-w-lg text-muted">
-              A licensed Broadview advisor will personally review your information
-              and walk through your options with you.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/funnel/purchase" className="btn-primary">
-                {brand.ctas.primary}
-              </Link>
-              <BookingLink location="homepage_final" className="btn-secondary">
-                {brand.ctas.secondary}
-              </BookingLink>
-            </div>
-          </div>
-        </section>
+        <HomeStrategyLayer />
       </main>
 
       <ComplianceFooter />

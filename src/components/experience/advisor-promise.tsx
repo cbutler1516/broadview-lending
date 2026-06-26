@@ -30,13 +30,11 @@ export function AdvisorPromise({ className, compact }: AdvisorPromiseProps) {
               compact ? "text-xl md:text-2xl" : "mt-3 text-2xl md:text-3xl",
             )}
           >
-            Technology helps us prepare. A real advisor helps you decide. You are not
-            alone in this.
+            Technology helps us prepare. A real advisor helps you decide.
           </p>
           {!compact && (
             <p className="mt-4 text-muted">
-              A real person reviews every strategy. A real conversation follows every
-              recommendation.
+              Every strategy gets a human review before any recommendation.
             </p>
           )}
         </div>

@@ -84,6 +84,9 @@ export function LivingArchitectureVideo({
   const [shouldLoad, setShouldLoad] = useState(false);
   const [inView, setInView] = useState(false);
   const [blocked, setBlocked] = useState(false);
+  const [activeSrc, setActiveSrc] = useState<string | undefined>(undefined);
+  const [previousSrc, setPreviousSrc] = useState<string | undefined>(undefined);
+  const [crossfading, setCrossfading] = useState(false);
 
   // Lazy-load + visibility tracking. Capability detection happens inside the
   // (async) observer callback so we never call setState synchronously in an
@@ -121,6 +124,29 @@ export function LivingArchitectureVideo({
   }, [inView, shouldLoad, blocked]);
 
   const playable = isPlayable(asset);
+  const nextSrc = shouldLoad && playable ? asset!.src : undefined;
+
+  useEffect(() => {
+    if (!nextSrc || blocked) return;
+    let timer: number | undefined;
+    void Promise.resolve().then(() => {
+      setActiveSrc((prev) => {
+        if (!prev) return nextSrc;
+        if (prev === nextSrc) return prev;
+        setPreviousSrc(prev);
+        setCrossfading(true);
+        timer = window.setTimeout(() => {
+          setPreviousSrc(undefined);
+          setCrossfading(false);
+        }, 700);
+        return nextSrc;
+      });
+    });
+    return () => {
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [nextSrc, blocked]);
+
   const useFallback = !playable || blocked;
 
   // When motion is blocked/unavailable and the caller supplied its own elegant
@@ -143,9 +169,24 @@ export function LivingArchitectureVideo({
         <BrandedFallback alt={asset?.alt} />
       ) : (
         <>
+          {previousSrc && crossfading && (
+            <video
+              className="video-crossfade-out absolute inset-0 h-full w-full object-cover"
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="metadata"
+              aria-hidden
+              src={previousSrc}
+            />
+          )}
           <video
             ref={videoRef}
-            className="h-full w-full object-cover"
+            className={cn(
+              "h-full w-full object-cover",
+              bare && previousSrc && crossfading && "video-crossfade-in absolute inset-0",
+            )}
             muted
             loop
             playsInline
@@ -153,7 +194,7 @@ export function LivingArchitectureVideo({
             preload="metadata"
             poster={asset!.poster || undefined}
             aria-label={asset!.alt}
-            src={shouldLoad ? asset!.src : undefined}
+            src={activeSrc}
             onError={() => setBlocked(true)}
           />
           {overlay && (

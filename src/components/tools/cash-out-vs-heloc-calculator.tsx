@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { CalculatorResult } from "@/components/tools/calculator-result";
 import { trackConversionEvent } from "@/lib/analytics/events";
+import { recordCalculator } from "@/lib/strategy/workspace";
 
 const TOOL_SLUG = "cash-out-vs-heloc";
 
@@ -70,6 +71,7 @@ export function CashOutVsHelocCalculator() {
       favorHeloc,
       fits,
     });
+    recordCalculator(TOOL_SLUG);
   }
 
   const recommendation = result

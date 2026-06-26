@@ -4,6 +4,7 @@ import { AdvisorPromise } from "@/components/experience/advisor-promise";
 import { DiscoveryJourney } from "@/components/experience/discovery-journey";
 import { ExperienceFlow } from "@/components/experience/experience-flow";
 import { SeoLinks } from "@/components/experience/seo-links";
+import { EcosystemStrategyStrip } from "@/components/strategy/ecosystem-strategy-strip";
 import type { ExperienceConfig } from "@/lib/experience/types";
 import { brand } from "@/lib/brand/config";
 
@@ -43,9 +44,11 @@ export function EcosystemExperience({ config }: EcosystemExperienceProps) {
 
       <DiscoveryJourney
         funnelHref={config.funnelHref}
-        funnelLabel="Build Your Strategy"
+        funnelLabel="Continue Building My Strategy"
         className="border-t border-border bg-surface-muted"
       />
+
+      <EcosystemStrategyStrip />
 
       {config.seoRoutes && config.seoRoutes.length > 0 && (
         <SeoLinks routes={config.seoRoutes} />

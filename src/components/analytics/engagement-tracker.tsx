@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { trackConversionEvent } from "@/lib/analytics/events";
+import { recordArticle } from "@/lib/strategy/workspace";
 
 type EngagementTrackerProps = {
   /** Logical content id (article slug, tool slug, landing path). */
@@ -45,6 +46,7 @@ export function EngagementTracker({
           });
           if (marker === 100 && contentType === "article") {
             trackConversionEvent("article_completed", { contentId });
+            recordArticle(contentId);
           }
         }
       }

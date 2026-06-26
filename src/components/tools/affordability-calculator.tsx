@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { CalculatorResult } from "@/components/tools/calculator-result";
 import { trackConversionEvent } from "@/lib/analytics/events";
+import { recordCalcSnapshot, recordCalculator } from "@/lib/strategy/workspace";
 
 const TOOL_SLUG = "affordability-planner";
 
@@ -74,6 +75,11 @@ export function AffordabilityCalculator() {
     trackConversionEvent("calculator_completed", {
       tool: TOOL_SLUG,
       price: Math.round(price),
+    });
+    recordCalculator(TOOL_SLUG);
+    recordCalcSnapshot({
+      budget: usd.format(price),
+      downPayment: down > 0 ? `${Math.round((down / price) * 100)}%` : undefined,
     });
   }
 
