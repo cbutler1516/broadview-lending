@@ -60,8 +60,8 @@ export function FunnelStrategyResults({
               : "Prepared for your advisor conversation"}
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-            Educational guidance only — not a loan approval, qualification, or
-            commitment to lend.
+            Educational guidance only. Recommendations require advisor review
+            and are not a commitment to lend.
           </p>
         </div>
 

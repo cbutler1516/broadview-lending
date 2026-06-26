@@ -51,6 +51,7 @@ type WizardPhase =
   | "building"
   | "results"
   | "lead-capture"
+  | "advisor-prep"
   | "realtor"
   | "confirmed";
 
@@ -83,6 +84,9 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const [rewardKey, setRewardKey] = useState(0);
   const [showReward, setShowReward] = useState(false);
   const [contactCaptured, setContactCaptured] = useState(false);
+  const [skippedQuestionIds, setSkippedQuestionIds] = useState<Set<string>>(
+    () => new Set(),
+  );
   const [isPending, startTransition] = useTransition();
   const [submissionId] = useState(() => createSubmissionId());
   const [sessionId] = useState(() => getOrCreateSessionId());
@@ -100,9 +104,10 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       activeQuestions.filter((q) => {
         if (q.id === "equityGoal" && answers.equityGoal) return false;
         if (q.id === "refinanceGoal" && answers.refinanceGoal) return false;
+        if (skippedQuestionIds.has(q.id)) return false;
         return !answers[q.id]?.trim();
       }),
-    [activeQuestions, answers],
+    [activeQuestions, answers, skippedQuestionIds],
   );
 
   const currentQuestion = pendingQuestions[stepIndex];
@@ -224,6 +229,11 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     setPhase(definition.type === "heloc" && contactCaptured ? "confirmed" : "results");
   }
 
+  function continueFromAdvisorPrep() {
+    setPhase("building");
+    setStepIndex(0);
+  }
+
   function handleGoalSelect(value: string) {
     triggerReward();
     const patch: Record<string, string> = { ...answers };
@@ -232,6 +242,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     else if (value === "first-home") patch.firstTimeHomebuyer = "yes";
     else if (value === "exploring") patch.timeline = "exploring";
     setAnswers(patch);
+    setSkippedQuestionIds(new Set());
     trackEvent({
       event: "question_answered",
       funnelType: definition.type,
@@ -301,16 +312,40 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       (q) => {
         if (q.id === "equityGoal" && nextAnswers.equityGoal) return false;
         if (q.id === "refinanceGoal" && nextAnswers.refinanceGoal) return false;
+        if (skippedQuestionIds.has(q.id)) return false;
         return !nextAnswers[q.id]?.trim();
       },
     );
 
-    if (stepIndex >= nextPending.length - 1) {
+    if (nextPending.length === 0) {
       finishBuilding(nextAnswers);
       return;
     }
 
-    setStepIndex((i) => i + 1);
+    setStepIndex(0);
+  }
+
+  function handleSkip() {
+    if (!currentQuestion) return;
+
+    const nextSkipped = new Set(skippedQuestionIds);
+    nextSkipped.add(currentQuestion.id);
+
+    const nextPending = getActiveQuestions(definition, answers).filter((q) => {
+      if (q.id === "equityGoal" && answers.equityGoal) return false;
+      if (q.id === "refinanceGoal" && answers.refinanceGoal) return false;
+      if (nextSkipped.has(q.id)) return false;
+      return !answers[q.id]?.trim();
+    });
+
+    setSkippedQuestionIds(nextSkipped);
+
+    if (nextPending.length === 0) {
+      finishBuilding(answers);
+      return;
+    }
+
+    setStepIndex(0);
   }
 
   function handleLeadSubmit(formData: FormData) {
@@ -333,7 +368,8 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
         setResult(response.result);
 
         if (definition.type === "heloc") {
-          setPhase("building");
+          setSkippedQuestionIds(new Set());
+          setPhase("advisor-prep");
           setStepIndex(0);
         } else if (
           definition.type === "purchase" &&
@@ -372,6 +408,9 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     advisorNotes,
     conversationTopics,
     phaseLabel: displayedPhaseLabel,
+    creditProfileCaptured: Boolean(answers.creditScore),
+    cashTargetCaptured: Boolean(answers.desiredEquityAmount),
+    contactCaptured,
   };
 
   function frame(node: ReactNode) {
@@ -426,6 +465,14 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     );
   }
 
+  if (phase === "advisor-prep") {
+    return frame(
+      <FunnelLayout panel={panelProps}>
+        <AdvisorPreparationTransition onContinue={continueFromAdvisorPrep} />
+      </FunnelLayout>,
+    );
+  }
+
   const mainContent =
     phase === "goal" && definition.type === "heloc" ? (
       <HelocLeadFirstStep
@@ -446,10 +493,16 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
         question={currentQuestion}
         phaseLabel={displayedPhaseLabel}
         onAnswer={handleAnswer}
+        onSkip={definition.type === "heloc" && contactCaptured ? handleSkip : undefined}
         rewardKey={rewardKey}
         contextOverride={
           definition.type === "heloc" && contactCaptured
-            ? "This helps your advisor personalize your strategy before the conversation."
+            ? "The next few questions help your advisor prepare an even more useful conversation. You can skip any question if you're unsure."
+            : undefined
+        }
+        introTitle={
+          definition.type === "heloc" && contactCaptured
+            ? "Help us personalize your recommendations."
             : undefined
         }
       />
@@ -469,5 +522,66 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       <FunnelRewardPulse show={showReward} />
       {frame(<FunnelLayout panel={panelProps}>{mainContent}</FunnelLayout>)}
     </>
+  );
+}
+
+function AdvisorPreparationTransition({
+  onContinue,
+}: {
+  onContinue: () => void;
+}) {
+  useEffect(() => {
+    const timer = window.setTimeout(onContinue, 2600);
+    return () => window.clearTimeout(timer);
+  }, [onContinue]);
+
+  const checklist = [
+    "Property located",
+    "Credit profile received",
+    "Equity target recorded",
+  ];
+
+  return (
+    <div className="funnel-step-enter mx-auto w-full max-w-xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+        Advisor Preparation
+      </p>
+      <div className="mt-6 rounded-[2rem] border border-border bg-surface px-6 py-8 shadow-[var(--shadow-soft)] sm:px-8 sm:py-10">
+        <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          Your strategy is being prepared.
+        </h2>
+        <p className="mt-4 leading-relaxed text-muted">
+          Thanks for sharing your information. Your Broadview advisor already
+          has enough information to begin reviewing your property and preparing
+          recommendations.
+        </p>
+
+        <div className="mt-8 space-y-3">
+          {checklist.map((item) => (
+            <div
+              key={item}
+              className="funnel-panel-fill flex items-center gap-3 rounded-2xl border border-border bg-surface-muted px-4 py-3 text-sm font-medium text-foreground"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+                ✓
+              </span>
+              {item}
+            </div>
+          ))}
+          <div className="flex items-center gap-3 rounded-2xl border border-brand/20 bg-brand-light px-4 py-3 text-sm font-medium text-brand">
+            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-brand" />
+            Preparing strategy recommendations...
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={onContinue}
+          className="btn-primary mt-8 w-full"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
   );
 }

@@ -43,9 +43,9 @@ export function getResultCopy(result: FunnelResult): ResultCopy {
     case "investment":
       return {
         headline: "Your Home Purchase Strategy",
-        interpretation: `${prefix} your profile looks ${gradeWord} for exploring a home purchase. Your readiness reflects your timeline, down payment, and estimated credit range — not a final approval decision.`,
+        interpretation: `${prefix} your profile looks ${gradeWord} for exploring a home purchase. Your readiness reflects your timeline, down payment, and estimated credit range. Recommendations come after advisor review.`,
         nextStep:
-          "Book a strategy call to review purchase price, loan structure, and program fit with a licensed mortgage advisor.",
+          "Book a strategy call to review purchase price, planning structure, and program fit with a licensed advisor.",
         pathsIntro: `${pathsIntro} the following residential loan paths worth exploring`,
       };
     case "refinance":
@@ -59,9 +59,9 @@ export function getResultCopy(result: FunnelResult): ResultCopy {
     case "heloc":
       return {
         headline: "Your Personalized Home Equity Strategy",
-        interpretation: `${prefix} potential options may include a HELOC, a cash-out refinance, or another home equity structure. This is not a loan approval or commitment to lend.`,
+        interpretation: `${prefix} potential options may include a HELOC, a cash-out refinance, or another home equity structure. This is educational guidance and not a commitment to lend.`,
         nextStep:
-          "A Broadview mortgage advisor will personally review your information and walk through your options with you.",
+          "A Broadview advisor will personally review your information and walk through your options with you.",
         pathsIntro: `${pathsIntro} a home equity line of credit (HELOC) and cash-out refinance as potential paths`,
       };
     case "va":
@@ -84,7 +84,7 @@ export function getResultCopy(result: FunnelResult): ResultCopy {
     default:
       return {
         headline: "Your Mortgage Strategy",
-        interpretation: `${prefix} we've outlined a preliminary strategy based on your responses. This is educational guidance — not an approval or rate quote.`,
+        interpretation: `${prefix} we've outlined a preliminary strategy based on your responses. This is educational guidance for review, not a rate quote.`,
         nextStep: result.recommendedNextStep,
         pathsIntro: `${pathsIntro} these loan paths`,
       };

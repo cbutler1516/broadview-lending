@@ -121,8 +121,8 @@ export function LeadCaptureForm({
           </button>
 
           <p className="text-center text-xs leading-relaxed text-muted">
-            {brand.disclaimers.short} Results are educational — not a loan
-            approval.
+            {brand.disclaimers.short} Guidance is educational and not a
+            commitment to lend.
           </p>
         </form>
       </div>

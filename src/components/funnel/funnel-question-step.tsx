@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { FunnelQuestion } from "@/lib/funnels/types";
 import { FunnelSelectCards } from "@/components/funnel/funnel-select-cards";
 import {
@@ -13,8 +14,10 @@ type FunnelQuestionStepProps = {
   question: FunnelQuestion;
   phaseLabel: string;
   onAnswer: (value: string) => void;
+  onSkip?: () => void;
   rewardKey?: number;
   contextOverride?: string;
+  introTitle?: string;
 };
 
 const currencyRanges: Record<string, { min: number; max: number }> = {
@@ -31,9 +34,12 @@ export function FunnelQuestionStep({
   question,
   phaseLabel,
   onAnswer,
+  onSkip,
   rewardKey = 0,
   contextOverride,
+  introTitle,
 }: FunnelQuestionStepProps) {
+  const [textValue, setTextValue] = useState("");
   const isCredit = question.id === "creditScore";
   const isGoal =
     question.id === "equityGoal" ||
@@ -56,10 +62,18 @@ export function FunnelQuestionStep({
       </p>
 
       <div className="mt-6 rounded-2xl border border-border bg-surface p-5 sm:p-6 md:p-8 shadow-[var(--shadow-soft)]">
+        {introTitle && (
+          <div className="mb-7 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-4">
+            <p className="text-sm font-semibold text-brand">{introTitle}</p>
+            {context && (
+              <p className="mt-2 text-sm leading-relaxed text-muted">{context}</p>
+            )}
+          </div>
+        )}
         <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
           {question.label}
         </h2>
-        {context && (
+        {context && !introTitle && (
           <p className="mt-3 text-sm leading-relaxed text-muted">{context}</p>
         )}
 
@@ -96,7 +110,37 @@ export function FunnelQuestionStep({
           {question.type === "percentage" && (
             <FunnelPercentSlider value="6.5%" onContinue={onAnswer} />
           )}
+
+          {question.type === "text" && (
+            <div className="space-y-4">
+              <textarea
+                value={textValue}
+                onChange={(event) => setTextValue(event.target.value)}
+                placeholder="A short note is perfect."
+                rows={5}
+                className="input-field resize-none rounded-2xl leading-relaxed"
+              />
+              <button
+                type="button"
+                onClick={() => onAnswer(textValue.trim())}
+                disabled={!textValue.trim()}
+                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Continue
+              </button>
+            </div>
+          )}
         </div>
+
+        {onSkip && (
+          <button
+            type="button"
+            onClick={onSkip}
+            className="mt-5 w-full rounded-full px-4 py-2 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+          >
+            Skip this question
+          </button>
+        )}
       </div>
     </div>
   );
@@ -107,13 +151,13 @@ function defaultContextForQuestion(id: string): string | undefined {
     purchasePrice:
       "This helps us understand how much flexibility your budget may provide.",
     downPayment:
-      "Down payment affects monthly payment and program options — not just approval.",
+      "Down payment affects monthly payment and planning options.",
     estimatedPropertyValue:
       "A rough estimate is fine. This helps us understand how much flexibility your home equity may provide.",
     mortgageBalance:
       "Your remaining balance helps estimate available equity.",
     desiredEquityAmount:
-      "Knowing your target helps compare HELOC and cash-out structures.",
+      "Knowing your target helps compare home equity strategies.",
     homeValue:
       "This helps estimate equity and whether refinancing may be worth exploring.",
     currentBalance:
@@ -121,11 +165,11 @@ function defaultContextForQuestion(id: string): string | undefined {
     currentRate:
       "Your current rate helps compare whether a new structure makes sense.",
     creditScore:
-      "Credit range helps us prepare realistic options — not a final decision.",
+      "Credit range helps us prepare realistic options for review.",
     timeline:
       "Timeline helps us prioritize the right next step for your situation.",
     propertyType:
-      "Property type affects available programs and structure.",
+      "Property type helps your advisor prepare relevant options.",
     occupancy:
       "How you use the property shapes which equity options may fit.",
     workingWithRealtor:

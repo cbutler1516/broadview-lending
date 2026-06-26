@@ -17,6 +17,9 @@ type FunnelLayoutProps = {
     advisorNotes?: string[];
     conversationTopics?: string[];
     phaseLabel: string;
+    creditProfileCaptured?: boolean;
+    cashTargetCaptured?: boolean;
+    contactCaptured?: boolean;
   };
 };
 
@@ -39,6 +42,9 @@ export function FunnelLayout({ children, panel }: FunnelLayoutProps) {
             advisorNotes={panel.advisorNotes}
             conversationTopics={panel.conversationTopics}
             phaseLabel={panel.phaseLabel}
+            creditProfileCaptured={panel.creditProfileCaptured}
+            cashTargetCaptured={panel.cashTargetCaptured}
+            contactCaptured={panel.contactCaptured}
           />
         </div>
       </div>
@@ -80,6 +86,9 @@ export function FunnelLayout({ children, panel }: FunnelLayoutProps) {
             advisorNotes={panel.advisorNotes}
             conversationTopics={panel.conversationTopics}
             phaseLabel={panel.phaseLabel}
+            creditProfileCaptured={panel.creditProfileCaptured}
+            cashTargetCaptured={panel.cashTargetCaptured}
+            contactCaptured={panel.contactCaptured}
           />
         </div>
         {mobileOpen && (

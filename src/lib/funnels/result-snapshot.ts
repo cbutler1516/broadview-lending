@@ -5,7 +5,7 @@ import { labelForGoalValue } from "@/lib/funnels/goal-entry";
 
 /**
  * Maps a scored funnel result into the educational Strategy Snapshot shape.
- * Never implies approval, qualification, or loan assignment.
+ * Keeps recommendations educational until advisor review.
  */
 export function funnelResultToSnapshot(result: FunnelResult): StrategySnapshot {
   const copy = getResultCopy(result);
@@ -53,12 +53,12 @@ export function funnelResultToSnapshot(result: FunnelResult): StrategySnapshot {
     questions: [
       "What monthly payment feels comfortable long-term?",
       "How long do you plan to keep this home or loan?",
-      "What would make this decision feel clearly right for you?",
+        "What would make this plan feel clearly right for you?",
     ],
     thingsToVerify: [
-      "Credit, income, assets, and employment",
-      "Property type, occupancy, and appraisal",
-      "Full application and underwriting review",
+        "Credit, income, assets, and employment details",
+        "Property type, occupancy, and value review",
+        "Advisor review of the complete picture",
     ],
     commonMistakes: [
       "Optimizing for rate alone without considering structure and timeline",

@@ -43,6 +43,7 @@ const questionSections: Record<string, BuilderSection> = {
   workingWithRealtor: "options",
   militaryStatus: "options",
   firstUseVa: "options",
+  advisorNotes: "strategy",
 };
 
 const timelineLabels: Record<string, string> = {
@@ -114,7 +115,7 @@ function sectionDetail(
     }
     case "home": {
       const equity = computeEstimatedEquity(answers);
-      if (equity) return `Est. ${equity} available`;
+      if (equity) return `Equity range ready`;
       const price = parseCurrency(answers.purchasePrice ?? answers.homeValue);
       if (price) return formatCurrency(price);
       return undefined;
@@ -224,22 +225,33 @@ export function getConversationTopics(
   definition: FunnelDefinition,
   answers: Record<string, string>,
 ): string[] {
+  void definition;
+
   const topics: string[] = [];
   if (answers.equityGoal) {
-    topics.push(`How equity may support ${labelForGoalValue(answers.equityGoal).toLowerCase()}`);
+    topics.push("We'll review available financing strategies.");
   }
   if (answers.refinanceGoal) {
-    topics.push(`Whether ${labelForGoalValue(answers.refinanceGoal).toLowerCase()} fits your timeline`);
+    topics.push("We'll compare refinance planning options.");
   }
   const equity = computeEstimatedEquity(answers);
-  if (equity) topics.push(`Estimated available equity of ${equity}`);
-  if (answers.timeline) topics.push("Timeline and next steps");
-  if (answers.creditScore) topics.push("Credit profile and structure options");
+  if (equity || answers.desiredEquityAmount) {
+    topics.push("We'll compare available equity options.");
+  }
+  if (answers.timeline) topics.push("We'll discuss timing and next steps.");
+  if (answers.creditScore) topics.push("We'll discuss payment flexibility.");
   if (answers.propertyType || answers.occupancy) {
-    topics.push("Property type and occupancy");
+    topics.push("We'll review how the property is used.");
+  }
+  if (answers.advisorNotes) {
+    topics.push("We'll include your note in the advisor conversation.");
   }
   if (topics.length === 0) {
-    topics.push("Your goals and timeline", "Options worth comparing", "Questions before any recommendation");
+    topics.push(
+      "We'll review available financing strategies.",
+      "We'll discuss payment flexibility.",
+      "We'll compare available equity options.",
+    );
   }
   return topics.slice(0, 4);
 }
