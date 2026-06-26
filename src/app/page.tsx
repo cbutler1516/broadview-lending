@@ -10,7 +10,12 @@ import { TrustBadgeRow } from "@/components/trust-badge-row";
 import { HeroMedia } from "@/components/hero-media";
 import { AdvisorTrustSection } from "@/components/advisor-trust-section";
 import { TestimonialMediaSection } from "@/components/testimonial-media-section";
-import { heroBackgroundVideo, heygenTestimonials } from "@/lib/media/assets";
+import { LivingArchitectureVideo } from "@/components/media/living-architecture-video";
+import {
+  heroBackgroundVideo,
+  ctaBackgroundVideo,
+  heygenTestimonials,
+} from "@/lib/media/assets";
 import { contentCategories } from "@/lib/content/hub";
 import { brand, siteUrl } from "@/lib/brand/config";
 import { buildPageMetadata } from "@/lib/brand/seo";
@@ -127,6 +132,7 @@ export default function HomePage() {
 
               <HeroMedia
                 video={heroBackgroundVideo}
+                caption="Technology prepares the conversation. People make the difference."
                 fallback={
                   <div className="relative">
                 <div className="card-elevated overflow-hidden p-0">
@@ -310,7 +316,19 @@ export default function HomePage() {
         <section id="consultation" className="border-t border-border py-16 md:py-24">
           <div className="section-container">
             <div className="card-elevated mx-auto max-w-3xl overflow-hidden">
-              <div className="bg-brand px-8 py-12 text-center text-white md:px-12">
+              <div className="relative isolate overflow-hidden bg-brand px-8 py-12 text-center text-white md:px-12">
+                <LivingArchitectureVideo
+                  asset={ctaBackgroundVideo}
+                  bare
+                  rounded="rounded-none"
+                  aspectClassName="absolute inset-0 h-full w-full"
+                  className="absolute inset-0 -z-10 opacity-25 mix-blend-screen"
+                  fallback={<span className="block h-full w-full" />}
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(26,86,219,0.55)_0%,rgba(26,86,219,0.85)_100%)]"
+                />
                 <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
                   Ready to talk through your options?
                 </h2>

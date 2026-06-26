@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { ComplianceFooter } from "@/components/compliance-footer";
 import { EcosystemHub } from "@/components/landing/ecosystem-hub";
+import { refinanceBackgroundVideo } from "@/lib/media/assets";
 import { siteUrl } from "@/lib/brand/config";
 
 export const metadata: Metadata = {
@@ -15,7 +16,11 @@ export default function RefinanceHubPage() {
   return (
     <>
       <SiteNav />
-      <EcosystemHub ecosystem="refinance" />
+      <EcosystemHub
+        ecosystem="refinance"
+        heroVideo={refinanceBackgroundVideo}
+        heroCaption="Refinancing is a transformation — let's make sure it moves you forward."
+      />
       <ComplianceFooter />
     </>
   );

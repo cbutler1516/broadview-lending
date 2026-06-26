@@ -3,6 +3,8 @@ import { TrackedLink } from "@/components/tracked-link";
 import { Breadcrumbs } from "@/components/content/breadcrumbs";
 import { AdvisorTrustSection } from "@/components/advisor-trust-section";
 import { WhatHappensNext } from "@/components/what-happens-next";
+import { HeroMedia } from "@/components/hero-media";
+import type { MediaAsset } from "@/lib/media/assets";
 import {
   getLandingPagesByEcosystem,
   landingEcosystems,
@@ -11,9 +13,17 @@ import {
 
 type EcosystemHubProps = {
   ecosystem: LandingEcosystem;
+  /** Optional Living Architecture hero video for this ecosystem. */
+  heroVideo?: MediaAsset;
+  /** Optional glass caption rendered over the hero video. */
+  heroCaption?: string;
 };
 
-export function EcosystemHub({ ecosystem }: EcosystemHubProps) {
+export function EcosystemHub({
+  ecosystem,
+  heroVideo,
+  heroCaption,
+}: EcosystemHubProps) {
   const meta = landingEcosystems[ecosystem];
   const pages = getLandingPagesByEcosystem(ecosystem);
 
@@ -27,12 +37,38 @@ export function EcosystemHub({ ecosystem }: EcosystemHubProps) {
               { name: meta.title, path: meta.path },
             ]}
           />
-          <h1 className="mt-8 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-            {meta.title}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-            {meta.intro}
-          </p>
+          <div
+            className={
+              heroVideo
+                ? "mt-8 grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]"
+                : "mt-8"
+            }
+          >
+            <div>
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
+                {meta.title}
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+                {meta.intro}
+              </p>
+            </div>
+            {heroVideo && (
+              <HeroMedia
+                video={heroVideo}
+                caption={heroCaption}
+                fallback={
+                  <div className="card-elevated p-6 md:p-8">
+                    <p className="text-sm font-semibold text-brand">
+                      {meta.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {meta.intro}
+                    </p>
+                  </div>
+                }
+              />
+            )}
+          </div>
         </div>
       </section>
 

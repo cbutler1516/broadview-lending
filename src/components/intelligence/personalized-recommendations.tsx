@@ -70,19 +70,28 @@ export function PersonalizedRecommendations({
   const [recs, setRecs] = useState<Recommendations | null>(null);
 
   useEffect(() => {
-    const profile = readVisitor();
-    const ctx: RecommendationContext = {
-      intent: profile.intent,
-      funnelType: profile.lastFunnel,
-      guideResult: profile.lastGuide,
-      calcResult: profile.lastCalc,
-      location: profile.lastLocation,
-      previousPath: profile.previousPath,
-      leadSubmitted: profile.leadSubmitted,
-      currentPath: pathname ?? undefined,
-      ...seed,
+    let cancelled = false;
+    // Defer to a microtask so we don't call setState synchronously in the
+    // effect body, and so the first paint stays in sync with the server.
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      const profile = readVisitor();
+      const ctx: RecommendationContext = {
+        intent: profile.intent,
+        funnelType: profile.lastFunnel,
+        guideResult: profile.lastGuide,
+        calcResult: profile.lastCalc,
+        location: profile.lastLocation,
+        previousPath: profile.previousPath,
+        leadSubmitted: profile.leadSubmitted,
+        currentPath: pathname ?? undefined,
+        ...seed,
+      };
+      setRecs(recommend(ctx, limit));
+    });
+    return () => {
+      cancelled = true;
     };
-    setRecs(recommend(ctx, limit));
   }, [pathname, seed, limit]);
 
   if (!recs || !hasRecommendations(recs)) return null;

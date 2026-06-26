@@ -88,6 +88,7 @@ export function HomeEquityLandingPage({ page }: HomeEquityLandingPageProps) {
 
           <HeroMedia
             video={homeEquityBackgroundVideo}
+            caption="Your equity can create options — a real advisor helps choose the right one."
             fallback={
               <aside className="card-elevated p-6 md:p-8">
                 <p className="text-sm font-medium text-brand">

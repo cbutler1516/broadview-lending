@@ -16,6 +16,12 @@ export type MediaType = "video" | "image" | "heygen";
 export type MediaPlacement =
   | "hero-background"
   | "home-equity-background"
+  | "buy-background"
+  | "refinance-background"
+  | "commercial"
+  | "funnel"
+  | "learning"
+  | "cta-background"
   | "advisor-intro"
   | "testimonial"
   | "advisor-photo"
@@ -64,26 +70,91 @@ export function enabledMedia(list: MediaAsset[]): MediaAsset[] {
 // Single-slot media
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Living Architecture video library
+// ---------------------------------------------------------------------------
+// Real motion assets live under /public/media/**. Posters are optional — if a
+// poster file does not exist yet, leave it undefined so no broken image request
+// is made. Components must lazy-load and degrade gracefully.
+
 export const heroBackgroundVideo: MediaAsset = {
-  id: "hero-background-video",
-  title: "Broadview hero background",
-  src: "",
-  poster: "",
-  alt: "A Broadview mortgage advisor reviewing options with a client.",
+  id: "hero-living-blueprint",
+  title: "A living blueprint of your mortgage strategy",
+  src: "/media/hero/living-blueprint.mp4",
+  alt: "An abstract architectural blueprint coming to life, representing a mortgage strategy taking shape.",
   type: "video",
   placement: "hero-background",
-  enabled: false,
+  enabled: true,
 };
 
 export const homeEquityBackgroundVideo: MediaAsset = {
-  id: "home-equity-background-video",
-  title: "Home Equity hero background",
-  src: "",
-  poster: "",
-  alt: "A homeowner discussing home equity options with a Broadview advisor.",
+  id: "home-equity-equity-flow",
+  title: "Equity flow — turning home value into options",
+  src: "/media/home-equity/equity-flow.mp4",
+  alt: "Flowing motion representing home equity creating new financial options.",
   type: "video",
   placement: "home-equity-background",
-  enabled: false,
+  enabled: true,
+};
+
+export const buyBackgroundVideo: MediaAsset = {
+  id: "buy-future-being-built",
+  title: "The future, being built",
+  src: "/media/hero/future-being-built.mp4",
+  alt: "A home and future taking shape, representing the home buying journey.",
+  type: "video",
+  placement: "buy-background",
+  enabled: true,
+};
+
+export const refinanceBackgroundVideo: MediaAsset = {
+  id: "refinance-transformation",
+  title: "Refinance transformation",
+  src: "/media/refinance/refinance-transformation.mp4",
+  alt: "A smooth transformation representing refinancing into a better position.",
+  type: "video",
+  placement: "refinance-background",
+  enabled: true,
+};
+
+export const commercialBackgroundVideo: MediaAsset = {
+  id: "commercial-district",
+  title: "Commercial district",
+  src: "/media/commercial/commercial-district.mp4",
+  alt: "A modern commercial district representing commercial lending.",
+  type: "video",
+  placement: "commercial",
+  enabled: true,
+};
+
+export const funnelJourneyVideo: MediaAsset = {
+  id: "journey-decision-pathways",
+  title: "Decision pathways",
+  src: "/media/journey/decision-pathways.mp4",
+  alt: "Branching pathways representing guided mortgage decisions.",
+  type: "video",
+  placement: "funnel",
+  enabled: true,
+};
+
+export const learningStrategyVideo: MediaAsset = {
+  id: "systems-living-strategy",
+  title: "Living strategy",
+  src: "/media/systems/living-strategy.mp4",
+  alt: "An evolving strategy system representing thinking through mortgage decisions.",
+  type: "video",
+  placement: "learning",
+  enabled: true,
+};
+
+export const ctaBackgroundVideo: MediaAsset = {
+  id: "systems-possibility-engine",
+  title: "Possibility engine",
+  src: "/media/systems/possibility-engine.mp4",
+  alt: "An ambient system of moving possibilities behind a call to action.",
+  type: "video",
+  placement: "cta-background",
+  enabled: true,
 };
 
 export const advisorIntroVideo: MediaAsset = {
@@ -216,6 +287,12 @@ export const officeOrConsultationImages: MediaAsset[] = [
 export const media = {
   heroBackgroundVideo,
   homeEquityBackgroundVideo,
+  buyBackgroundVideo,
+  refinanceBackgroundVideo,
+  commercialBackgroundVideo,
+  funnelJourneyVideo,
+  learningStrategyVideo,
+  ctaBackgroundVideo,
   advisorIntroVideo,
   fallbackHeroImage,
   heygenTestimonials,
