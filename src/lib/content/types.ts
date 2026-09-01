@@ -34,6 +34,7 @@ export type RelatedRefs = {
   articles?: string[];
   calculators?: string[];
   landings?: string[];
+  helocLandings?: string[];
   funnels?: string[];
   comparisons?: string[];
   guides?: string[];

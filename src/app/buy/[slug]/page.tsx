@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SiteNav } from "@/components/site-nav";
-import { ComplianceFooter } from "@/components/compliance-footer";
+import { ProductPageView, productMetadata } from "@/components/product/product-page-view";
 import { LandingPageTemplate } from "@/components/landing/landing-page-template";
+import { getProductByPath } from "@/lib/product/configs";
 import {
   getLandingPage,
   getLandingPagesByEcosystem,
@@ -13,14 +13,27 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const PRODUCT_SLUGS = [
+  "first-time-homebuyer",
+  "conventional-loans",
+  "fha-loans",
+  "va-loans",
+  "jumbo-loans",
+];
+
 export function generateStaticParams() {
-  return getLandingPagesByEcosystem("buy").map((p) => ({ slug: p.slug }));
+  const landing = getLandingPagesByEcosystem("buy").map((p) => ({ slug: p.slug }));
+  const extra = PRODUCT_SLUGS.filter((slug) => !landing.some((item) => item.slug === slug)).map(
+    (slug) => ({ slug }),
+  );
+  return [...landing, ...extra];
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const product = getProductByPath(`/buy/${slug}`);
+  if (product) return productMetadata(product);
+
   const page = getLandingPage("buy", slug);
   if (!page) {
     return { title: "Page Not Found", robots: { index: false, follow: false } };
@@ -39,14 +52,11 @@ export async function generateMetadata({
 
 export default async function BuyLandingPage({ params }: PageProps) {
   const { slug } = await params;
+  const product = getProductByPath(`/buy/${slug}`);
+  if (product) return <ProductPageView product={product} />;
+
   const page = getLandingPage("buy", slug);
   if (!page) notFound();
 
-  return (
-    <>
-      <SiteNav />
-      <LandingPageTemplate page={page} />
-      <ComplianceFooter />
-    </>
-  );
+  return <LandingPageTemplate page={page} />;
 }

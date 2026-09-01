@@ -79,7 +79,7 @@ export function LiveStrategyPanel({
   return (
     <aside
       className={cn(
-        "funnel-strategy-panel overflow-hidden rounded-2xl border border-white/30 bg-white/75 shadow-[0_20px_60px_rgba(15,23,42,0.1)] backdrop-blur-2xl",
+        "funnel-strategy-panel overflow-hidden rounded-2xl border border-white/30 bg-white/75 shadow-[0_20px_60px_rgba(15,23,42,0.1)] backdrop-blur-2xl transition-all duration-300",
         className,
       )}
     >
@@ -118,7 +118,7 @@ function PanelSection({
         {items.map((item) => (
           <li
             key={`${title}-${item}`}
-            className="funnel-panel-fill rounded-xl bg-white/55 px-3 py-2 text-sm leading-relaxed text-foreground"
+            className="rounded-xl bg-white/55 px-3 py-2.5 text-sm leading-relaxed text-foreground animate-[funnel-panel-fill_260ms_ease-out_both]"
           >
             {item}
           </li>

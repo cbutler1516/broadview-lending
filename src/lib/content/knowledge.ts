@@ -475,8 +475,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       },
     ],
     related: {
-      articles: ["heloc-vs-cash-out-refinance"],
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "using-home-equity-to-invest",
+        "when-does-refinancing-make-sense",
+      ],
       calculators: ["buy-before-sell-planner", "equity-access-planner"],
+      helocLandings: ["buy-another-home", "keep-your-rate", "heloc-vs-cash-out"],
       landings: ["buying-your-next-home", "cash-out-refinance"],
       funnels: ["purchase", "heloc"],
     },
@@ -608,12 +613,12 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: "home-equity",
     title: "HELOC vs Cash-Out Refinance",
     summary:
-      "A HELOC lets you access equity while keeping your existing first mortgage and rate — ideal when that rate is low. A cash-out refinance replaces your mortgage with one new loan, which can be better for large needs or a single fixed payment.",
+      "A HELOC keeps your current first mortgage in place while adding flexible access to equity. A cash-out refinance replaces your mortgage with one new loan, which can fit larger needs or one fixed payment.",
     readingTime: "6 min",
     updated: "2026-05-01",
     eyebrow: "Home Equity",
     intro:
-      "Both let you tap equity, but they solve different problems. The right choice often hinges on your current rate.",
+      "Both options turn home equity into usable cash. The better fit usually depends on your current rate, cash need, and repayment preference.",
     sections: [
       {
         heading: "Why a HELOC may win",
@@ -646,8 +651,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       },
     ],
     related: {
-      articles: ["when-does-refinancing-make-sense", "debt-consolidation-strategies"],
+      articles: [
+        "when-does-refinancing-make-sense",
+        "debt-consolidation-strategies",
+        "using-home-equity-to-invest",
+      ],
       calculators: ["cash-out-vs-heloc", "equity-access-planner"],
+      helocLandings: ["heloc-vs-cash-out", "keep-your-rate", "debt-consolidation"],
       landings: ["cash-out-refinance", "debt-consolidation-refinance"],
       funnels: ["heloc", "refinance"],
     },
@@ -687,7 +697,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         "Borrowing more than the goal requires",
       ],
       nextStep:
-        "Compare both paths with an advisor using your numbers. This is educational guidance only — not a loan approval or commitment to lend.",
+        "Compare both paths with an advisor using your numbers before choosing a structure.",
     },
     seo: {
       title: "HELOC vs Cash-Out Refinance",
@@ -700,12 +710,12 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: "refinancing",
     title: "Smart Debt Consolidation Strategies",
     summary:
-      "Consolidating high-interest debt into home financing can lower payments and total interest — but only if you avoid rebuilding balances. Compare a cash-out refinance, a HELOC, and staying put before deciding.",
+      "Debt consolidation with home equity may lower monthly payments, but it turns other debt into debt secured by your home. Compare a HELOC, cash-out refinance, and direct payoff before choosing.",
     readingTime: "6 min",
     updated: "2026-05-01",
     eyebrow: "Refinancing",
     intro:
-      "Consolidation can be powerful or a trap. The difference is strategy and discipline.",
+      "Consolidation can simplify payments, but the structure matters. Start by comparing the payment relief, risk, and payoff plan.",
     sections: [
       {
         heading: "The real math",
@@ -738,8 +748,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       },
     ],
     related: {
-      articles: ["heloc-vs-cash-out-refinance", "when-does-refinancing-make-sense"],
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "when-does-refinancing-make-sense",
+        "using-home-equity-to-invest",
+      ],
       calculators: ["debt-consolidation-planner", "cash-out-vs-heloc"],
+      helocLandings: ["debt-consolidation", "keep-your-rate", "heloc-vs-cash-out"],
       landings: ["debt-consolidation-refinance", "cash-out-refinance"],
       funnels: ["refinance", "heloc"],
     },
@@ -865,12 +880,12 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     category: "investing",
     title: "Using Home Equity to Invest",
     summary:
-      "Home equity can fund a down payment on an investment property or other opportunities, often via a HELOC that preserves your low first-mortgage rate. The key is comparing expected return against the cost and risk of borrowing.",
+      "Home equity can help fund an investment-property down payment or reserves, often through a HELOC that preserves your first mortgage. The key is comparing expected return against borrowing cost and risk.",
     readingTime: "6 min",
     updated: "2026-05-01",
     eyebrow: "Investing",
     intro:
-      "Your equity can be a tool for building wealth — used carefully and with a clear plan.",
+      "Your equity can support an investment plan, but it needs conservative math, reserves, and a clear repayment strategy.",
     sections: [
       {
         heading: "Leverage, thoughtfully",
@@ -903,8 +918,13 @@ export const knowledgeArticles: KnowledgeArticle[] = [
       },
     ],
     related: {
-      articles: ["heloc-vs-cash-out-refinance"],
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "debt-consolidation-strategies",
+        "buy-before-you-sell",
+      ],
       calculators: ["equity-access-planner", "cash-out-vs-heloc"],
+      helocLandings: ["investment-property", "rental-property", "heloc-vs-cash-out"],
       landings: ["cash-out-refinance"],
       funnels: ["heloc", "investment"],
     },

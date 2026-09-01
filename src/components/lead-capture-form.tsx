@@ -11,6 +11,7 @@ type LeadCaptureFormProps = {
   isPending?: boolean;
   error?: string;
   variant?: "default" | "strategy";
+  onBack?: () => void;
 };
 
 export function LeadCaptureForm({
@@ -20,19 +21,31 @@ export function LeadCaptureForm({
   isPending,
   error,
   variant = "default",
+  onBack,
 }: LeadCaptureFormProps) {
   const isStrategy = variant === "strategy";
   const eyebrow = isStrategy ? "Where Should We Send It?" : "Final Details";
   const helperCopy = isStrategy
-    ? "Your advisor has enough to begin preparing. Share the best way to reach you, and we’ll send the strategy there too."
+    ? "This lets us send your prepared strategy."
     : brand.trust.leadCapture;
 
   return (
-    <div className="funnel-step-enter mx-auto w-full max-w-xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
-        {eyebrow}
-      </p>
-      <div className="mt-5 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-6 md:p-8">
+    <div className="mx-auto w-full max-w-xl animate-[funnel-step-in_260ms_cubic-bezier(0.22,1,0.36,1)_both]">
+      <div className="flex min-h-9 items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
+          {eyebrow}
+        </p>
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="min-h-9 rounded-full px-3 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+          >
+            Back
+          </button>
+        )}
+      </div>
+      <div className="mt-5 rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-7 md:p-8">
         <h2 className="text-[1.55rem] font-semibold leading-tight tracking-tight sm:text-2xl md:text-3xl">
           {title}
         </h2>
@@ -41,8 +54,7 @@ export function LeadCaptureForm({
         </p>
         {isStrategy && (
           <p className="mt-4 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-3 text-sm leading-relaxed text-foreground">
-            No pressure and no obligation. This simply lets a Broadview advisor
-            follow up with useful recommendations.
+            A Broadview advisor will review it personally.
           </p>
         )}
         {!isStrategy && (
@@ -62,15 +74,17 @@ export function LeadCaptureForm({
               name="firstName"
               required
               placeholder="First name"
-              className="input-field"
+              className="input-field min-h-14"
               autoComplete="given-name"
+              enterKeyHint="next"
             />
             <input
               name="lastName"
               required
               placeholder="Last name"
-              className="input-field"
+              className="input-field min-h-14"
               autoComplete="family-name"
+              enterKeyHint="next"
             />
           </div>
           <input
@@ -78,25 +92,29 @@ export function LeadCaptureForm({
             type="email"
             required
             placeholder="Email address"
-            className="input-field"
+            className="input-field min-h-14"
             autoComplete="email"
+            inputMode="email"
+            enterKeyHint="next"
           />
           <input
             name="phone"
             type="tel"
             required
             placeholder="Mobile phone"
-            className="input-field"
+            className="input-field min-h-14"
             autoComplete="tel"
+            inputMode="tel"
+            enterKeyHint="done"
           />
 
-          <label className="flex items-start gap-3 rounded-2xl border border-border bg-surface-muted p-4 text-sm leading-relaxed">
+          <label className="flex items-start gap-3 rounded-2xl border border-border bg-surface-muted p-4 text-sm leading-relaxed sm:p-5">
             <input
               name="tcpaConsent"
               type="checkbox"
               value="true"
               required
-              className="mt-1 h-4 w-4 shrink-0 rounded border-border text-brand focus:ring-brand"
+              className="mt-1 h-5 w-5 shrink-0 rounded border-border text-brand focus:ring-brand"
             />
             <span className="text-muted">
               {isStrategy ? (
@@ -120,7 +138,7 @@ export function LeadCaptureForm({
           <button
             type="submit"
             disabled={isPending}
-            className="btn-primary w-full py-3.5"
+            className="btn-primary min-h-14 w-full py-3.5"
           >
             {isPending ? "Preparing your strategy…" : "Send My Strategy"}
           </button>

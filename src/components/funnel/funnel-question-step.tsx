@@ -14,6 +14,7 @@ type FunnelQuestionStepProps = {
   question: FunnelQuestion;
   phaseLabel: string;
   onAnswer: (value: string) => void;
+  onBack?: () => void;
   onSkip?: () => void;
   rewardKey?: number;
   contextOverride?: string;
@@ -34,6 +35,7 @@ export function FunnelQuestionStep({
   question,
   phaseLabel,
   onAnswer,
+  onBack,
   onSkip,
   rewardKey = 0,
   contextOverride,
@@ -51,30 +53,41 @@ export function FunnelQuestionStep({
     contextOverride ??
     question.description ??
     defaultContextForQuestion(question.id);
+  const visibleContext = introTitle
+    ? "Skip anything you are unsure about."
+    : shortContextForQuestion(question.id, context);
 
   return (
     <div
       key={`${question.id}-${rewardKey}`}
-      className="funnel-step-enter mx-auto w-full max-w-xl"
+      className="mx-auto w-full max-w-xl animate-[funnel-step-in_260ms_cubic-bezier(0.22,1,0.36,1)_both]"
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
-        {phaseLabel}
-      </p>
+      <div className="flex min-h-9 items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
+          {phaseLabel}
+        </p>
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="min-h-9 rounded-full px-3 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+          >
+            Back
+          </button>
+        )}
+      </div>
 
-      <div className="mt-5 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-6 md:p-8">
+      <div className="mt-5 rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow-soft)] sm:mt-6 sm:p-7 md:p-8">
         {introTitle && (
           <div className="mb-6 rounded-2xl border border-brand/10 bg-brand-light/60 px-4 py-4 sm:mb-7">
             <p className="text-sm font-semibold text-brand">{introTitle}</p>
-            {context && (
-              <p className="mt-2 text-sm leading-relaxed text-muted">{context}</p>
-            )}
           </div>
         )}
         <h2 className="text-[1.55rem] font-semibold leading-tight tracking-tight sm:text-2xl md:text-3xl">
           {question.label}
         </h2>
-        {context && !introTitle && (
-          <p className="mt-3 text-sm leading-relaxed text-muted">{context}</p>
+        {visibleContext && (
+          <p className="mt-3 text-sm leading-relaxed text-muted">{visibleContext}</p>
         )}
 
         <div className="mt-7 sm:mt-8">
@@ -118,13 +131,14 @@ export function FunnelQuestionStep({
                 onChange={(event) => setTextValue(event.target.value)}
                 placeholder="A short note is perfect."
                 rows={5}
-                className="input-field resize-none rounded-2xl leading-relaxed"
+                enterKeyHint="done"
+                className="input-field min-h-36 resize-none rounded-2xl leading-relaxed"
               />
               <button
                 type="button"
                 onClick={() => onAnswer(textValue.trim())}
                 disabled={!textValue.trim()}
-                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+                className="btn-primary min-h-14 w-full disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Continue
               </button>
@@ -136,7 +150,7 @@ export function FunnelQuestionStep({
           <button
             type="button"
             onClick={onSkip}
-            className="mt-5 w-full rounded-full px-4 py-2 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+            className="mt-5 w-full rounded-full px-4 py-3 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
           >
             Skip this question
           </button>
@@ -144,6 +158,25 @@ export function FunnelQuestionStep({
       </div>
     </div>
   );
+}
+
+function shortContextForQuestion(
+  id: string,
+  fallback?: string,
+): string | undefined {
+  const contexts: Record<string, string> = {
+    equityGoal: "This helps focus your advisor's recommendations.",
+    goalDetail: "This helps make the conversation more useful.",
+    estimatedPropertyValue: "Your best estimate is enough.",
+    mortgageBalance: "This helps estimate the equity picture.",
+    desiredEquityAmount: "This gives your advisor a practical range.",
+    creditScore: "No credit pull here.",
+    occupancy: "This helps compare relevant equity options.",
+    propertyType: "This helps match options to the property.",
+    timeline: "This helps prioritize the next step.",
+    advisorNotes: "This helps your advisor prepare personally.",
+  };
+  return contexts[id] ?? fallback;
 }
 
 function defaultContextForQuestion(id: string): string | undefined {

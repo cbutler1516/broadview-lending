@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SiteNav } from "@/components/site-nav";
-import { ComplianceFooter } from "@/components/compliance-footer";
+import { ProductPageView, productMetadata } from "@/components/product/product-page-view";
 import { HomeEquityLandingPage } from "@/components/home-equity-landing-page";
+import { getProductByPath } from "@/lib/product/configs";
 import {
   getHelocLandingPage,
   helocLandingPages,
@@ -14,15 +14,20 @@ type HelocIntentPageProps = {
 };
 
 export function generateStaticParams() {
-  return helocLandingPages.map((page) => ({ slug: page.slug }));
+  return [
+    ...helocLandingPages.map((page) => ({ slug: page.slug })),
+    { slug: "home-equity-loan" },
+  ];
 }
 
 export async function generateMetadata({
   params,
 }: HelocIntentPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = getHelocLandingPage(slug);
+  const product = getProductByPath(`/heloc/${slug}`);
+  if (product) return productMetadata(product);
 
+  const page = getHelocLandingPage(slug);
   if (!page) {
     return {
       title: "Home Equity Solution Not Found",
@@ -43,17 +48,11 @@ export async function generateMetadata({
 
 export default async function HelocIntentPage({ params }: HelocIntentPageProps) {
   const { slug } = await params;
+  const product = getProductByPath(`/heloc/${slug}`);
+  if (product) return <ProductPageView product={product} />;
+
   const page = getHelocLandingPage(slug);
+  if (!page) notFound();
 
-  if (!page) {
-    notFound();
-  }
-
-  return (
-    <>
-      <SiteNav />
-      <HomeEquityLandingPage page={page} />
-      <ComplianceFooter />
-    </>
-  );
+  return <HomeEquityLandingPage page={page} />;
 }

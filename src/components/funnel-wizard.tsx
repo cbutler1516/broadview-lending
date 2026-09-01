@@ -40,6 +40,9 @@ import {
 } from "@/components/funnel/funnel-question-step";
 import { FunnelStrategyResults } from "@/components/funnel/funnel-strategy-results";
 import { homeEquityCopy } from "@/lib/heloc/content";
+import { LeadFunnel } from "@/components/heloc-engine/lead-funnel";
+import { FunnelIntro } from "@/components/heloc-engine/funnel-intro";
+import { FunnelTrustStrip } from "@/components/heloc-engine/funnel-trust-strip";
 
 type FunnelWizardProps = {
   definition: FunnelDefinition;
@@ -63,6 +66,8 @@ const purchaseGoalOptions = [
 ];
 
 export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
+  const useHelocEngine = definition.type === "heloc";
+
   const goalContext = useMemo(
     () => resolveGoalEntry(definition.type, campaignPage),
     [definition.type, campaignPage],
@@ -416,6 +421,16 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   function frame(node: ReactNode) {
     if (definition.type !== "heloc") return node;
     return <div className="section-container py-10 md:py-14">{node}</div>;
+  }
+
+  if (useHelocEngine) {
+    return (
+      <div className="section-container py-8 md:py-12">
+        <FunnelIntro />
+        <FunnelTrustStrip />
+        <LeadFunnel campaignPage={campaignPage} equityGoal={answers.equityGoal} />
+      </div>
+    );
   }
 
   const snapshot = result ? funnelResultToSnapshot(result) : null;

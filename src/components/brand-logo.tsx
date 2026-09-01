@@ -6,13 +6,15 @@ import { cn } from "@/lib/utils/cn";
 type BrandLogoProps = {
   className?: string;
   variant?: "header" | "full" | "mark";
-  href?: string;
+  href?: string | false;
+  showParent?: boolean;
 };
 
 export function BrandLogo({
   className,
   variant = "header",
   href = "/",
+  showParent = true,
 }: BrandLogoProps) {
   if (variant === "header") {
     const image = (
@@ -45,9 +47,11 @@ export function BrandLogo({
         className="group inline-flex shrink-0 flex-col justify-center"
       >
         {image}
-        <span className="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.14em] text-muted/80 lg:block">
-          Powered by {brand.parentCompany}
-        </span>
+        {showParent ? (
+          <span className="mt-1 hidden text-[10px] font-medium uppercase tracking-[0.14em] text-muted/80 lg:block">
+            Powered by {brand.parentCompany}
+          </span>
+        ) : null}
       </Link>
     );
   }

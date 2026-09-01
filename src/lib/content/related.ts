@@ -7,6 +7,7 @@ import { getGuide } from "@/lib/content/decision-guides";
 import { getLifeEvent } from "@/lib/content/life-events";
 import { getLocation } from "@/lib/content/locations";
 import { getFunnelDefinition } from "@/lib/funnels/config";
+import { getHelocFunnelHref, getHelocLandingPage } from "@/lib/heloc/content";
 
 export type ResolvedRelated = {
   articles: ResolvedLink[];
@@ -53,9 +54,29 @@ function resolveLanding(slug: string): ResolvedLink | null {
   };
 }
 
+function resolveHelocLanding(slug: string): ResolvedLink | null {
+  const page = getHelocLandingPage(slug);
+  if (!page) return null;
+  return {
+    kind: "landing",
+    label: page.title,
+    href: page.path,
+    description: page.description,
+  };
+}
+
 function resolveFunnel(type: string): ResolvedLink | null {
   const def = getFunnelDefinition(type);
   if (!def) return null;
+  if (type === "heloc") {
+    return {
+      kind: "funnel",
+      label: "Home Equity Strategy Experience",
+      href: getHelocFunnelHref("/heloc"),
+      description:
+        "Start with your property, equity goal, and advisor-reviewed strategy.",
+    };
+  }
   return {
     kind: "funnel",
     label: def.title,
@@ -135,8 +156,7 @@ export function resolveRelated(refs: RelatedRefs): ResolvedRelated {
         .filter((l): l is ResolvedLink => l !== null),
     ),
     landings: dedupe(
-      (refs.landings ?? [])
-        .map(resolveLanding)
+      [...(refs.landings ?? []).map(resolveLanding), ...(refs.helocLandings ?? []).map(resolveHelocLanding)]
         .filter((l): l is ResolvedLink => l !== null),
     ),
     funnels: dedupe(

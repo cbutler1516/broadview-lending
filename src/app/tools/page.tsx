@@ -20,6 +20,7 @@ const categoryLabels: Record<string, string> = {
   refinance: "Refinancing",
   "home-equity": "Home Equity",
   planning: "Planning",
+  invest: "Investing",
 };
 
 export default function ToolsPage() {

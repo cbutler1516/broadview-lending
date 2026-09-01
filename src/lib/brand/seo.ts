@@ -4,11 +4,11 @@ import { brand, siteUrl } from "./config";
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${brand.companyName} | Seattle & Washington Mortgage Lender`,
+    default: `${brand.companyName} | Home Loans, Home Equity & Investor Financing`,
     template: `%s | ${brand.companyName}`,
   },
   description:
-    "Broadview Lending is a modern mortgage lender offering purchase, refinance, VA, FHA, jumbo, and HELOC strategies. Check your home loan options in about 60 seconds.",
+    "Broadview Lending is a premium conventional mortgage advisory platform and a sophisticated investor financing desk. Buy a home, access equity, or invest in real estate with a real advisor.",
   keywords: [
     "mortgage lender",
     "home loans",
@@ -33,9 +33,9 @@ export const defaultMetadata: Metadata = {
 
 export const pageMetadata = {
   home: {
-    title: "Mortgage Strategy Platform | Home Loans & Home Equity",
+    title: "Mortgage Strategy for Homeowners and Investors",
     description:
-      "Build your mortgage strategy with Broadview Lending. Smart digital tools prepare the conversation; real mortgage advisors help you buy, refinance, or access home equity with confidence.",
+      "Broadview Lending is a premium conventional mortgage advisory platform and a sophisticated investor financing desk. Buy a home, access equity, or invest in real estate with a real advisor.",
   },
   purchase: {
     title: "Purchase Mortgage | Home Loan Options",

@@ -43,6 +43,7 @@ export function HelocLeadFirstStep({
 }: HelocLeadFirstStepProps) {
   const [address, setAddress] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedCredit, setSelectedCredit] = useState("");
   const [step, setStep] = useState<LeadFirstStep>("address");
 
   const filtered = useMemo(() => {
@@ -60,22 +61,52 @@ export function HelocLeadFirstStep({
     setSelectedAddress(value);
     onAddress(value);
     setStep("confirming");
-    window.setTimeout(() => setStep("credit"), 950);
+    window.setTimeout(() => setStep("credit"), 520);
   }
 
   function handleCredit(value: string) {
+    setSelectedCredit(value);
     onCredit(value);
-    window.setTimeout(() => setStep("cash"), 280);
+    window.setTimeout(() => setStep("cash"), 160);
+  }
+
+  function handleAddressKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    const value = address.trim();
+    if (value) {
+      selectAddress(value);
+      return;
+    }
+    const firstSuggestion = filtered[0];
+    if (firstSuggestion) {
+      selectAddress(
+        `${firstSuggestion.street}, ${firstSuggestion.city}, ${firstSuggestion.state}`,
+      );
+    }
+  }
+
+  function goBack() {
+    if (step === "cash") {
+      setStep("credit");
+      return;
+    }
+    if (step === "credit" || step === "confirming") {
+      setStep("address");
+    }
   }
 
   if (step === "confirming") {
     return (
-      <LeadFirstShell phaseLabel="Finding Your Property" title="Found it.">
+      <LeadFirstShell
+        phaseLabel="Finding Your Property"
+        title="Found it."
+        onBack={goBack}
+      >
         <div className="mt-6 rounded-2xl border border-brand/20 bg-brand-light px-5 py-5">
           <p className="text-sm font-semibold text-brand">{selectedAddress}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            That gives your advisor a real starting point. We’re using it to
-            prepare a more useful home equity conversation.
+            This helps your advisor review the right property.
           </p>
           <div className="mt-4 flex items-center gap-2 text-sm font-medium text-foreground">
             <span className="h-2 w-2 animate-pulse rounded-full bg-brand" />
@@ -92,13 +123,18 @@ export function HelocLeadFirstStep({
         activeStep={step}
         phaseLabel="A Little Context"
         title="How would you describe your credit today?"
+        onBack={goBack}
       >
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          No credit pull here. This just helps your advisor focus on options
-          that are worth discussing.
+          This helps shape realistic strategy options.
         </p>
         <div className="mt-7 sm:mt-8">
           <FunnelCreditCards options={creditOptions} onSelect={handleCredit} />
+          {selectedCredit && (
+            <p className="sr-only" aria-live="polite">
+              Previous selection saved.
+            </p>
+          )}
         </div>
       </LeadFirstShell>
     );
@@ -110,10 +146,10 @@ export function HelocLeadFirstStep({
         activeStep={step}
         phaseLabel="Preparing Your Strategy"
         title="About how much cash would be useful?"
+        onBack={goBack}
       >
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          A ballpark is perfect. Your advisor can use the range to compare
-          practical equity strategies.
+          This helps compare practical equity ranges.
         </p>
         <div className="mt-7 sm:mt-8">
           <FunnelCurrencySlider
@@ -133,8 +169,7 @@ export function HelocLeadFirstStep({
   return (
     <LeadFirstShell activeStep={step} phaseLabel={phaseLabel} title="Which property should we look at?">
       <p className="mt-3 text-sm leading-relaxed text-muted">
-        Start with the address so your advisor can understand the property
-        before talking through options. No credit pull.
+        This helps your advisor review the right property.
       </p>
 
       <div className="mt-7 sm:mt-8">
@@ -145,8 +180,10 @@ export function HelocLeadFirstStep({
           id="property-address"
           value={address}
           onChange={(event) => setAddress(event.target.value)}
+          onKeyDown={handleAddressKeyDown}
           placeholder="Start typing your address"
           autoComplete="street-address"
+          enterKeyHint="next"
           className="input-field min-h-14 rounded-2xl text-base sm:text-lg"
         />
 
@@ -191,8 +228,7 @@ export function HelocLeadFirstStep({
         <div className="funnel-panel-fill mt-5 rounded-2xl border border-brand/20 bg-brand-light px-5 py-4">
           <p className="text-sm font-semibold text-brand">Property found.</p>
           <p className="mt-1 text-sm leading-relaxed text-muted">
-            Great. This helps your advisor prepare before you ever have a
-            conversation.
+            Your advisor now has a useful starting point.
           </p>
         </div>
       )}
@@ -204,23 +240,36 @@ function LeadFirstShell({
   activeStep,
   phaseLabel,
   title,
+  onBack,
   children,
 }: {
   activeStep?: LeadFirstStep;
   phaseLabel: string;
   title: string;
+  onBack?: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <div className="funnel-step-enter mx-auto w-full max-w-xl">
+    <div className="mx-auto w-full max-w-xl animate-[funnel-step-in_260ms_cubic-bezier(0.22,1,0.36,1)_both]">
       <LeadFirstProgress activeStep={activeStep ?? "confirming"} />
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
-        {phaseLabel}
-      </p>
+      <div className="flex min-h-9 items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand sm:text-sm">
+          {phaseLabel}
+        </p>
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="min-h-9 rounded-full px-3 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
+          >
+            Back
+          </button>
+        )}
+      </div>
       <div
         className={cn(
-          "mt-5 rounded-2xl border border-border bg-surface p-5 shadow-[var(--shadow-soft)]",
-          "sm:mt-6 sm:p-6 md:p-8",
+          "mt-5 rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow-soft)]",
+          "sm:mt-6 sm:p-7 md:p-8",
         )}
       >
         <h2 className="text-[1.7rem] font-semibold leading-tight tracking-tight sm:text-3xl">

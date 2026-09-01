@@ -4,11 +4,12 @@ import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
 import { RelatedContent } from "@/components/content/related-content";
 import { TrackedLink } from "@/components/tracked-link";
+import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 import { EngagementTracker } from "@/components/analytics/engagement-tracker";
 import { AdvisorInsight } from "@/components/intelligence/advisor-insight";
 import { StrategySnapshot } from "@/components/intelligence/strategy-snapshot";
 import { QuestionsWeHear } from "@/components/trust/trust-modules";
-import { articleSchema, jsonLdString } from "@/lib/seo/schema";
+import { articleSchema, breadcrumbSchema, jsonLdString } from "@/lib/seo/schema";
 import {
   getArticle,
   knowledgeCategories,
@@ -22,6 +23,23 @@ type ArticleTemplateProps = {
 export function ArticleTemplate({ article }: ArticleTemplateProps) {
   const category = knowledgeCategories.find((c) => c.slug === article.category);
   const next = article.nextArticle ? getArticle(article.nextArticle) : undefined;
+  const isHomeEquityArticle =
+    article.category === "home-equity" ||
+    article.related.funnels?.includes("heloc") ||
+    article.related.helocLandings?.length;
+  const strategyHref = isHomeEquityArticle ? "/funnel/heloc?campaign_page=%2Fheloc" : "/#funnels";
+  const breadcrumbs = [
+    { name: "Home", path: "/" },
+    ...(isHomeEquityArticle
+      ? [{ name: "Home Equity", path: "/heloc" }]
+      : [
+          { name: "Learn", path: "/learn" },
+          ...(category
+            ? [{ name: category.title, path: `/learn#${category.slug}` }]
+            : []),
+        ]),
+    { name: article.title, path: `/learn/${article.slug}` },
+  ];
 
   return (
     <main className="flex-1">
@@ -35,6 +53,7 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
               path: `/learn/${article.slug}`,
               datePublished: article.updated,
             }),
+            breadcrumbSchema(breadcrumbs),
           ),
         }}
       />
@@ -43,14 +62,7 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
       <article>
         <CinematicHero
           theme="learn"
-          breadcrumbs={[
-            { name: "Home", path: "/" },
-            { name: "Learn", path: "/learn" },
-            ...(category
-              ? [{ name: category.title, path: `/learn#${category.slug}` }]
-              : []),
-            { name: article.title, path: `/learn/${article.slug}` },
-          ]}
+          breadcrumbs={breadcrumbs}
           eyebrow={article.eyebrow}
           title={article.title}
           subtitle={article.intro}
@@ -63,7 +75,7 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
               booking: true,
               bookingLocation: `article_${article.slug}_hero`,
             },
-            { label: "Build My Strategy", href: "/#funnels", variant: "secondary" },
+            { label: "Build My Strategy", href: strategyHref, variant: "secondary" },
           ]}
         />
 
@@ -74,6 +86,16 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
                 The short answer
               </p>
               <p className="mt-2 leading-relaxed text-foreground">{article.summary}</p>
+            </div>
+            <div className="mt-5 rounded-2xl border border-border bg-surface-muted p-5">
+              <p className="text-sm font-semibold text-foreground">
+                Last reviewed{" "}
+                {new Date(article.updated).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                })}
+              </p>
+              <ComplianceDisclaimer className="mt-2" />
             </div>
 
             <div className="mt-10 space-y-10">
@@ -129,10 +151,10 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
                 Talk With An Advisor
               </BookingLink>
               <Link
-                href="/tools"
+                href={strategyHref}
                 className="btn-secondary mt-3 w-full"
               >
-                Explore Tools
+                Build My Strategy
               </Link>
             </div>
           </aside>
@@ -161,7 +183,11 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
           />
         )}
 
-        <FaqList faqs={article.faqs} className="pb-12 md:pb-16" />
+        <FaqList
+          faqs={article.faqs}
+          heading={isHomeEquityArticle ? "Related questions" : undefined}
+          className="pb-12 md:pb-16"
+        />
 
         {next && (
           <div className="section-container pb-4">

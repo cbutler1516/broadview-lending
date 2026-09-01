@@ -1,23 +1,9 @@
-import { SiteNav } from "@/components/site-nav";
-import { ComplianceFooter } from "@/components/compliance-footer";
-import { EcosystemExperience } from "@/components/experience/ecosystem-experience";
-import { commercialExperience } from "@/lib/experience/goals";
-import { siteUrl } from "@/lib/brand/config";
 import type { Metadata } from "next";
+import { ProductPageView, productMetadata } from "@/components/product/product-page-view";
+import { COMMERCIAL_PRODUCT } from "@/lib/product/configs/invest";
 
-export const metadata: Metadata = {
-  title: "Commercial Financing | Business & Investment Property",
-  description:
-    "Commercial mortgage strategy from Broadview Lending — acquire property, expand operations, investment real estate, construction, bridge, and working capital guidance.",
-  openGraph: { url: `${siteUrl}/commercial` },
-};
+export const metadata: Metadata = productMetadata(COMMERCIAL_PRODUCT);
 
 export default function CommercialPage() {
-  return (
-    <>
-      <SiteNav />
-      <EcosystemExperience config={commercialExperience} />
-      <ComplianceFooter />
-    </>
-  );
+  return <ProductPageView product={COMMERCIAL_PRODUCT} />;
 }

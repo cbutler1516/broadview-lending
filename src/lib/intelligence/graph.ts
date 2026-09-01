@@ -78,6 +78,7 @@ function emptyRefs(): Required<Omit<RelatedRefs, never>> {
     articles: [],
     calculators: [],
     landings: [],
+    helocLandings: [],
     funnels: [],
     comparisons: [],
     guides: [],

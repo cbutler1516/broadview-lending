@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { defaultMetadata } from "@/lib/brand/seo";
 import { Geist } from "next/font/google";
 import { AttributionCapture } from "@/components/attribution-capture";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { StrategyShell } from "@/components/strategy/strategy-shell";
 import "./globals.css";
 
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AttributionCapture />
-        <StrategyShell>{children}</StrategyShell>
+        <StrategyShell>
+          <SiteChrome>{children}</SiteChrome>
+        </StrategyShell>
       </body>
     </html>
   );

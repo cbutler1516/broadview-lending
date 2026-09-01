@@ -1,3 +1,5 @@
+import type { RelatedRefs } from "@/lib/content/types";
+
 export type HelocPageSlug =
   | "home-improvement"
   | "debt-consolidation"
@@ -36,17 +38,18 @@ export type HelocLandingPage = {
   benefits: string[];
   advisorNotes: string[];
   faqs: HelocFaq[];
+  related: RelatedRefs;
 };
 
 export const homeEquityCopy = {
   primaryCta: "Build My Home Equity Strategy",
   secondaryCta: "Talk To A Mortgage Advisor",
   humanPromise:
-    "Technology helps us understand your situation quickly. A real mortgage advisor helps you make the right decision.",
+    "Start online. A Broadview advisor reviews the details before recommendations are made.",
   prepareConversation:
     "Your answers help us prepare. The real value comes from the conversation that follows.",
   advisorReview:
-    "A real Broadview mortgage advisor will personally review your information before walking through your options with you.",
+    "A Broadview advisor personally reviews your property, goal, and timing before walking through options.",
   noPressure:
     "Clear answers, no call-center feel, no pressure, and no obligation to move forward.",
   notAlone:
@@ -54,7 +57,7 @@ export const homeEquityCopy = {
   resultsPromise:
     "A Broadview mortgage advisor will personally review your information and walk through your options with you.",
   compliance:
-    "This is not a loan approval or commitment to lend. Final eligibility depends on full application, credit, income, assets, property, occupancy, lien position, and underwriting review.",
+    "This is educational guidance and not a commitment to lend. Final terms depend on full review of credit, income, assets, property, occupancy, lien position, and underwriting.",
 };
 
 export const helocGoalCards: HelocGoalCard[] = [
@@ -97,19 +100,19 @@ export const helocGoalCards: HelocGoalCard[] = [
 
 const defaultFaqs: HelocFaq[] = [
   {
-    question: "Will checking my equity options affect my credit?",
+    question: "Can I start without a credit pull?",
     answer:
-      "The Broadview equity check is designed as an initial educational review. No credit pull is needed to start the conversation.",
+      "Yes. The HELOC Strategy Experience starts with your goal, property, and estimated credit range. No credit pull is needed to begin.",
   },
   {
-    question: "Is this a loan approval?",
+    question: "What happens after I share my information?",
     answer:
-      "No. Results are based on the information you provide and are not a loan approval, loan offer, or commitment to lend.",
+      "A Broadview advisor reviews your answers and prepares recommendations for a home equity conversation.",
   },
   {
-    question: "Will someone actually call me?",
+    question: "Why work with Broadview instead of a call center?",
     answer:
-      "Yes. Your information helps us prepare, and a Broadview mortgage advisor will follow up to answer questions and walk through potential options.",
+      "Broadview combines a fast online strategy experience with advisor review, so you get context before comparing home equity options.",
   },
 ];
 
@@ -118,10 +121,10 @@ export const helocLandingPages: HelocLandingPage[] = [
     slug: "home-improvement",
     path: "/heloc/home-improvement",
     title: "Home Improvement Equity Strategy",
-    eyebrow: "Home Equity Solutions for Renovations",
-    h1: "Use home equity for renovations with an advisor by your side.",
+    eyebrow: "Home Improvement HELOC Strategy",
+    h1: "Explore a HELOC for home improvements without replacing your first mortgage.",
     description:
-      "Explore Home Equity Solutions for remodeling, repairs, additions, or upgrades while keeping the bigger mortgage strategy in view.",
+      "For remodels, repairs, additions, and ADUs, start with a quick home equity strategy reviewed by a Broadview advisor.",
     metadata: {
       title: "Home Improvement HELOC | Renovation Equity Options",
       description:
@@ -130,39 +133,49 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Renovation Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Renovations can improve how you live in your home, but the financing should fit your budget, timeline, and current mortgage.",
+      "Renovations can improve how you live. The equity strategy should fit the project, payment, and current mortgage.",
     audience: "owner-occupied",
     benefits: [
-      "Explore available equity for remodels, repairs, or upgrades.",
-      "Review whether a Home Equity Solution may preserve your current first mortgage.",
-      "Talk through draw timing, payment changes, and project budget fit.",
+      "Estimate equity for remodels, repairs, additions, or ADUs.",
+      "Compare a HELOC with cash-out refinance trade-offs.",
+      "Discuss draw timing, payment changes, and budget fit.",
     ],
     advisorNotes: [
-      "We help you compare the flexibility of a Home Equity Line of Credit with the stability of other financing options.",
-      "If a cash-out refinance is worth considering, your advisor can explain the trade-offs clearly.",
+      "We compare HELOC flexibility with other renovation financing paths.",
+      "Your advisor explains trade-offs before you choose a structure.",
     ],
     faqs: [
       {
         question: "Can a HELOC be used for home improvements?",
         answer:
-          "Yes, many homeowners use a HELOC for renovations or repairs. Eligibility and available line amount depend on equity, credit, income, occupancy, property, and underwriting review.",
+          "Yes. Many homeowners use a HELOC for remodeling, repairs, additions, or ADUs when they want flexible access to equity.",
       },
       {
         question: "Is a HELOC better than a renovation refinance?",
         answer:
-          "It depends on your current rate, project size, payment goals, and timeline. A Broadview advisor can compare both paths with you.",
+          "It depends on your current rate, project size, payment goals, and timeline. Broadview helps compare both paths.",
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "when-does-refinancing-make-sense",
+        "using-home-equity-to-invest",
+      ],
+      calculators: ["cash-out-vs-heloc", "equity-access-planner"],
+      helocLandings: ["keep-your-rate", "heloc-vs-cash-out", "debt-consolidation"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "debt-consolidation",
     path: "/heloc/debt-consolidation",
     title: "Debt Consolidation Equity Options",
-    eyebrow: "Home Equity Solutions for Cash Flow",
-    h1: "Explore debt consolidation with your home equity and real guidance.",
+    eyebrow: "Debt Consolidation HELOC Strategy",
+    h1: "Use home equity to compare debt consolidation options carefully.",
     description:
-      "See whether a HELOC or cash-out strategy may help organize higher-interest debt while understanding the risks and trade-offs.",
+      "Review whether a HELOC or cash-out strategy may simplify payments while understanding the risks of secured debt.",
     metadata: {
       title: "Debt Consolidation HELOC | Home Equity Debt Options",
       description:
@@ -171,39 +184,49 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Cash-Flow Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Consolidating debt can change your monthly cash flow, but it also turns unsecured debt into debt secured by your home.",
+      "Consolidating debt can change monthly cash flow. It also turns unsecured debt into debt secured by your home.",
     audience: "owner-occupied",
     benefits: [
-      "Estimate whether your equity position may support consolidation.",
-      "Compare HELOC flexibility with cash-out refinance alternatives.",
-      "Understand payment, lien, and repayment considerations before choosing a path.",
+      "Estimate whether equity may support consolidation.",
+      "Compare HELOC flexibility with cash-out alternatives.",
+      "Review payment, lien, and repayment considerations.",
     ],
     advisorNotes: [
-      "We do not treat debt consolidation as just a math problem. Your advisor will talk through behavior, budget, and long-term fit.",
-      "The goal is clarity, not pressure.",
+      "We review debt consolidation as budget planning, not just math.",
+      "Your advisor helps compare options without pressure.",
     ],
     faqs: [
       {
         question: "Can I use a HELOC to consolidate debt?",
         answer:
-          "Potentially, yes. A HELOC may be used for debt consolidation, but final eligibility depends on full underwriting and you should understand the risk of securing debt against your home.",
+          "Potentially. A HELOC may be used for debt consolidation, but you should understand the risk of securing debt against your home.",
       },
       {
         question: "Will Broadview tell me if a HELOC is not the right fit?",
         answer:
-          "Yes. The advisor conversation is meant to compare options and help you avoid a strategy that does not fit your situation.",
+          "Yes. The advisor conversation is designed to compare options and avoid a strategy that does not fit.",
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "debt-consolidation-strategies",
+        "heloc-vs-cash-out-refinance",
+        "when-does-refinancing-make-sense",
+      ],
+      calculators: ["debt-consolidation-planner", "cash-out-vs-heloc"],
+      helocLandings: ["keep-your-rate", "heloc-vs-cash-out", "home-improvement"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "buy-another-home",
     path: "/heloc/buy-another-home",
     title: "Use Equity to Buy Another Home",
-    eyebrow: "Home Equity Solutions for Your Next Property",
-    h1: "Use home equity to explore buying another home.",
+    eyebrow: "HELOC Strategy for Buying Another Home",
+    h1: "Explore using home equity to buy another home.",
     description:
-      "Review whether equity in your current property may support a down payment, bridge strategy, second home, or move-up plan.",
+      "See whether equity in your current property may support a down payment, bridge strategy, second home, or move-up plan.",
     metadata: {
       title: "Use Home Equity to Buy Another Home | HELOC Options",
       description:
@@ -212,39 +235,49 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Next-Home Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Buying another home often depends on timing, cash reserves, debt-to-income, and whether keeping your current first mortgage helps.",
+      "Buying another home depends on timing, cash reserves, and whether keeping your current first mortgage helps.",
     audience: "owner-occupied",
     benefits: [
-      "Estimate equity available for a potential down payment.",
-      "Review second-home, move-up, and bridge-style considerations.",
-      "Coordinate the equity strategy with the next purchase loan.",
+      "Estimate equity for a potential down payment.",
+      "Review second-home, move-up, and bridge considerations.",
+      "Connect the equity strategy to the next purchase.",
     ],
     advisorNotes: [
-      "Your advisor can help connect the current-home strategy with the next-home financing plan.",
-      "We will discuss whether a HELOC, cash-out refinance, or other purchase structure may fit.",
+      "Your advisor connects the current-home strategy to the next purchase.",
+      "We compare HELOC, cash-out, and purchase structures.",
     ],
     faqs: [
       {
         question: "Can I use a HELOC for a down payment on another home?",
         answer:
-          "Potentially. Lender guidelines, occupancy, reserves, and debt-to-income requirements all matter, so this should be reviewed with an advisor.",
+          "Potentially. Occupancy, reserves, monthly payment, and purchase timing all matter, so advisor review is important.",
       },
       {
         question: "Should I get a HELOC before shopping for the next home?",
         answer:
-          "Sometimes timing matters. A Broadview advisor can help you understand when to move forward and how it may affect purchase qualification.",
+          "Sometimes. Timing can affect your purchase plan, so Broadview helps map the sequence before you shop.",
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "buy-before-you-sell",
+        "heloc-vs-cash-out-refinance",
+        "using-home-equity-to-invest",
+      ],
+      calculators: ["buy-before-sell-planner", "equity-access-planner"],
+      helocLandings: ["keep-your-rate", "investment-property", "heloc-vs-cash-out"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "investment-property",
     path: "/heloc/investment-property",
     title: "Investment Property Equity Strategy",
-    eyebrow: "Home Equity Solutions for Real Estate Investors",
-    h1: "Turn equity into an investment-property strategy.",
+    eyebrow: "Investment Property HELOC Strategy",
+    h1: "Use equity to plan your next investment property move.",
     description:
-      "Explore rental-property equity, owner-occupied leverage, DSCR possibilities, and portfolio cash-flow considerations with a mortgage advisor.",
+      "Compare rental-property equity, owner-occupied leverage, DSCR possibilities, and portfolio cash-flow considerations.",
     metadata: {
       title: "Investment Property HELOC | Real Estate Equity Strategy",
       description:
@@ -253,22 +286,22 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Investor Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Investor equity decisions should consider cash flow, reserves, lien position, and the next acquisition or portfolio goal.",
+      "Investor equity decisions should consider cash flow, reserves, lien position, and the next acquisition.",
     audience: "investment",
     benefits: [
-      "Review equity access for acquisition, reserves, or property improvements.",
-      "Discuss DSCR possibilities and investor loan structures.",
+      "Review equity access for acquisition, reserves, or improvements.",
+      "Discuss DSCR possibilities and investor structures.",
       "Compare owner-occupied and rental-property equity paths.",
     ],
     advisorNotes: [
-      "We help investors think beyond proceeds and consider cash-flow durability.",
-      "If rental-property HELOC availability is limited, your advisor can discuss alternative investor strategies.",
+      "We help investors think beyond proceeds and cash-to-close.",
+      "Your advisor can discuss alternatives if HELOC availability is limited.",
     ],
     faqs: [
       {
-        question: "Can investment properties qualify for a HELOC?",
+        question: "Can investment properties use a HELOC?",
         answer:
-          "Some programs may allow equity access on investment properties, but guidelines can be more restrictive than primary residences.",
+          "Some programs may allow investment-property equity access, but guidelines are often more restrictive than primary residences.",
       },
       {
         question: "What is DSCR?",
@@ -277,13 +310,23 @@ export const helocLandingPages: HelocLandingPage[] = [
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "using-home-equity-to-invest",
+        "heloc-vs-cash-out-refinance",
+        "debt-consolidation-strategies",
+      ],
+      calculators: ["equity-access-planner", "cash-out-vs-heloc"],
+      helocLandings: ["rental-property", "heloc-vs-cash-out", "buy-another-home"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "rental-property",
     path: "/heloc/rental-property",
     title: "Rental Property Equity Options",
-    eyebrow: "Home Equity Solutions for Rental Owners",
-    h1: "Access rental-property equity with an investor-minded advisor.",
+    eyebrow: "Rental Property HELOC Strategy",
+    h1: "Explore rental-property equity with an investor-minded advisor.",
     description:
       "Review ways rental owners may use equity for improvements, reserves, acquisitions, or portfolio planning.",
     metadata: {
@@ -294,16 +337,16 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Rental Equity Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Rental equity can support growth or stability, but the right structure depends on property cash flow and investor guidelines.",
+      "Rental equity can support growth or stability. The right structure depends on cash flow and investor guidelines.",
     audience: "investment",
     benefits: [
-      "Estimate equity available in a rental or investment property.",
-      "Talk through rental cash flow, reserves, and lien-position considerations.",
+      "Estimate equity in a rental or investment property.",
+      "Review cash flow, reserves, and lien-position considerations.",
       "Compare HELOC, cash-out refinance, and DSCR-style paths.",
     ],
     advisorNotes: [
-      "Your advisor can help evaluate whether tapping rental equity strengthens or strains the portfolio.",
-      "We will help identify when an owner-occupied equity path may be simpler than a rental-property path.",
+      "Your advisor helps evaluate whether tapping equity strengthens the portfolio.",
+      "We compare rental-property and owner-occupied equity paths.",
     ],
     faqs: [
       {
@@ -312,19 +355,29 @@ export const helocLandingPages: HelocLandingPage[] = [
           "It can be. Investment-property guidelines are often more restrictive, and pricing, CLTV limits, income review, and reserves may differ.",
       },
       {
-        question: "Can rental income help qualify?",
+        question: "Can rental income be reviewed?",
         answer:
-          "Potentially. Rental income and DSCR-style options may matter depending on the program and full underwriting review.",
+          "Potentially. Rental income and DSCR-style options may matter depending on the strategy and property cash flow.",
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "using-home-equity-to-invest",
+        "heloc-vs-cash-out-refinance",
+        "buy-before-you-sell",
+      ],
+      calculators: ["equity-access-planner", "cash-out-vs-heloc"],
+      helocLandings: ["investment-property", "heloc-vs-cash-out", "keep-your-rate"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "keep-your-rate",
     path: "/heloc/keep-your-rate",
     title: "Keep Your First Mortgage Rate",
-    eyebrow: "Home Equity Solutions for Low-Rate Homeowners",
-    h1: "Need cash but want to keep your current low mortgage rate?",
+    eyebrow: "Keep Your Low Mortgage Rate",
+    h1: "Need cash without giving up your current mortgage rate?",
     description:
       "Explore whether a HELOC may help access equity without replacing a favorable first mortgage rate.",
     metadata: {
@@ -335,22 +388,22 @@ export const helocLandingPages: HelocLandingPage[] = [
     primaryCta: "Build My Keep-My-Rate Strategy",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "Replacing a low first mortgage can be expensive. A HELOC may be one way to access equity while preserving that loan.",
+      "Replacing a low first mortgage can be expensive. A HELOC may access equity while preserving that loan.",
     audience: "owner-occupied",
     benefits: [
-      "Review why keeping your current first mortgage may matter.",
-      "Estimate available equity without assuming a full refinance.",
-      "Compare HELOC payment flexibility with cash-out refinance trade-offs.",
+      "Review why keeping your first mortgage may matter.",
+      "Estimate equity without assuming a full refinance.",
+      "Compare HELOC flexibility with cash-out trade-offs.",
     ],
     advisorNotes: [
-      "We will help you compare the blended cost of a HELOC against replacing your first mortgage.",
-      "The right answer depends on rates, loan balance, desired cash, and how long you plan to keep the home.",
+      "We compare a HELOC against replacing your first mortgage.",
+      "Your advisor reviews rates, balance, cash need, and timeline.",
     ],
     faqs: [
       {
         question: "Can a HELOC let me keep my current mortgage?",
         answer:
-          "Often, a HELOC sits behind the existing first mortgage, which may let you keep that loan in place. Final structure depends on program and underwriting.",
+          "Often, a HELOC sits behind the existing first mortgage, which may let you keep that loan in place.",
       },
       {
         question: "When would a cash-out refinance still make sense?",
@@ -359,33 +412,43 @@ export const helocLandingPages: HelocLandingPage[] = [
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "when-does-refinancing-make-sense",
+        "debt-consolidation-strategies",
+      ],
+      calculators: ["cash-out-vs-heloc", "equity-access-planner"],
+      helocLandings: ["heloc-vs-cash-out", "home-improvement", "debt-consolidation"],
+      funnels: ["heloc"],
+    },
   },
   {
     slug: "heloc-vs-cash-out",
     path: "/heloc/heloc-vs-cash-out",
     title: "HELOC vs Cash-Out Refinance",
-    eyebrow: "Compare Home Equity Solutions",
+    eyebrow: "HELOC vs Cash-Out Refinance",
     h1: "HELOC vs cash-out refinance: compare before you choose.",
     description:
       "Understand the trade-offs between keeping your current first mortgage and replacing it with a cash-out refinance.",
     metadata: {
       title: "HELOC vs Cash-Out Refinance | Compare Equity Options",
       description:
-        "Compare HELOC and cash-out refinance options with Broadview Lending. Get advisor guidance on equity access, rate trade-offs, and eligibility.",
+        "Compare HELOC and cash-out refinance options with Broadview Lending. Get advisor guidance on equity access and rate trade-offs.",
     },
     primaryCta: "Compare My Home Equity Options",
     secondaryCta: homeEquityCopy.secondaryCta,
     goalPrompt:
-      "The right equity option depends on your current rate, desired cash amount, repayment preference, and full qualification profile.",
+      "The right equity option depends on your current rate, cash need, repayment preference, and timeline.",
     audience: "comparison",
     benefits: [
       "Compare keeping your first mortgage with replacing it.",
-      "Review flexible line-of-credit access versus one new loan.",
-      "Understand how lien position, CLTV, and underwriting affect options.",
+      "Review flexible credit-line access versus one new loan.",
+      "Understand lien position, CLTV, and payment trade-offs.",
     ],
     advisorNotes: [
-      "Broadview uses digital tools to prepare the comparison, then a real advisor explains the trade-offs.",
-      "You should understand both paths before deciding what comes next.",
+      "Broadview prepares the comparison, then an advisor explains it.",
+      "You should understand both paths before choosing next steps.",
     ],
     faqs: [
       {
@@ -396,10 +459,20 @@ export const helocLandingPages: HelocLandingPage[] = [
       {
         question: "Can Broadview compare both options?",
         answer:
-          "Yes. Potential options may include a HELOC, cash-out refinance, or another structure based on the information you provide and full eligibility review.",
+          "Yes. Potential paths may include a HELOC, cash-out refinance, or another structure based on your goal and property.",
       },
       ...defaultFaqs,
     ],
+    related: {
+      articles: [
+        "heloc-vs-cash-out-refinance",
+        "when-does-refinancing-make-sense",
+        "debt-consolidation-strategies",
+      ],
+      calculators: ["cash-out-vs-heloc", "equity-access-planner"],
+      helocLandings: ["keep-your-rate", "debt-consolidation", "home-improvement"],
+      funnels: ["heloc"],
+    },
   },
 ];
 

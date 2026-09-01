@@ -12,7 +12,7 @@ import type { RelatedRefs, SeoMeta } from "@/lib/content/types";
  */
 export type CalculatorStatus = "live" | "planned";
 
-export type CalculatorCategory = "buy" | "refinance" | "home-equity" | "planning";
+export type CalculatorCategory = "buy" | "refinance" | "home-equity" | "planning" | "invest";
 
 export type CalculatorMeta = {
   slug: string;
@@ -59,6 +59,22 @@ export const calculators: CalculatorMeta[] = [
       title: "Cash-Out vs HELOC Calculator",
       description:
         "Compare a cash-out refinance against a HELOC to access equity wisely with Broadview Lending.",
+    },
+  },
+  {
+    slug: "investor-deal-analyzer",
+    title: "Investor Deal Analyzer",
+    tagline:
+      "Estimate financing, cash flow, DSCR, cap rate, and returns from a property scenario.",
+    category: "invest",
+    status: "live",
+    related: {
+      funnels: [],
+    },
+    seo: {
+      title: "Investor Deal Analyzer",
+      description:
+        "Estimate financing, cash flow, DSCR, cap rate, and returns for an investment property with Broadview Lending. Educational estimates only.",
     },
   },
   {

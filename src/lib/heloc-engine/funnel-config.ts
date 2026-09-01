@@ -1,0 +1,112 @@
+import type { LeadFunnelData, PropertyTypeId } from "@/lib/heloc-engine/types";
+
+export const FUNNEL_VERSION = "v12-occupancy-2026" as const;
+
+export const AUTO_ADVANCE_DELAY_MS = 250;
+
+export const FUNNEL_PROPERTY_OPTIONS: { id: PropertyTypeId; label: string }[] = [
+  { id: "single-family", label: "Single Family" },
+  { id: "condo", label: "Condo" },
+  { id: "two-to-four-unit", label: "2–4 Unit" },
+  { id: "other", label: "Other" },
+];
+
+const PROPERTY_TYPES: { id: PropertyTypeId; label: string }[] = [
+  ...FUNNEL_PROPERTY_OPTIONS,
+  { id: "duplex", label: "Duplex" },
+  { id: "triplex", label: "Triplex" },
+  { id: "fourplex", label: "Fourplex" },
+  { id: "duplex-triplex-fourplex", label: "Duplex/Triplex/Fourplex" },
+  { id: "small-multifamily", label: "Small multifamily" },
+  { id: "fourplex-plus", label: "Fourplex or larger" },
+  { id: "townhome", label: "Townhome" },
+  { id: "str-vacation", label: "Vacation Rental" },
+  { id: "str-airbnb", label: "Short-term rental" },
+];
+
+/** Pre-submit question steps (excludes confirmation). */
+export const FUNNEL_QUESTION_COUNT = 5;
+export const FUNNEL_STEP_COUNT = 6;
+
+export const FUNNEL_STEPS = [
+  { id: "property-address", title: "Property", step: 1 },
+  { id: "property-use", title: "Use", step: 2 },
+  { id: "credit-score", title: "Credit", step: 3 },
+  { id: "capital", title: "Capital", step: 4 },
+  { id: "contact-info", title: "Contact", step: 5 },
+  { id: "confirmation", title: "Confirmation", step: 6 },
+] as const;
+
+export const DEFAULT_FUNNEL_DATA: LeadFunnelData = {
+  propertyOccupancy: "",
+  propertyType: "",
+  propertyValueRange: "",
+  mortgageBalanceRange: "",
+  equityAccessRange: "",
+  creditScoreRange: "",
+  propertyCount: "",
+  fundingTimeline: "",
+  propertyRented: "",
+  propertyStreet: "",
+  propertyCity: "",
+  propertyState: "",
+  propertyZip: "",
+  googlePlaceId: "",
+  propertyFormattedAddress: "",
+  propertyValue: null,
+  mortgageBalance: null,
+  desiredCashAmount: null,
+  estimatedEquity: null,
+  estimatedHeloc: null,
+  estimatedHelocLow: null,
+  estimatedHelocHigh: null,
+  avmSource: "",
+  propertySqft: null,
+  propertyBeds: null,
+  propertyBaths: null,
+  propertyYearBuilt: null,
+  propertyLatitude: null,
+  propertyLongitude: null,
+  estimatedRent: null,
+  propertyValueLow: null,
+  propertyValueHigh: null,
+  mortgageBalanceLow: null,
+  mortgageBalanceHigh: null,
+  lastSaleDate: "",
+  lastSalePrice: null,
+  recordedMortgageAmount: null,
+  actualMortgageBalance: null,
+  useMortgageEstimate: true,
+  fundingGoal: "",
+  ownershipType: "",
+  funnelStepCompleted: 0,
+  targetCltvPercent: 75,
+  investorScore: null,
+  confidenceRating: "",
+  valuationLastUpdated: "",
+  creditScoreEstimate: null,
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  tcpaConsent: false,
+  marketingOptIn: false,
+};
+
+export function getPropertyTypeLabel(id: PropertyTypeId | ""): string {
+  if (!id) return "Your property";
+  return PROPERTY_TYPES.find((t) => t.id === id)?.label ?? "Your property";
+}
+
+export function isValidPropertyType(value: string): value is PropertyTypeId {
+  if (!value) return false;
+  return PROPERTY_TYPES.some((t) => t.id === value);
+}
+
+export function getFunnelStepId(step: number): string {
+  return FUNNEL_STEPS.find((s) => s.step === step)?.id ?? `step-${step}`;
+}
+
+export function getFunnelStepTitle(step: number): string {
+  return FUNNEL_STEPS.find((s) => s.step === step)?.title ?? "";
+}

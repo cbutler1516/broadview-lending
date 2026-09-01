@@ -8,6 +8,7 @@ import { decisionGuides } from "@/lib/content/decision-guides";
 import { comparisons } from "@/lib/content/comparisons";
 import { lifeEvents } from "@/lib/content/life-events";
 import { locationPages } from "@/lib/content/locations";
+import { PRODUCT_DEFINITIONS } from "@/lib/product/configs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -18,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/refinance",
     "/heloc",
     "/commercial",
+    "/invest",
     "/learn",
     "/tools",
     "/guides",
@@ -44,6 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...comparisons.map((c) => `/compare/${c.slug}`),
     ...lifeEvents.map((e) => `/life/${e.slug}`),
     ...locationPages.map((l) => `/locations/${l.slug}`),
+    ...PRODUCT_DEFINITIONS.map((product) => product.path),
   ];
 
   return [...staticRoutes, ...dynamicRoutes].map((path) => ({
