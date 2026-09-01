@@ -19,6 +19,9 @@ export function StickyBottomCTA() {
   const observerRef = useRef<ResizeObserver | null>(null);
 
   const onFunnelPage = Boolean(pathname?.startsWith("/funnel"));
+  const onClientPresentation = Boolean(
+    pathname?.startsWith("/tools/investor-deal-analyzer/presentation"),
+  );
   const scenarioHref = scenarioHrefForPath(pathname);
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export function StickyBottomCTA() {
 
   return (
     <AnimatePresence>
-      {visible && !onFunnelPage && (
+      {visible && !onFunnelPage && !onClientPresentation && (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

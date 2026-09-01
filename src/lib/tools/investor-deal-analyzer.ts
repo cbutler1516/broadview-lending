@@ -7,6 +7,26 @@ export const DEAL_ANALYZER_PATH = "/tools/investor-deal-analyzer";
 export type AnalyzerAudience = "investor" | "realtor";
 export type AnalyzerShape = "hold" | "rehab" | "brrrr";
 
+export type AnalyzerAgent = {
+  name: string;
+  brokerage: string;
+  email: string;
+  phone: string;
+};
+
+export const EMPTY_ANALYZER_AGENT: AnalyzerAgent = {
+  name: "",
+  brokerage: "",
+  email: "",
+  phone: "",
+};
+
+export const ANALYZER_SHAPES: { value: AnalyzerShape; label: string }[] = [
+  { value: "hold", label: "Hold / rental" },
+  { value: "rehab", label: "Rehab / flip" },
+  { value: "brrrr", label: "BRRRR" },
+];
+
 export const PROPERTY_TYPE_OPTIONS: { value: PropertyType; label: string }[] = [
   { value: "sfr", label: "Single-family" },
   { value: "condo", label: "Condo" },
@@ -118,10 +138,30 @@ export function syncLoanAndDown(
   return { ...form, loanAmount: String(Math.max(0, purchase - down)) };
 }
 
+export function agentHasDetails(agent?: AnalyzerAgent): boolean {
+  if (!agent) return false;
+  return Boolean(
+    agent.name.trim() ||
+      agent.brokerage.trim() ||
+      agent.email.trim() ||
+      agent.phone.trim(),
+  );
+}
+
+export function propertyTypeLabel(value: AnalyzerForm["propertyType"]): string {
+  return PROPERTY_TYPE_OPTIONS.find((option) => option.value === value)?.label ?? value;
+}
+
+export function shapeLabel(shape: AnalyzerShape): string {
+  return ANALYZER_SHAPES.find((option) => option.value === shape)?.label ?? shape;
+}
+
 export function formToDealScenario(
   form: AnalyzerForm,
   audience: AnalyzerAudience,
   shape: AnalyzerShape,
+  agent?: AnalyzerAgent,
+  scenarioId?: string,
 ): DealScenario {
   const includeRehab = showRehabFields(shape);
   const includeBrrrr = showBrrrrFields(shape);
@@ -176,6 +216,17 @@ export function formToDealScenario(
           ltvPercent: parseDealNumber(form.refinanceLtvPercent),
         }
       : {},
+    source: {
+      savedScenarioId: scenarioId,
+      agent: agentHasDetails(agent)
+        ? {
+            name: agent?.name.trim() || undefined,
+            company: agent?.brokerage.trim() || undefined,
+            email: agent?.email.trim() || undefined,
+            phone: agent?.phone.trim() || undefined,
+          }
+        : undefined,
+    },
   };
 }
 
@@ -216,3 +267,5 @@ export const ANALYZER_RELATED = [
 ] as const;
 
 export const FINANCING_REVIEW_HREF = "/invest";
+export const CLIENT_ANALYSIS_PRESENTATION_PATH =
+  "/tools/investor-deal-analyzer/presentation";

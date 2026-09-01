@@ -380,4 +380,24 @@ p {
   scroll-margin-top: 5rem;
 }
 
+@media print {
+  @page {
+    margin: 0.6in;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .client-analysis-sheet {
+    max-width: none;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .client-analysis-actions {
+    display: none !important;
+  }
+}
+
 

@@ -47,7 +47,7 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy-950 text-slate-300 pb-20 lg:pb-6">
+    <footer className="bg-navy-950 text-slate-300 pb-20 lg:pb-6 print:hidden">
       <Container>
         <div className="py-16 sm:py-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           <div className="col-span-2">

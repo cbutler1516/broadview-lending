@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, FileText } from "lucide-react";
 import { evaluateDeal } from "@/lib/deal-engine";
 import {
   formatDealMoney,
@@ -11,10 +12,13 @@ import {
 } from "@/lib/deal-engine/format";
 import { trackConversionEvent } from "@/lib/analytics/events";
 import { recordCalculator } from "@/lib/strategy/workspace";
-import { CTA_PRIMARY, CTA_SECONDARY } from "@/lib/ui/styles";
+import { CTA_NAVY, CTA_PRIMARY, CTA_SECONDARY } from "@/lib/ui/styles";
 import {
   ANALYZER_COPY,
+  ANALYZER_SHAPES,
+  CLIENT_ANALYSIS_PRESENTATION_PATH,
   DEAL_ANALYZER_SLUG,
+  EMPTY_ANALYZER_AGENT,
   EMPTY_ANALYZER_FORM,
   FINANCING_REVIEW_HREF,
   PROPERTY_TYPE_OPTIONS,
@@ -23,16 +27,18 @@ import {
   showBrrrrFields,
   showRehabFields,
   syncLoanAndDown,
+  type AnalyzerAgent,
   type AnalyzerAudience,
   type AnalyzerForm,
   type AnalyzerShape,
 } from "@/lib/tools/investor-deal-analyzer";
-
-const SHAPES: { value: AnalyzerShape; label: string }[] = [
-  { value: "hold", label: "Hold / rental" },
-  { value: "rehab", label: "Rehab / flip" },
-  { value: "brrrr", label: "BRRRR" },
-];
+import type { ClientAnalysisDraft } from "@/lib/tools/client-analysis";
+import {
+  clearClientAnalysisDraft,
+  presentationFlags,
+  saveClientAnalysisDraft,
+} from "@/lib/tools/client-analysis";
+import { useClientAnalysisDraft } from "@/lib/tools/use-client-analysis-draft";
 
 function Segmented<T extends string>({
   value,
@@ -147,26 +153,41 @@ function cashTone(value: number | null): "positive" | "negative" | undefined {
 }
 
 export function InvestorDealAnalyzer() {
-  const [audience, setAudience] = useState<AnalyzerAudience>("investor");
-  const [shape, setShape] = useState<AnalyzerShape>("hold");
-  const [form, setForm] = useState<AnalyzerForm>(EMPTY_ANALYZER_FORM);
+  const draft = useClientAnalysisDraft();
+  const restoreKey = draft === undefined ? "pending" : draft ? "restored" : "fresh";
+
+  return (
+    <InvestorDealAnalyzerForm key={restoreKey} initialDraft={draft ?? null} />
+  );
+}
+
+function InvestorDealAnalyzerForm({
+  initialDraft,
+}: {
+  initialDraft: ClientAnalysisDraft | null;
+}) {
+  const router = useRouter();
+  const [audience, setAudience] = useState<AnalyzerAudience>(
+    initialDraft?.audience ?? "investor",
+  );
+  const [shape, setShape] = useState<AnalyzerShape>(initialDraft?.shape ?? "hold");
+  const [form, setForm] = useState<AnalyzerForm>(initialDraft?.form ?? EMPTY_ANALYZER_FORM);
+  const [agent, setAgent] = useState<AnalyzerAgent>(
+    initialDraft?.agent ?? EMPTY_ANALYZER_AGENT,
+  );
   const started = useRef(false);
   const completed = useRef(false);
   const copy = ANALYZER_COPY[audience];
 
   const analysis = useMemo(
-    () => evaluateDeal(formToDealScenario(form, audience, shape)),
-    [form, audience, shape],
+    () => evaluateDeal(formToDealScenario(form, audience, shape, agent)),
+    [form, audience, shape, agent],
   );
   const startedAnalysis = hasStartedAnalysis(form);
   const { metrics } = analysis;
   const includeRehab = showRehabFields(shape);
   const includeBrrrr = showBrrrrFields(shape);
-  const showFlip =
-    includeRehab &&
-    (metrics.projectedFlipProfit !== null || metrics.projectedFlipRoiPercent !== null);
-  const showBrrrr = includeBrrrr && metrics.brrrrCashRemaining !== null;
-  const showLtc = includeRehab || (metrics.ltcPercent !== null && shape !== "hold");
+  const { showLtc, showFlip, showBrrrr } = presentationFlags(shape, metrics);
 
   function markStarted() {
     if (started.current) return;
@@ -196,9 +217,30 @@ export function InvestorDealAnalyzer() {
     recordCalculator(DEAL_ANALYZER_SLUG);
   }, [startedAnalysis, audience, shape]);
 
+  function updateAgent<K extends keyof AnalyzerAgent>(key: K, value: AnalyzerAgent[K]) {
+    setAgent((current) => ({ ...current, [key]: value }));
+  }
+
   function reset() {
     setForm(EMPTY_ANALYZER_FORM);
+    setAgent(EMPTY_ANALYZER_AGENT);
     completed.current = false;
+    clearClientAnalysisDraft();
+  }
+
+  function createClientAnalysis() {
+    saveClientAnalysisDraft({
+      version: 1,
+      audience,
+      shape,
+      form,
+      agent,
+    });
+    trackConversionEvent("tool_cta_clicked", {
+      tool: DEAL_ANALYZER_SLUG,
+      destination: CLIENT_ANALYSIS_PRESENTATION_PATH,
+    });
+    router.push(CLIENT_ANALYSIS_PRESENTATION_PATH);
   }
 
   return (
@@ -224,8 +266,62 @@ export function InvestorDealAnalyzer() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
             Deal structure
           </p>
-          <Segmented label="Deal structure" value={shape} onChange={setShape} options={SHAPES} />
+          <Segmented
+            label="Deal structure"
+            value={shape}
+            onChange={setShape}
+            options={ANALYZER_SHAPES}
+          />
         </div>
+
+        {audience === "realtor" ? (
+          <fieldset className="space-y-4">
+            <legend className="text-xl font-bold tracking-[-0.03em] text-navy-900 mb-1">
+              Your details
+            </legend>
+            <p className="text-xs text-slate-400">
+              Optional. Shown on the client analysis as the presenting agent.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field id="agentName" label="Agent name">
+                <TextInput
+                  id="agentName"
+                  value={agent.name}
+                  onChange={(value) => updateAgent("name", value)}
+                  inputMode="text"
+                  autoComplete="name"
+                />
+              </Field>
+              <Field id="agentBrokerage" label="Brokerage">
+                <TextInput
+                  id="agentBrokerage"
+                  value={agent.brokerage}
+                  onChange={(value) => updateAgent("brokerage", value)}
+                  inputMode="text"
+                  autoComplete="organization"
+                />
+              </Field>
+              <Field id="agentEmail" label="Email">
+                <TextInput
+                  id="agentEmail"
+                  value={agent.email}
+                  onChange={(value) => updateAgent("email", value)}
+                  inputMode="text"
+                  autoComplete="email"
+                />
+              </Field>
+              <Field id="agentPhone" label="Phone">
+                <TextInput
+                  id="agentPhone"
+                  value={agent.phone}
+                  onChange={(value) => updateAgent("phone", value)}
+                  inputMode="text"
+                  autoComplete="tel"
+                />
+              </Field>
+            </div>
+          </fieldset>
+        ) : null}
 
         <fieldset className="space-y-4">
           <legend className="text-xl font-bold tracking-[-0.03em] text-navy-900 mb-1">
@@ -584,6 +680,16 @@ export function InvestorDealAnalyzer() {
               </p>
 
               <div className="mt-6 flex flex-col gap-3">
+                {audience === "realtor" ? (
+                  <button
+                    type="button"
+                    onClick={createClientAnalysis}
+                    className={`${CTA_NAVY} w-full justify-center`}
+                  >
+                    <FileText className="w-4 h-4" />
+                    Create Client Analysis
+                  </button>
+                ) : null}
                 <Link
                   href={FINANCING_REVIEW_HREF}
                   onClick={() =>
@@ -592,7 +698,7 @@ export function InvestorDealAnalyzer() {
                       destination: FINANCING_REVIEW_HREF,
                     })
                   }
-                  className={`${CTA_PRIMARY} w-full justify-center`}
+                  className={`${audience === "realtor" ? CTA_SECONDARY : CTA_PRIMARY} w-full justify-center`}
                 >
                   Review Financing Options
                   <ArrowRight className="w-4 h-4" />

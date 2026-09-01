@@ -90,6 +90,7 @@ export interface DealSource {
     name?: string;
     company?: string;
     email?: string;
+    phone?: string;
   };
   mls?: {
     listingId?: string;
