@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CinematicHero } from "@/components/heroes/cinematic-hero";
 import { BookingLink } from "@/components/booking-link";
-import { INVEST_PATHS, INVEST_TOOLS } from "@/lib/invest/content";
-import { commercialBackgroundVideo } from "@/lib/media/assets";
+import { INVEST_PATHS } from "@/lib/invest/content";
+import { loanImages } from "@/lib/media/assets";
 import { siteUrl } from "@/lib/brand/config";
 import { CTA_NAVY } from "@/lib/ui/styles";
 
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Investor Financing | DSCR, Fix & Flip, Bridge & More",
   description:
     "Analyze the deal. Understand the financing. Build your strategy. Broadview helps real estate investors review DSCR, fix & flip, bridge, construction, BRRRR, investor HELOC, and commercial paths.",
+  alternates: { canonical: `${siteUrl}/invest` },
   openGraph: { url: `${siteUrl}/invest` },
 };
 
@@ -20,7 +21,7 @@ export default function InvestHubPage() {
     <>
       <main>
       <CinematicHero
-        video={commercialBackgroundVideo}
+        video={loanImages.rental}
         overlay="bottom-left"
         verticalPosition="upper-middle"
         minHeightClass="min-h-[72svh] sm:min-h-[80svh]"
@@ -33,13 +34,12 @@ export default function InvestHubPage() {
           Analyze the deal. Understand the financing. Build your strategy.
         </h1>
         <p className="text-lg text-white/75 leading-relaxed max-w-xl mb-8">
-          Broadview is a conventional mortgage advisory platform and a
-          sophisticated investor financing desk. Start with the deal. An advisor
-          helps structure the conversation.
+          Explore the numbers, compare financing paths, and review your plan
+          with a Broadview advisor.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
-            href="#analyze"
+            href="/tools/investor-deal-analyzer"
             className="inline-flex items-center justify-center gap-2 bg-white text-navy-900 hover:bg-slate-100 px-7 py-3.5 min-h-[52px] rounded-full text-sm font-semibold"
           >
             Analyze a Deal
@@ -63,7 +63,7 @@ export default function InvestHubPage() {
             Financing Strategies
           </p>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-navy-900 leading-[1.05] max-w-2xl mb-12">
-            Investor paths Broadview can help you think through.
+            Find financing for your next project.
           </h2>
           <div className="grid gap-0 divide-y divide-slate-200/90 border-y border-slate-200/90">
             {INVEST_PATHS.map((path) => (
@@ -81,7 +81,7 @@ export default function InvestHubPage() {
                     href={path.href}
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-700 hover:text-teal-800"
                   >
-                    Continue
+                    Explore {path.title}
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -100,27 +100,17 @@ export default function InvestHubPage() {
             Investor Tools
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-[-0.03em] text-navy-900 mb-4">
-            Deal analysis, opening next.
+            Explore the deal before you commit.
           </h2>
           <p className="text-slate-500 max-w-xl mb-10 leading-relaxed">
-            These tools will share one reusable deal-analysis engine. Calculators
-            land here as they go live.
+            Start with the live Investor Deal Analyzer. Use a sample or your own
+            assumptions to explore financing, cash flow, and returns. No login required.
           </p>
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-            {INVEST_TOOLS.map((tool) => (
-              <li
-                key={tool.title}
-                className="rounded-2xl border border-slate-200 bg-white px-5 py-5"
-              >
-                <p className="font-semibold text-navy-900">{tool.title}</p>
-                <p className="mt-1 text-sm text-slate-400">Coming soon</p>
-              </li>
-            ))}
-          </ul>
-          <Link href="/tools" className={CTA_NAVY}>
-            View current tools
+          <Link href="/tools/investor-deal-analyzer" className={CTA_NAVY}>
+            Open Deal Analyzer
             <ArrowRight className="w-4 h-4" />
           </Link>
+          <p className="mt-6"><Link href="/tools" className="inline-flex min-h-11 items-center text-sm font-semibold text-brand underline underline-offset-4">See all working tools</Link></p>
         </div>
       </section>
       </main>

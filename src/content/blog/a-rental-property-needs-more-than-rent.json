@@ -1,0 +1,63 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "a-rental-property-needs-more-than-rent",
+  "title": "A rental property needs more than a rent number",
+  "excerpt": "Before calling it a great investment, give the everyday expenses a chance to speak.",
+  "category": "Investor Basics",
+  "image": {
+    "src": "/images/blog/rental.webp",
+    "alt": "Illustrative duplex with two blue front doors and a shared garden path"
+  },
+  "takeaway": "Rent is income. It is not the same as money left over.",
+  "sections": [
+    {
+      "heading": "Start with what you actually know",
+      "paragraphs": [
+        "A rental listing can look exciting when the advertised rent is larger than a rough mortgage payment. That is a starting point for questions, not a finished analysis.",
+        "Separate confirmed information from assumptions. Is the rent from an existing lease, an owner's description or your own projection? Is the insurance number a quote or a placeholder? An honest 'still checking' is more useful than a precise-looking number with no basis."
+      ]
+    },
+    {
+      "heading": "Invite the quiet costs into the room",
+      "paragraphs": [
+        "Broadview's Deal Analyzer lets you include property taxes, insurance, association dues, utilities, management, maintenance and other operating expenses. It also lets you test vacancy assumptions. These inputs help explain why rental income and estimated cash flow are different numbers.",
+        "Keep repairs and renovation plans visible too. A newly painted room does not tell you when the next major replacement will be needed. Use the tool to explore scenarios, not to turn an optimistic guess into a prediction. It does not supply a verified value, a rent estimate or a financing offer."
+      ]
+    },
+    {
+      "heading": "Run a less-perfect version",
+      "paragraphs": [
+        "Try changing a few assumptions: a period without rent, a higher insurance bill or a larger repair budget. The aim is not to make the property look bad. It is to notice which assumptions the outcome depends on before you make a commitment.",
+        "Bring the scenario and its unanswered questions to an advisor and relevant property professionals. If you are an agent, the same exercise can help frame a useful client conversation without promising returns. A strong presentation shows what is known, what is estimated and what still needs review."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Broadview — Investor Deal Analyzer and its user-entered assumptions",
+      "href": "/tools/investor-deal-analyzer"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Explore DSCR rental financing",
+      "href": "/invest/dscr"
+    },
+    {
+      "label": "Explore investor financing",
+      "href": "/invest"
+    }
+  ],
+  "nextStep": {
+    "label": "Analyze a rental scenario",
+    "href": "/tools/investor-deal-analyzer"
+  },
+  "relatedSlugs": [
+    "more-homes-to-tour-not-a-clearance-sale",
+    "renovation-wish-list-meet-real-life-budget",
+    "your-home-budget-needs-a-life-budget"
+  ]
+}

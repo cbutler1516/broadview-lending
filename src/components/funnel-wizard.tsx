@@ -8,7 +8,7 @@ import {
   useTransition,
   type ReactNode,
 } from "react";
-import { getActiveQuestions } from "@/lib/funnels/config";
+import { getActiveQuestions, getFunnelDefinition } from "@/lib/funnels/config";
 import type { FunnelDefinition, FunnelResult } from "@/lib/funnels/types";
 import { resolveGoalEntry, labelForGoalValue } from "@/lib/funnels/goal-entry";
 import {
@@ -65,6 +65,12 @@ const purchaseGoalOptions = [
   { value: "exploring", label: "Still exploring" },
 ];
 
+/** Resolve question callbacks on the client, not across the RSC boundary. */
+export function FunnelEntry({ type, campaignPage }: { type: string; campaignPage?: string }) {
+  const definition = getFunnelDefinition(type);
+  return definition ? <FunnelWizard key={`${type}-${campaignPage ?? ""}`} definition={definition} campaignPage={campaignPage} /> : null;
+}
+
 export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const useHelocEngine = definition.type === "heloc";
 
@@ -89,6 +95,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   const [rewardKey, setRewardKey] = useState(0);
   const [showReward, setShowReward] = useState(false);
   const [contactCaptured, setContactCaptured] = useState(false);
+  const [reviewReturnPhase, setReviewReturnPhase] = useState<WizardPhase>("results");
   const [skippedQuestionIds, setSkippedQuestionIds] = useState<Set<string>>(
     () => new Set(),
   );
@@ -162,7 +169,11 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
       ? [homeEquityCopy.advisorReview]
       : ["Technology prepares the conversation. A real advisor helps you decide."];
 
-  const conversationTopics = getConversationTopics(definition, answers);
+  const conversationTopics = getConversationTopics(definition, answers).map((topic) =>
+    definition.type !== "heloc" && topic === "We'll compare available equity options."
+      ? "We'll compare loan structures and costs."
+      : topic,
+  );
 
   const goalStepOptions = useMemo(() => {
     if (definition.type === "heloc") {
@@ -391,6 +402,11 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     });
   }
 
+  function requestAdvisorReview() {
+    setReviewReturnPhase(phase);
+    setPhase("lead-capture");
+  }
+
   function handleRealtorChoice(choice: "yes" | "no" | "already-working") {
     setRealtorChoice(choice);
     if (leadId) {
@@ -404,6 +420,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   }
 
   const panelProps = {
+    equityFocused: definition.type === "heloc",
     sections: builderSections,
     goal: goalLine,
     propertyAddress: answers.propertyAddress,
@@ -445,7 +462,7 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
           preview={phase === "results"}
           submitted={phase === "confirmed"}
           onRequestReview={
-            phase === "results" ? () => setPhase("lead-capture") : undefined
+            phase === "results" ? requestAdvisorReview : undefined
           }
           realtorReferral={realtorChoice}
         />
@@ -465,16 +482,18 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
     return frame(
       <FunnelLayout panel={panelProps}>
         <LeadCaptureForm
-          variant="strategy"
+          variant={definition.type === "heloc" ? "strategy" : "default"}
+          onBack={isPending ? undefined : () => setPhase(reviewReturnPhase)}
           onSubmit={handleLeadSubmit}
           isPending={isPending}
           error={submitError}
-          title={definition.type === "heloc" ? "Great news. Where should we send it?" : "Where should we send your strategy?"}
+          title={definition.type === "heloc" ? "Great news. Where should we send it?" : "Let’s talk through your plans."}
           subtitle={
             definition.type === "heloc"
               ? "Great news. We have enough information to begin preparing your personalized home equity strategy."
-              : "Your personalized strategy is almost ready. A Broadview advisor personally reviews every recommendation."
+              : "Share your contact details so an advisor can follow up. This requests a conversation, not a loan application."
           }
+          submitLabel={definition.type === "heloc" ? undefined : "Request an Advisor Review"}
         />
       </FunnelLayout>,
     );
@@ -535,7 +554,16 @@ export function FunnelWizard({ definition, campaignPage }: FunnelWizardProps) {
   return (
     <>
       <FunnelRewardPulse show={showReward} />
-      {frame(<FunnelLayout panel={panelProps}>{mainContent}</FunnelLayout>)}
+      {frame(<FunnelLayout panel={panelProps}>
+        {mainContent}
+        <div className="mx-auto mt-6 max-w-xl text-center">
+          <p className="text-sm text-muted">Prefer to talk through the details?</p>
+          <button type="button" onClick={requestAdvisorReview}
+            className="mt-1 min-h-11 rounded-lg px-3 text-sm font-semibold text-brand underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30">
+            Have an advisor contact me
+          </button>
+        </div>
+      </FunnelLayout>)}
     </>
   );
 }

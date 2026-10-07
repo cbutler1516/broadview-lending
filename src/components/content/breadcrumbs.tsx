@@ -24,7 +24,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
           return (
             <li key={item.path} className="flex items-center gap-1.5">
               {isLast ? (
-                <span className="font-medium text-foreground">{item.name}</span>
+                <span aria-current="page" className="font-medium text-foreground">{item.name}</span>
               ) : (
                 <>
                   <Link href={item.path} className="hover:text-foreground">

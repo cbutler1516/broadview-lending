@@ -5,6 +5,7 @@ import type {
   SeoMeta,
   StrategySnapshot,
 } from "@/lib/content/types";
+import { academyArticles } from "./academy";
 
 /**
  * Structured knowledge center (not a blog). Articles are written for both human
@@ -12,6 +13,7 @@ import type {
  * a concise summary answer, clear headings, key takeaways, and FAQ blocks.
  */
 export type KnowledgeCategorySlug =
+  | "realtor-academy"
   | "buying"
   | "refinancing"
   | "home-equity"
@@ -28,6 +30,7 @@ export type KnowledgeCategory = {
 };
 
 export const knowledgeCategories: KnowledgeCategory[] = [
+  { slug: "realtor-academy", title: "Realtor Academy", description: "Practical playbooks for better client conversations and stronger preparation." },
   {
     slug: "buying",
     title: "Buying",
@@ -76,6 +79,9 @@ export type ArticleSection = {
 };
 
 export type KnowledgeArticle = {
+  audience?: "realtor" | "homebuyer";
+  sources?: { label: string; href: string }[];
+  practice?: { title: string; items: string[]; conversationStarter: string };
   slug: string;
   category: KnowledgeCategorySlug;
   title: string;
@@ -935,6 +941,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
         "How to use home equity to invest in real estate — carefully and strategically — with Broadview Lending.",
     },
   },
+  ...academyArticles,
 ];
 
 export function getArticle(slug: string): KnowledgeArticle | undefined {

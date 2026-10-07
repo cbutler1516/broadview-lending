@@ -9,6 +9,7 @@ import { WhatHappensNext } from "@/components/what-happens-next";
 import { brand } from "@/lib/brand/config";
 import { homeEquityCopy } from "@/lib/heloc/content";
 import { cn } from "@/lib/utils/cn";
+import { APPLICATION_CTA } from "@/lib/nav/constants";
 
 type FunnelStrategyResultsProps = {
   result: FunnelResult;
@@ -41,8 +42,8 @@ export function FunnelStrategyResults({
     <div className="funnel-step-enter mx-auto w-full max-w-3xl">
       {submitted && (
         <div className="mb-6 rounded-2xl border border-brand/20 bg-brand-light px-5 py-4 text-sm font-medium text-foreground">
-          Your strategy is on its way. A Broadview advisor will personally review
-          your information.
+          Your request has been received. A Broadview advisor will review
+          the information you shared.
         </div>
       )}
 
@@ -151,8 +152,20 @@ export function FunnelStrategyResults({
             </>
           )}
 
+          {submitted && (
+            <div className="rounded-xl border border-border bg-surface p-5">
+              <p className="font-semibold">Ready to apply?</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                Your advisor request is separate from a loan application.
+                Continue through Broadview’s online application portal when you’re ready.
+              </p>
+              <a href={APPLICATION_CTA.href} className="btn-secondary mt-4 flex min-h-12 justify-center">
+                Apply Online
+              </a>
+            </div>
+          )}
           <Link
-            href="/#start"
+            href="/#journeys"
             className={cn("btn-secondary block w-full text-center")}
           >
             Explore Another Goal

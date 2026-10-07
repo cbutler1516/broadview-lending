@@ -1,0 +1,63 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "two-mortgage-quotes-one-fair-comparison",
+  "title": "Two mortgage quotes. One fair comparison.",
+  "excerpt": "The lowest-looking rate is not the whole story. Here’s how to compare without turning your weekend into homework.",
+  "category": "Rates, Simply",
+  "image": {
+    "src": "/images/blog/comparing-quotes.webp",
+    "alt": "Illustrative two blank document folders arranged side by side with a pencil"
+  },
+  "takeaway": "Line up the timing, loan type and upfront costs before choosing between quotes.",
+  "sections": [
+    {
+      "heading": "Make sure you're comparing the same thing",
+      "paragraphs": [
+        "Imagine comparing two flights when one includes baggage and the other does not. Mortgage quotes can have a similar problem: a number looks better before you notice what has changed around it.",
+        "Start by checking the proposed loan amount, loan type, term and timing. Then ask whether the quoted rate is locked and for how long. A side-by-side comparison gets much more useful when the underlying assumptions match."
+      ]
+    },
+    {
+      "heading": "Give the Loan Estimate a job",
+      "paragraphs": [
+        "The CFPB's comparison guidance recommends reviewing the Loan Estimates, not just a headline rate. Look at monthly payment, upfront loan costs, lender credits and cash needed to close. Points can trade an upfront cost for a lower rate; credits can offset upfront costs with other trade-offs.",
+        "Highlight anything that differs and ask why. Some amounts are lender charges, while others are estimates for taxes, insurance or services. Do not assume every difference is a discount—or that every estimate is final."
+      ]
+    },
+    {
+      "heading": "Ask one plain-English question",
+      "paragraphs": [
+        "Try: 'What am I paying today to get this payment, and how does the alternative compare over the time I expect to keep the loan?' You do not need special vocabulary to ask a good question.",
+        "Keep the answer with both estimates. If one proposal leaves an important item unexplained, ask for clarification before deciding. A calm comparison usually beats a race to grab the most exciting number. And if your plans change, revisit the comparison rather than assuming the earlier answer still fits."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Choosing a loan offer",
+      "href": "https://www.consumerfinance.gov/owning-a-home/compare/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Explore purchase options",
+      "href": "/buy"
+    },
+    {
+      "label": "Explore refinance options",
+      "href": "/refinance"
+    }
+  ],
+  "nextStep": {
+    "label": "Talk it through with an advisor",
+    "href": "/contact"
+  },
+  "relatedSlugs": [
+    "october-rate-check-without-the-drama",
+    "refinancing-the-payment-isnt-the-whole-story",
+    "fed-headlines-and-your-mortgage-arent-twins"
+  ]
+}

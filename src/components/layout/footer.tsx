@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LoanPlaybookLinks } from "@/components/loan-playbook-links";
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
@@ -11,6 +12,7 @@ import {
 } from "@/lib/brand/config";
 import {
   CONTACT,
+  APPLICATION_CTA,
   NAV_BUY,
   NAV_HOME_EQUITY,
   NAV_INVEST,
@@ -37,9 +39,14 @@ const footerSections = [
   {
     title: "Next Step",
     links: [
+      { label: "Apply Online", href: APPLICATION_CTA.href },
       { label: "Explore Your Options", href: "/#journeys" },
       { label: "Tools", href: "/tools" },
-      { label: "Learn", href: "/learn" },
+      { label: "Education", href: "/learn" },
+      { label: "Realtor Academy", href: "/learn/realtor-academy" },
+      { label: "Homebuyer Learning Center", href: "/learn/homebuyer-center" },
+      { label: "Blog", href: "/blog" },
+      { label: "Completed financing", href: "/completed-financing" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -51,11 +58,11 @@ export function Footer() {
       <Container>
         <div className="py-16 sm:py-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           <div className="col-span-2">
-            <Link href="/" aria-label={`${SITE_NAME} home`} className="inline-flex min-h-[44px] items-center mb-5">
+            <Link href="/" aria-label={`${SITE_NAME} home`} className="mb-5 inline-flex min-h-[44px] items-center rounded-lg bg-white p-3">
               <BrandLogo
                 variant="full"
                 href={false}
-                className="h-auto max-h-20 w-auto max-w-48 brightness-0 invert"
+                className="w-48"
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-4 max-w-xs">
@@ -81,6 +88,7 @@ export function Footer() {
                 {CONTACT.email}
               </a>
             </div>
+            <LoanPlaybookLinks dark />
           </div>
 
           {footerSections.map((section) => (
@@ -105,6 +113,12 @@ export function Footer() {
         </div>
 
         <div className="py-6 border-t border-navy-800 flex flex-col gap-4">
+          <p className="text-slate-300 text-xs leading-relaxed break-words">
+            Christopher Butler | NMLS #1585236 | Barrett Financial Group, L.L.C. | NMLS #181106 | 2701 East Insight Way, Suite 150, Chandler, AZ 85286 | AZ 0904774 | CA 60DBO-46052 &amp; 41DBO-148702 Licensed by Dept. of Financial Protection &amp; Innovation under the California Residential Mortgage Lending Act. Loans made or arranged pursuant to a California Financing Law License | CO | FL MLD1880 | IL | MI | OR | TX view complaint policy at{" "}
+            <a href="https://barrettfinancial.com/texas-complaint" className="underline underline-offset-2 hover:text-white">barrettfinancial.com/texas-complaint</a>
+            {" "}| WA MB-181106 | Equal Housing Opportunity | Equal Housing Lender | This is not a commitment to lend. All loans are subject to credit approval. |{" "}
+            <a href="https://nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/181106" className="underline underline-offset-2 hover:text-white">nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/181106</a>
+          </p>
           <p className="text-slate-500 text-xs leading-relaxed max-w-4xl">
             {companyLicensing.licensingSummary} Licensed states:{" "}
             {licensedStates.map((state) => state.abbreviation).join(", ")}.

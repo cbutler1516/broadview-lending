@@ -1,0 +1,65 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "featured": true,
+  "slug": "october-rate-check-without-the-drama",
+  "title": "The October rate check—without the drama",
+  "excerpt": "Mortgage headlines got louder this week. Here’s the useful part, and what to do with it before your next home tour.",
+  "category": "Rates, Simply",
+  "image": {
+    "src": "/images/blog/planning.webp",
+    "alt": "Illustrative coffee cup, notebook and house keys on a sunlit table"
+  },
+  "dataAsOf": "Freddie Mac weekly survey: October 1, 2026",
+  "takeaway": "A national rate average is a weather report, not your personal mortgage quote.",
+  "sections": [
+    {
+      "heading": "The short version",
+      "paragraphs": [
+        "Freddie Mac reported a 7.28% average for a 30-year fixed mortgage on October 1, 2026, compared with 7.03% the previous week. Its 15-year average was 6.60%. These are national survey benchmarks, not Broadview rates, advertised loan terms, or a quote available to every borrower.",
+        "The survey describes a particular group of conventional purchase applications. Your loan type, financial picture, property, fees and timing can produce a different result. Treat this as a dated snapshot—not a live rate ticker."
+      ]
+    },
+    {
+      "heading": "What this means at the kitchen table",
+      "paragraphs": [
+        "Our practical takeaway: refresh the payment assumptions before falling in love with a listing. A budget made several weeks ago may not describe the same monthly commitment today. Include taxes, insurance, any association dues and applicable mortgage insurance—not just the loan payment.",
+        "There is no prize for predicting the exact bottom in rates. The more useful question is whether the home works with terms you can actually obtain, while leaving room for the rest of your life. A future refinance should be a possibility to review, not the reason an uncomfortable payment suddenly seems comfortable."
+      ]
+    },
+    {
+      "heading": "Your five-minute next step",
+      "paragraphs": [
+        "Write down a monthly housing number you would feel good living with. Then bring the property price, your planned down payment and your timing to an advisor. Ask for a current, itemized comparison instead of trying to reverse-engineer your options from a national headline.",
+        "If you're not ready to buy, save that note and revisit it when your plans change. Following rates can be useful. Refreshing the news every hour usually adds more noise than clarity."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Freddie Mac — Primary Mortgage Market Survey, October 1, 2026",
+      "href": "https://www.freddiemac.com/pmms"
+    },
+    {
+      "label": "CFPB — Loan Estimate explainer",
+      "href": "https://www.consumerfinance.gov/owning-a-home/loan-estimate/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Explore conventional loans",
+      "href": "/buy/conventional-loans"
+    }
+  ],
+  "nextStep": {
+    "label": "Start my homebuying strategy",
+    "href": "/funnel/purchase"
+  },
+  "relatedSlugs": [
+    "more-homes-to-tour-not-a-clearance-sale",
+    "two-mortgage-quotes-one-fair-comparison",
+    "fed-headlines-and-your-mortgage-arent-twins"
+  ]
+}

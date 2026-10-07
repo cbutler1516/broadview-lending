@@ -19,10 +19,15 @@ export function StickyBottomCTA() {
   const observerRef = useRef<ResizeObserver | null>(null);
 
   const onFunnelPage = Boolean(pathname?.startsWith("/funnel"));
+  const onBlogPage = pathname === "/blog" || Boolean(pathname?.startsWith("/blog/"));
+  const onReadingOrToolPage = ["/tools", "/learn", "/guides", "/contact", "/privacy", "/terms", "/disclosures", "/completed-financing"].some(
+    (path) => pathname === path || pathname?.startsWith(`${path}/`),
+  );
   const onClientPresentation = Boolean(
     pathname?.startsWith("/tools/investor-deal-analyzer/presentation"),
   );
   const scenarioHref = scenarioHrefForPath(pathname);
+  const analyzingDeal = scenarioHref === "/tools/investor-deal-analyzer";
 
   useEffect(() => {
     let ticking = false;
@@ -54,7 +59,7 @@ export function StickyBottomCTA() {
 
   return (
     <AnimatePresence>
-      {visible && !onFunnelPage && !onClientPresentation && (
+      {visible && !onFunnelPage && !onClientPresentation && !onBlogPage && !onReadingOrToolPage && (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -88,11 +93,11 @@ export function StickyBottomCTA() {
                   href={scenarioHref}
                   className="flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-400 text-white shadow-[0_8px_20px_rgba(26,86,219,0.28)] min-h-[48px] px-5 rounded-lg text-[15px] font-bold tracking-[-0.01em] transition-colors duration-200 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
                 >
-                  {SCENARIO_CTA.label}
+                  {analyzingDeal ? "Analyze a Deal" : SCENARIO_CTA.label}
                   <ArrowRight className="w-4 h-4" strokeWidth={2.4} />
                 </Link>
                 <p className="mt-1 text-center text-[11px] font-medium text-white/55 sm:hidden">
-                  About 60 seconds · no credit pull to start
+                  {analyzingDeal ? "Try a sample · no login required" : "About 60 seconds · no credit pull to start"}
                 </p>
               </div>
               <BookingLink

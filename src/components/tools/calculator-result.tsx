@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
 import { trackConversionEvent } from "@/lib/analytics/events";
+import { SAMPLE_NOTICE } from "@/lib/tools/sample-scenarios";
 
 export type CalculatorStat = { label: string; value: string };
 
 type CalculatorResultProps = {
+  isSample?: boolean;
   recommendation: string;
   stats: CalculatorStat[];
   questions: string[];
@@ -21,6 +23,7 @@ type CalculatorResultProps = {
  * booking lead engine.
  */
 export function CalculatorResult({
+  isSample = false,
   recommendation,
   stats,
   questions,
@@ -31,8 +34,9 @@ export function CalculatorResult({
   return (
     <div className="mt-8 rounded-2xl border border-border bg-surface-muted p-6 md:p-8">
       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-brand">
-        Your strategy snapshot
+        {isSample ? "Sample strategy snapshot" : "Your strategy snapshot"}
       </p>
+      {isSample && <p className="mt-2 text-xs leading-relaxed text-muted">{SAMPLE_NOTICE}</p>}
 
       <div className="mt-5 grid gap-4 sm:grid-cols-3">
         {stats.map((stat) => (
@@ -44,7 +48,7 @@ export function CalculatorResult({
       </div>
 
       <div className="mt-6 rounded-xl border border-brand/20 bg-brand-light/60 p-5">
-        <p className="text-sm font-semibold text-brand">Our initial recommendation</p>
+        <p className="text-sm font-semibold text-brand">{isSample ? "What this example illustrates" : "Our initial recommendation"}</p>
         <p className="mt-2 leading-relaxed text-foreground">{recommendation}</p>
       </div>
 

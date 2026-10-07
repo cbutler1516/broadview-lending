@@ -33,9 +33,9 @@ export const defaultMetadata: Metadata = {
 
 export const pageMetadata = {
   home: {
-    title: "Mortgage Strategy for Homeowners and Investors",
+    title: "Home Loans, Refinance & Home Equity",
     description:
-      "Broadview Lending is a premium conventional mortgage advisory platform and a sophisticated investor financing desk. Buy a home, access equity, or invest in real estate with a real advisor.",
+      "Explore conventional, FHA, VA, and jumbo home loans with Broadview Lending. Get personal advisor guidance for buying a home, refinancing, or accessing home equity.",
   },
   purchase: {
     title: "Purchase Mortgage | Home Loan Options",

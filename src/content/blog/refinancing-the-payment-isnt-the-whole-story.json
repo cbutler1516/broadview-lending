@@ -1,0 +1,59 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "refinancing-the-payment-isnt-the-whole-story",
+  "title": "Refinancing: the smaller payment isn't the whole story",
+  "excerpt": "A lower monthly number can be helpful. Before celebrating, check what changed behind it.",
+  "category": "Owning a Home",
+  "image": {
+    "src": "/images/blog/refinance-horizon.webp",
+    "alt": "Illustrative wall clock above a sunlit living room console"
+  },
+  "takeaway": "Compare costs, remaining loan length and your plans—not just this month's payment.",
+  "sections": [
+    {
+      "heading": "First, name the reason",
+      "paragraphs": [
+        "Why are you looking at refinancing? A different monthly payment, a shorter repayment schedule, a change in loan structure or access to equity are different goals. Write yours in one sentence before browsing options.",
+        "That small step keeps the comparison honest. If the goal is to finish paying off the home sooner, a lower payment with a much longer repayment schedule may not be the result you had in mind."
+      ]
+    },
+    {
+      "heading": "Look behind the smaller number",
+      "paragraphs": [
+        "The CFPB cautions that refinancing has costs and that a new loan can change how long you repay. A lower monthly payment does not automatically mean a lower total cost. Closing costs rolled into a loan are still costs, even when you do not pay them out of pocket that day.",
+        "Ask for a comparison showing the current loan's remaining schedule alongside the proposed one. Include upfront costs, any change in the loan balance and the time you expect to keep the home or loan. A simple cost-recovery estimate can be a starting point, but it is not the entire decision."
+      ]
+    },
+    {
+      "heading": "Bring the statement, not a prediction",
+      "paragraphs": [
+        "Gather your recent mortgage statement and a rough sense of your plans. Is a move likely? Is your budget changing? Is there a project you want to discuss? Those details are more useful than a confident guess about next month's rates.",
+        "An advisor can help organize the alternatives, including keeping the current mortgage. There is no need to force a refinance just because it is available. Sometimes the most useful outcome of the conversation is knowing what would need to change before looking again."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Should I refinance?",
+      "href": "https://files.consumerfinance.gov/f/documents/cfpb_should_i_refinance_handout.pdf"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Review rate-and-term refinancing",
+      "href": "/refinance/rate-and-term-refinance"
+    }
+  ],
+  "nextStep": {
+    "label": "Start my refinance strategy",
+    "href": "/funnel/refinance"
+  },
+  "relatedSlugs": [
+    "two-mortgage-quotes-one-fair-comparison",
+    "renovation-wish-list-meet-real-life-budget",
+    "fed-headlines-and-your-mortgage-arent-twins"
+  ]
+}

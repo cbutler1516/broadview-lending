@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: location.seo.title,
     description: location.seo.description,
     keywords: location.seo.keywords,
+    alternates: { canonical: `${siteUrl}/locations/${location.slug}` },
     openGraph: {
       title: location.seo.title,
       description: location.seo.description,

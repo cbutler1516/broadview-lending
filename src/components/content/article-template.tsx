@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LessonPractice } from "@/components/content/lesson-practice";
 import { BookingLink } from "@/components/booking-link";
 import { CinematicHero } from "@/components/media/cinematic-hero";
 import { FaqList } from "@/components/content/faq-list";
@@ -27,14 +28,22 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
     article.category === "home-equity" ||
     article.related.funnels?.includes("heloc") ||
     article.related.helocLandings?.length;
-  const strategyHref = isHomeEquityArticle ? "/funnel/heloc?campaign_page=%2Fheloc" : "/#funnels";
+  const strategyHref = isHomeEquityArticle
+    ? "/funnel/heloc?campaign_page=%2Fheloc"
+    : article.audience === "realtor"
+      ? "/contact"
+      : article.related.funnels?.[0]
+        ? `/funnel/${article.related.funnels[0]}`
+        : "/#journeys";
   const breadcrumbs = [
     { name: "Home", path: "/" },
     ...(isHomeEquityArticle
       ? [{ name: "Home Equity", path: "/heloc" }]
       : [
           { name: "Learn", path: "/learn" },
-          ...(category
+          ...(article.audience
+            ? [{ name: article.audience === "realtor" ? "Realtor Academy" : "Homebuyer Learning Center", path: article.audience === "realtor" ? "/learn/realtor-academy" : "/learn/homebuyer-center" }]
+            : category
             ? [{ name: category.title, path: `/learn#${category.slug}` }]
             : []),
         ]),
@@ -118,7 +127,18 @@ export function ArticleTemplate({ article }: ArticleTemplateProps) {
               ))}
             </div>
 
-            {article.keyTakeaways.length > 0 && (
+            {article.practice && <LessonPractice {...article.practice} />}
+            {article.sources && (
+              <section className="mt-10 border-t border-border pt-6">
+                <h2 className="text-lg font-semibold">Further reading</h2>
+                <ul className="mt-3 space-y-2">
+                  {article.sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noopener noreferrer" className="text-sm text-brand underline underline-offset-4">{source.label}<span className="sr-only"> (opens in a new tab)</span></a></li>)}
+                </ul>
+                {article.audience === "realtor" && <p className="mt-4 text-xs text-muted">Professional-development resources, not accredited continuing education, legal advice, or a promise of transactions.</p>}
+              </section>
+            )}
+
+            {!article.practice && article.keyTakeaways.length > 0 && (
               <div className="mt-10 rounded-2xl border border-border bg-surface-muted p-6">
                 <h2 className="text-lg font-semibold">Key takeaways</h2>
                 <ul className="mt-4 space-y-2">

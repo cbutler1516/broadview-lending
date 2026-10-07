@@ -1,0 +1,72 @@
+{
+  "slug": "fixed-rate-changing-payment",
+  "title": "Fixed rate, changing payment? Check the other ingredients",
+  "excerpt": "A fixed mortgage rate does not freeze your property taxes or home insurance. Here is where to look when the total changes.",
+  "category": "Owning a Home",
+  "publishedAt": "2026-10-06",
+  "updatedAt": "2026-10-06",
+  "sourcesCheckedAt": "2026-10-06",
+  "status": "published",
+  "featured": false,
+  "image": {
+    "src": "/images/blog/fixed-rate-changing-payment.webp",
+    "alt": "AI-created illustration of a home workspace with two blank sheets, a calculator, and a ceramic house"
+  },
+  "takeaway": "A payment change is a reason to open the statement, not immediately shop for a new mortgage. Find the ingredient that changed first.",
+  "sections": [
+    {
+      "heading": "Your payment has more than one ingredient",
+      "paragraphs": [
+        "Seeing a bigger mortgage payment when you have a fixed rate can feel like ordering your usual coffee and getting a mystery surcharge. The interest rate may not be the part that moved.",
+        "Many homeowners send one payment that includes money for property taxes and homeowners insurance. That money goes into an escrow account: a separate pot the mortgage servicer uses to pay those bills. The CFPB explains that when taxes or insurance premiums change, the escrow portion of your payment can change too. A fixed rate does not freeze those outside costs."
+      ]
+    },
+    {
+      "heading": "Put two statements side by side",
+      "paragraphs": [
+        "Compare the previous payment with the new one. Look separately at principal and interest, the escrow amount, mortgage insurance and any fees. Highlight the line that changed rather than guessing from the total.",
+        "If escrow is the issue, pull out the annual escrow statement. It shows past account activity and projected expenses. Check whether the explanation includes a shortage as well as a higher amount being collected for future bills. Those are different pieces of the puzzle. Ask your servicer to explain each piece and any repayment options listed in your notice."
+      ]
+    },
+    {
+      "heading": "Make the next conversation specific",
+      "paragraphs": [
+        "Try asking: Which bill changed? What amount are you using for next year? Is any part of this increase temporary? Keep the statement nearby during the call and write down the explanation. If something looks wrong, ask the company collecting your mortgage payments to review it.",
+        "If you pay taxes and insurance yourself, you still need room for them in your budget even though they are not part of the mortgage withdrawal. Before making a bigger financing decision, update your household budget with the actual bills. An advisor can help you put that budget in context; your servicer is the starting point for understanding or correcting your existing statement."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Why did my monthly mortgage payment go up or change?",
+      "href": "https://www.consumerfinance.gov/ask-cfpb/why-did-my-monthly-mortgage-payment-go-up-or-change-en-213/"
+    },
+    {
+      "label": "CFPB — What is an escrow or impound account?",
+      "href": "https://www.consumerfinance.gov/ask-cfpb/what-is-an-escrow-or-impound-account-en-140/"
+    },
+    {
+      "label": "CFPB — Escrow account statements and shortage explanations, section 1024.17(i)",
+      "href": "https://www.consumerfinance.gov/rules-policy/regulations/1024/17/"
+    }
+  ],
+  "relatedSlugs": [
+    "your-home-budget-needs-a-life-budget",
+    "refinancing-the-payment-isnt-the-whole-story",
+    "renovation-wish-list-meet-real-life-budget"
+  ],
+  "productLinks": [
+    {
+      "label": "Explore refinancing considerations",
+      "href": "/refinance"
+    },
+    {
+      "label": "Plan a comfortable home payment",
+      "href": "/tools/affordability-planner"
+    }
+  ],
+  "nextStep": {
+    "label": "Talk through your home financing plan",
+    "href": "/contact"
+  }
+}

@@ -8,12 +8,9 @@ import {
 } from "@/lib/product/claims";
 import { PRODUCT_CTA_LABEL, productCtas, productPrimaryHref } from "@/lib/product/cta";
 import {
-  buyBackgroundVideo,
-  commercialBackgroundVideo,
   ctaBackgroundVideo,
-  homeEquityBackgroundVideo,
   learningStrategyVideo,
-  refinanceBackgroundVideo,
+  loanImages,
 } from "@/lib/media/assets";
 import type { MediaAsset } from "@/lib/media/assets";
 import type {
@@ -26,16 +23,20 @@ import type {
   ProductHeroConfig,
 } from "@/lib/product/types";
 
-export function videoForGroup(group: ProductGroup): MediaAsset {
+export function videoForGroup(group: ProductGroup, path?: string): MediaAsset {
+  if (path === "/invest/new-construction") return loanImages.construction;
+  if (path === "/invest/multifamily" || path === "/commercial") return loanImages.multifamily;
+  if (path === "/invest/fix-and-flip" || path === "/invest/brrrr") return loanImages.equity;
+  if (path === "/invest/bridge") return loanImages.purchase;
   switch (group) {
     case "buy":
-      return buyBackgroundVideo;
+      return loanImages.purchase;
     case "refinance":
-      return refinanceBackgroundVideo;
+      return loanImages.refinance;
     case "equity":
-      return homeEquityBackgroundVideo;
+      return loanImages.equity;
     case "invest":
-      return commercialBackgroundVideo;
+      return loanImages.rental;
   }
 }
 
@@ -107,11 +108,11 @@ export function advisorSection(
   return {
     eyebrow: "Advisor Guidance",
     title: investor
-      ? "A financing desk that can sit with the deal."
-      : "A real advisor reviews the strategy.",
+      ? "An advisor who understands the deal."
+      : "A real person in your corner.",
     description: investor
-      ? "Broadview is not a call-center product shop. Investor conversations start with the property and the plan — then an advisor helps you understand which financing path may fit."
-      : "Digital tools prepare the conversation. A licensed Broadview advisor reviews your goal, property, and timing before recommendations are made.",
+      ? "Review the property, the numbers, and your plan with a Broadview advisor."
+      : "A licensed Broadview advisor helps you compare options and understand the trade-offs.",
     benefits: investor
       ? [
           "One desk for rental, rehab, bridge, construction, and commercial conversations.",
@@ -141,11 +142,11 @@ export function calculatorSection(
 ): CalculatorSectionConfig {
   return {
     tag: "Tools",
-    title: group === "invest" ? "Run the deal before the conversation." : "Run the numbers before the conversation.",
+    title: group === "invest" ? "Explore the deal." : "Try the numbers.",
     description:
       group === "invest"
-        ? "Deal-analysis tools will share one Property / Deal Engine. Until then, start with the path and an advisor review."
-        : "Decision tools that prepare a clearer discussion with an advisor.",
+        ? "See how your assumptions affect cash flow and returns."
+        : "Start with a sample or your own numbers.",
     editorialNote: EDUCATIONAL_NOTE,
     tools,
     viewAllHref: group === "invest" ? "/invest#tools" : "/tools",
@@ -153,7 +154,7 @@ export function calculatorSection(
     background: "slate",
     compact: true,
     primaryCta: productCtas(group, options)[0],
-    primaryCtaTrustNote: CTA_DURATION_NOTE,
+    primaryCtaTrustNote: group === "invest" && !options?.funnel ? "Use a sample or your own numbers · No login required" : CTA_DURATION_NOTE,
   };
 }
 
@@ -177,9 +178,9 @@ export function productHero(
     subheadline: copy.subheadline,
     ctas: productCtas(group, options),
     trustChips: copy.chips,
-    video: videoForGroup(group),
+    video: videoForGroup(group, options?.path),
     programHighlights: options?.facts,
-    trustNote: CTA_DURATION_NOTE,
+    trustNote: group === "invest" && !options?.funnel ? "Use a sample or your own numbers · No login required" : CTA_DURATION_NOTE,
     compact: options?.compact ?? true,
     phone: { label: brand.contact.phone, href: brand.contact.phoneHref },
     heroVertical: "upper-middle",

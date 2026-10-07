@@ -43,7 +43,7 @@ export function AdvisorTrustSection({
   const placeholder = (
     <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] border border-border bg-[linear-gradient(160deg,var(--brand-light)_0%,#ffffff_70%)] shadow-[var(--shadow-card)]">
       <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-        <BrandLogo variant="mark" href="" className="h-14 w-auto" />
+        <BrandLogo variant="mark" href="" className="h-8 w-auto" />
         <p className="max-w-xs text-sm font-medium text-foreground">
           A licensed Broadview advisor — ready to review your information personally.
         </p>

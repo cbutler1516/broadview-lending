@@ -39,6 +39,9 @@ import {
   saveClientAnalysisDraft,
 } from "@/lib/tools/client-analysis";
 import { useClientAnalysisDraft } from "@/lib/tools/use-client-analysis-draft";
+import { SampleScenarioControls } from "./sample-scenario-controls";
+import { useSampleScenario } from "@/lib/tools/use-sample-scenario";
+import { createAnalyzerSample, SAMPLE_NOTICE } from "@/lib/tools/sample-scenarios";
 
 function Segmented<T extends string>({
   value,
@@ -177,6 +180,8 @@ function InvestorDealAnalyzerForm({
   );
   const started = useRef(false);
   const completed = useRef(false);
+  const sample = useSampleScenario<{ form: AnalyzerForm; shape: AnalyzerShape }>(initialDraft?.isSample ?? false);
+  const isSample = sample.isSample;
   const copy = ANALYZER_COPY[audience];
 
   const analysis = useMemo(
@@ -190,7 +195,7 @@ function InvestorDealAnalyzerForm({
   const { showLtc, showFlip, showBrrrr } = presentationFlags(shape, metrics);
 
   function markStarted() {
-    if (started.current) return;
+    if (isSample || started.current) return;
     started.current = true;
     trackConversionEvent("calculator_started", { tool: DEAL_ANALYZER_SLUG });
   }
@@ -207,7 +212,7 @@ function InvestorDealAnalyzerForm({
   }
 
   useEffect(() => {
-    if (!startedAnalysis || completed.current) return;
+    if (isSample || !startedAnalysis || completed.current) return;
     completed.current = true;
     trackConversionEvent("calculator_completed", {
       tool: DEAL_ANALYZER_SLUG,
@@ -215,13 +220,14 @@ function InvestorDealAnalyzerForm({
       shape,
     });
     recordCalculator(DEAL_ANALYZER_SLUG);
-  }, [startedAnalysis, audience, shape]);
+  }, [startedAnalysis, audience, shape, isSample]);
 
   function updateAgent<K extends keyof AnalyzerAgent>(key: K, value: AnalyzerAgent[K]) {
     setAgent((current) => ({ ...current, [key]: value }));
   }
 
   function reset() {
+    sample.clear();
     setForm(EMPTY_ANALYZER_FORM);
     setAgent(EMPTY_ANALYZER_AGENT);
     completed.current = false;
@@ -235,6 +241,7 @@ function InvestorDealAnalyzerForm({
       shape,
       form,
       agent,
+      isSample,
     });
     trackConversionEvent("tool_cta_clicked", {
       tool: DEAL_ANALYZER_SLUG,
@@ -244,6 +251,12 @@ function InvestorDealAnalyzerForm({
   }
 
   return (
+    <div className="space-y-6">
+      <SampleScenarioControls active={isSample}
+        description="Load an example for the selected deal structure. In sample mode, switch between Hold / rental, Rehab / flip, and BRRRR to explore each one. Agent details remain yours."
+        onLoad={() => { sample.load({ form, shape }); setForm(createAnalyzerSample(shape)); }}
+        onClear={() => { setForm(EMPTY_ANALYZER_FORM); sample.clear(); clearClientAnalysisDraft(); }}
+        onRestore={sample.canRestore ? () => sample.restore((previous) => { setForm(previous.form); setShape(previous.shape); }) : undefined} />
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
       <form className="lg:col-span-6 space-y-10" onSubmit={(event) => event.preventDefault()}>
         <div className="space-y-4">
@@ -269,7 +282,7 @@ function InvestorDealAnalyzerForm({
           <Segmented
             label="Deal structure"
             value={shape}
-            onChange={setShape}
+            onChange={(next) => { setShape(next); if (isSample) setForm(createAnalyzerSample(next)); }}
             options={ANALYZER_SHAPES}
           />
         </div>
@@ -607,6 +620,7 @@ function InvestorDealAnalyzerForm({
             </div>
           ) : (
             <>
+              {isSample && <p className="mb-5 rounded-xl border border-blue-100 bg-blue-50 p-4 text-xs leading-relaxed text-slate-600"><strong>Sample results. </strong>{SAMPLE_NOTICE}</p>}
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 mb-3">
                 {copy.resultsEyebrow}
               </p>
@@ -715,6 +729,7 @@ function InvestorDealAnalyzerForm({
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

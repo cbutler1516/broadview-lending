@@ -12,6 +12,7 @@ type LeadCaptureFormProps = {
   error?: string;
   variant?: "default" | "strategy";
   onBack?: () => void;
+  submitLabel?: string;
 };
 
 export function LeadCaptureForm({
@@ -22,9 +23,10 @@ export function LeadCaptureForm({
   error,
   variant = "default",
   onBack,
+  submitLabel = "Send My Strategy",
 }: LeadCaptureFormProps) {
   const isStrategy = variant === "strategy";
-  const eyebrow = isStrategy ? "Where Should We Send It?" : "Final Details";
+  const eyebrow = isStrategy ? "Where Should We Send It?" : "Personal Guidance";
   const helperCopy = isStrategy
     ? "This lets us send your prepared strategy."
     : brand.trust.leadCapture;
@@ -65,13 +67,14 @@ export function LeadCaptureForm({
 
         <form action={onSubmit} className="mt-7 space-y-3.5 sm:mt-8 sm:space-y-4">
           {error && (
-            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
             </p>
           )}
           <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4">
             <input
               name="firstName"
+              aria-label="First name"
               required
               placeholder="First name"
               className="input-field min-h-14"
@@ -80,6 +83,7 @@ export function LeadCaptureForm({
             />
             <input
               name="lastName"
+              aria-label="Last name"
               required
               placeholder="Last name"
               className="input-field min-h-14"
@@ -89,6 +93,7 @@ export function LeadCaptureForm({
           </div>
           <input
             name="email"
+            aria-label="Email address"
             type="email"
             required
             placeholder="Email address"
@@ -99,6 +104,7 @@ export function LeadCaptureForm({
           />
           <input
             name="phone"
+            aria-label="Mobile phone"
             type="tel"
             required
             placeholder="Mobile phone"
@@ -140,7 +146,7 @@ export function LeadCaptureForm({
             disabled={isPending}
             className="btn-primary min-h-14 w-full py-3.5"
           >
-            {isPending ? "Preparing your strategy…" : "Send My Strategy"}
+            {isPending ? "Sending your request…" : submitLabel}
           </button>
 
           <p className="text-center text-xs leading-relaxed text-muted">

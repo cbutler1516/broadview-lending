@@ -1,4 +1,5 @@
 import { AdvisorSection } from "@/components/product/advisor-section";
+import { Breadcrumbs } from "@/components/content/breadcrumbs";
 import { CalculatorSection } from "@/components/product/calculator-section";
 import { EditorialPullQuote } from "@/components/product/editorial-pull-quote";
 import { EditorialStoryBand } from "@/components/product/editorial-story-band";
@@ -58,6 +59,7 @@ const SCAFFOLDS: Record<ProductComposition, ScaffoldBlock[]> = {
     "highlights",
     "calculators",
     "process",
+    "advisor",
     "quote",
     "story",
     "resources",
@@ -121,7 +123,7 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
       );
     }
     if (block === "quote") return (art.showPullQuote ?? true) && Boolean(config.pullQuote);
-    if (block === "resources") return Boolean(config.related && config.related.length > 0);
+    if (block === "resources") return Boolean(config.related?.length || config.resources?.length);
     if (block === "faq") return Boolean(config.faq);
     if (block === "cta") return Boolean(config.cta);
     return allowedSections.has(block);
@@ -182,9 +184,7 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
           />
         ) : null;
       case "resources":
-        return config.related ? (
-          <RelatedProducts key="resources" links={config.related} />
-        ) : null;
+        return <RelatedProducts key="resources" links={config.related ?? []} resources={config.resources} />;
       case "faq":
         return config.faq ? (
           <LoanFAQ key="faq" title={config.faq.title} items={config.faq.items} />
@@ -199,6 +199,7 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
   return (
     <>
       {config.hero ? <LoanHero config={config.hero} /> : null}
+      {config.breadcrumbs ? <div className="border-b border-slate-100 bg-white px-5 py-5 sm:px-8 lg:px-12"><Breadcrumbs items={config.breadcrumbs} className="mx-auto max-w-6xl" /></div> : null}
       {scaffold.map((block) => renderBlock(block))}
     </>
   );

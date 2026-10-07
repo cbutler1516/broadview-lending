@@ -184,6 +184,8 @@ export interface ProductArtDirection {
 }
 
 export interface ProductPageConfig {
+  breadcrumbs?: { name: string; path: string }[];
+  resources?: ProductRelatedLink[];
   hero?: ProductHeroConfig;
   paths?: ProductPathCardsConfig;
   highlights?: LoanHighlightsConfig;
@@ -203,6 +205,8 @@ export interface ProductPageConfig {
 export interface ProductDefinition {
   slug: string;
   path: string;
+  /** Only for an existing alias with the same content; no redirect. */
+  canonicalPath?: string;
   group: ProductGroup;
   title: string;
   description: string;

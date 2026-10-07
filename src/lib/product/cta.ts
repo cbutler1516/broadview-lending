@@ -1,14 +1,14 @@
 import type { DealEngineMode, ProductCta, ProductGroup } from "@/lib/product/types";
 
 export const PRODUCT_CTA_LABEL = {
-  buy: "Start My Strategy",
-  refinance: "Start My Strategy",
+  buy: "Explore My Loan Options",
+  refinance: "Explore My Loan Options",
   equity: "Explore My Equity",
   invest: "Analyze a Deal",
 } as const satisfies Record<ProductGroup, string>;
 
 /**
- * Existing destinations only. Investor hrefs stay on {path}#analyze.
+ * Existing destinations only. Investor CTAs open the live shared analyzer.
  * `mode` is reserved for the shared Property / Deal Engine — do not fork
  * investor / realtor / consumer into separate engines.
  */
@@ -26,7 +26,7 @@ export function productPrimaryHref(
     case "invest":
       void options?.mode;
       if (options?.funnel) return options.funnel;
-      return options?.path ? `${options.path}#analyze` : "/invest#analyze";
+      return "/tools/investor-deal-analyzer";
   }
 }
 

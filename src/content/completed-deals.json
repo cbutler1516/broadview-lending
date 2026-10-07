@@ -1,0 +1,832 @@
+[
+  {
+    "id": "deal-001",
+    "purpose": "Refinance",
+    "helocByAmount": true,
+    "state": "Washington",
+    "year": 2026,
+    "month": 8,
+    "roundedLoanAmount": 75000,
+    "roundedImpliedValue": 1200000
+  },
+  {
+    "id": "deal-002",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 8,
+    "roundedLoanAmount": 300000,
+    "roundedImpliedValue": 500000
+  },
+  {
+    "id": "deal-003",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 7,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 775000
+  },
+  {
+    "id": "deal-004",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 7,
+    "roundedLoanAmount": 625000,
+    "roundedImpliedValue": 975000
+  },
+  {
+    "id": "deal-005",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 7,
+    "roundedLoanAmount": 1075000,
+    "roundedImpliedValue": 1250000
+  },
+  {
+    "id": "deal-006",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 7,
+    "roundedLoanAmount": 425000,
+    "roundedImpliedValue": 650000
+  },
+  {
+    "id": "deal-007",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 6,
+    "roundedLoanAmount": 475000,
+    "roundedImpliedValue": 1725000
+  },
+  {
+    "id": "deal-008",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Arizona",
+    "year": 2026,
+    "month": 5,
+    "roundedLoanAmount": 550000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-009",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Florida",
+    "year": 2026,
+    "month": 6,
+    "roundedLoanAmount": 525000,
+    "roundedImpliedValue": 800000
+  },
+  {
+    "id": "deal-010",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Florida",
+    "year": 2026,
+    "month": 6,
+    "roundedLoanAmount": 625000,
+    "roundedImpliedValue": 900000
+  },
+  {
+    "id": "deal-011",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 6,
+    "roundedLoanAmount": 1075000,
+    "roundedImpliedValue": 1725000
+  },
+  {
+    "id": "deal-012",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Oregon",
+    "year": 2026,
+    "month": 4,
+    "roundedLoanAmount": 425000,
+    "roundedImpliedValue": 550000
+  },
+  {
+    "id": "deal-013",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 4,
+    "roundedLoanAmount": 400000,
+    "roundedImpliedValue": 500000
+  },
+  {
+    "id": "deal-014",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 4,
+    "roundedLoanAmount": 975000,
+    "roundedImpliedValue": 1225000
+  },
+  {
+    "id": "deal-015",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 5,
+    "roundedLoanAmount": 625000,
+    "roundedImpliedValue": 775000
+  },
+  {
+    "id": "deal-016",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 7,
+    "roundedLoanAmount": 825000,
+    "roundedImpliedValue": 1125000
+  },
+  {
+    "id": "deal-017",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 3,
+    "roundedLoanAmount": 525000,
+    "roundedImpliedValue": 550000
+  },
+  {
+    "id": "deal-018",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 5,
+    "roundedLoanAmount": 3325000,
+    "roundedImpliedValue": 3700000
+  },
+  {
+    "id": "deal-019",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 3,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-020",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 2,
+    "roundedLoanAmount": 475000,
+    "roundedImpliedValue": 1200000
+  },
+  {
+    "id": "deal-021",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Illinois",
+    "year": 2026,
+    "month": 3,
+    "roundedLoanAmount": 725000,
+    "roundedImpliedValue": 750000
+  },
+  {
+    "id": "deal-022",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Oregon",
+    "year": 2025,
+    "month": 12,
+    "roundedLoanAmount": 375000,
+    "roundedImpliedValue": 575000
+  },
+  {
+    "id": "deal-023",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 3,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 2000000
+  },
+  {
+    "id": "deal-024",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Florida",
+    "year": 2026,
+    "month": 4,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 825000
+  },
+  {
+    "id": "deal-025",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 2,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 850000
+  },
+  {
+    "id": "deal-026",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 12,
+    "roundedLoanAmount": 275000,
+    "roundedImpliedValue": 350000
+  },
+  {
+    "id": "deal-027",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "California",
+    "year": 2025,
+    "month": 12,
+    "roundedLoanAmount": 1000000,
+    "roundedImpliedValue": 1375000
+  },
+  {
+    "id": "deal-028",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "California",
+    "year": 2025,
+    "month": 12,
+    "roundedLoanAmount": 250000,
+    "roundedImpliedValue": 1125000
+  },
+  {
+    "id": "deal-029",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 2,
+    "roundedLoanAmount": 300000,
+    "roundedImpliedValue": 600000
+  },
+  {
+    "id": "deal-030",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 12,
+    "roundedLoanAmount": 750000,
+    "roundedImpliedValue": 775000
+  },
+  {
+    "id": "deal-031",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 10,
+    "roundedLoanAmount": 525000,
+    "roundedImpliedValue": 900000
+  },
+  {
+    "id": "deal-032",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 9,
+    "roundedLoanAmount": 700000,
+    "roundedImpliedValue": 700000
+  },
+  {
+    "id": "deal-033",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 9,
+    "roundedLoanAmount": 650000,
+    "roundedImpliedValue": 675000
+  },
+  {
+    "id": "deal-034",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 10,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 550000
+  },
+  {
+    "id": "deal-035",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 10,
+    "roundedLoanAmount": 325000,
+    "roundedImpliedValue": 575000
+  },
+  {
+    "id": "deal-036",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Arizona",
+    "year": 2025,
+    "month": 10,
+    "roundedLoanAmount": 325000,
+    "roundedImpliedValue": 425000
+  },
+  {
+    "id": "deal-037",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 8,
+    "roundedLoanAmount": 550000,
+    "roundedImpliedValue": 800000
+  },
+  {
+    "id": "deal-038",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 7,
+    "roundedLoanAmount": 800000,
+    "roundedImpliedValue": 1525000
+  },
+  {
+    "id": "deal-039",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Arizona",
+    "year": 2025,
+    "month": 9,
+    "roundedLoanAmount": 200000,
+    "roundedImpliedValue": 275000
+  },
+  {
+    "id": "deal-040",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Colorado",
+    "year": 2025,
+    "month": 9,
+    "roundedLoanAmount": 275000,
+    "roundedImpliedValue": 1450000
+  },
+  {
+    "id": "deal-041",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 7,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 750000
+  },
+  {
+    "id": "deal-042",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 6,
+    "roundedLoanAmount": 150000,
+    "roundedImpliedValue": 650000
+  },
+  {
+    "id": "deal-043",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 10,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 775000
+  },
+  {
+    "id": "deal-044",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 5,
+    "roundedLoanAmount": 375000,
+    "roundedImpliedValue": 400000
+  },
+  {
+    "id": "deal-045",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 7,
+    "roundedLoanAmount": 475000,
+    "roundedImpliedValue": 500000
+  },
+  {
+    "id": "deal-046",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 5,
+    "roundedLoanAmount": 550000,
+    "roundedImpliedValue": 800000
+  },
+  {
+    "id": "deal-047",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Oregon",
+    "year": 2025,
+    "month": 6,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 675000
+  },
+  {
+    "id": "deal-048",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 5,
+    "roundedLoanAmount": 475000,
+    "roundedImpliedValue": 500000
+  },
+  {
+    "id": "deal-049",
+    "purpose": "Refinance",
+    "helocByAmount": true,
+    "state": "Washington",
+    "year": 2025,
+    "month": 7,
+    "roundedLoanAmount": 150000,
+    "roundedImpliedValue": 750000
+  },
+  {
+    "id": "deal-050",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 5,
+    "roundedLoanAmount": 1700000,
+    "roundedImpliedValue": 2125000
+  },
+  {
+    "id": "deal-051",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Arizona",
+    "year": 2025,
+    "month": 3,
+    "roundedLoanAmount": 225000,
+    "roundedImpliedValue": 650000
+  },
+  {
+    "id": "deal-052",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 3,
+    "roundedLoanAmount": 200000,
+    "roundedImpliedValue": 500000
+  },
+  {
+    "id": "deal-053",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 4,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 525000
+  },
+  {
+    "id": "deal-054",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 5,
+    "roundedLoanAmount": 975000,
+    "roundedImpliedValue": 1300000
+  },
+  {
+    "id": "deal-055",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 2,
+    "roundedLoanAmount": 375000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-056",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 4,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-057",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "California",
+    "year": 2024,
+    "month": 12,
+    "roundedLoanAmount": 900000,
+    "roundedImpliedValue": 1125000
+  },
+  {
+    "id": "deal-058",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 1,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 725000
+  },
+  {
+    "id": "deal-059",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 725000,
+    "roundedImpliedValue": 800000
+  },
+  {
+    "id": "deal-060",
+    "purpose": "Refinance",
+    "helocByAmount": true,
+    "state": "Washington",
+    "year": 2025,
+    "month": 1,
+    "roundedLoanAmount": 125000,
+    "roundedImpliedValue": 875000
+  },
+  {
+    "id": "deal-061",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 11,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 700000
+  },
+  {
+    "id": "deal-062",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 275000,
+    "roundedImpliedValue": 400000
+  },
+  {
+    "id": "deal-063",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 800000,
+    "roundedImpliedValue": 2125000
+  },
+  {
+    "id": "deal-064",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 11,
+    "roundedLoanAmount": 700000,
+    "roundedImpliedValue": 925000
+  },
+  {
+    "id": "deal-065",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 575000,
+    "roundedImpliedValue": 600000
+  },
+  {
+    "id": "deal-066",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 600000,
+    "roundedImpliedValue": 725000
+  },
+  {
+    "id": "deal-067",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 500000,
+    "roundedImpliedValue": 1650000
+  },
+  {
+    "id": "deal-068",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 9,
+    "roundedLoanAmount": 450000,
+    "roundedImpliedValue": 575000
+  },
+  {
+    "id": "deal-069",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 575000,
+    "roundedImpliedValue": 675000
+  },
+  {
+    "id": "deal-070",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 325000,
+    "roundedImpliedValue": 575000
+  },
+  {
+    "id": "deal-071",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "California",
+    "year": 2024,
+    "month": 8,
+    "roundedLoanAmount": 650000,
+    "roundedImpliedValue": 775000
+  },
+  {
+    "id": "deal-072",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 8,
+    "roundedLoanAmount": 600000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-073",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 6,
+    "roundedLoanAmount": 600000,
+    "roundedImpliedValue": 625000
+  },
+  {
+    "id": "deal-074",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 6,
+    "roundedLoanAmount": 650000,
+    "roundedImpliedValue": 725000
+  },
+  {
+    "id": "deal-075",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 8,
+    "roundedLoanAmount": 1100000,
+    "roundedImpliedValue": 1800000
+  },
+  {
+    "id": "deal-076",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 9,
+    "roundedLoanAmount": 525000,
+    "roundedImpliedValue": 875000
+  },
+  {
+    "id": "deal-077",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2025,
+    "month": 2,
+    "roundedLoanAmount": 625000,
+    "roundedImpliedValue": 650000
+  },
+  {
+    "id": "deal-078",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2026,
+    "month": 3,
+    "roundedLoanAmount": 1700000,
+    "roundedImpliedValue": 2150000
+  },
+  {
+    "id": "deal-079",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 9,
+    "roundedLoanAmount": 450000,
+    "roundedImpliedValue": 575000
+  },
+  {
+    "id": "deal-080",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 9,
+    "roundedLoanAmount": 675000,
+    "roundedImpliedValue": 825000
+  },
+  {
+    "id": "deal-081",
+    "purpose": "Refinance",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 10,
+    "roundedLoanAmount": 975000,
+    "roundedImpliedValue": 1650000
+  },
+  {
+    "id": "deal-082",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 6,
+    "roundedLoanAmount": 775000,
+    "roundedImpliedValue": 875000
+  },
+  {
+    "id": "deal-083",
+    "purpose": "Purchase",
+    "helocByAmount": false,
+    "state": "Washington",
+    "year": 2024,
+    "month": 8,
+    "roundedLoanAmount": 550000,
+    "roundedImpliedValue": 675000
+  }
+]

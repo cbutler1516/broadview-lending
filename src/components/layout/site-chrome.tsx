@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { StickyBottomCTA } from "@/components/layout/sticky-bottom-cta";
+import { GuideMount } from "@/components/assistant/guide-mount";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -27,6 +28,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       </div>
       <Footer />
       <StickyBottomCTA />
+      <GuideMount />
     </>
   );
 }

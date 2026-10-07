@@ -1,0 +1,59 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "your-home-budget-needs-a-life-budget",
+  "title": "Your home budget needs a life budget",
+  "excerpt": "A mortgage can fit on a spreadsheet and still crowd out everything you enjoy. Start with the life you want to keep.",
+  "category": "Buying a Home",
+  "image": {
+    "src": "/images/blog/life-budget.webp",
+    "alt": "Illustrative bicycle, weekend bag and walking shoes in a bright home entryway"
+  },
+  "takeaway": "Choose a comfortable housing budget before shopping for the biggest possible loan.",
+  "sections": [
+    {
+      "heading": "Leave room for normal Tuesdays",
+      "paragraphs": [
+        "Picture an ordinary month in your new place: groceries, commuting, childcare, hobbies, savings and the occasional takeout dinner. Those expenses do not disappear when you get the keys. A useful home budget leaves them a seat at the table.",
+        "Start by listing the spending you want to protect. This is not a test of whether you deserve a house. It is a way to stop a promising listing from quietly rewriting your priorities. A lender's review and your own comfort level answer different questions."
+      ]
+    },
+    {
+      "heading": "The payment is only one piece",
+      "paragraphs": [
+        "The CFPB encourages buyers to consider closing, moving, repairs and other ownership expenses. For the monthly picture, make room for property taxes, homeowners insurance, association dues where applicable, utilities and maintenance alongside your mortgage payment.",
+        "Ask which costs in an estimate are based on current information and which still need checking. Insurance for one property may differ from the next. An older home may bring different maintenance needs. Label unknowns as unknowns instead of making them disappear from the worksheet."
+      ]
+    },
+    {
+      "heading": "Try a practice month",
+      "paragraphs": [
+        "One low-pressure exercise is to imagine paying the proposed housing amount for a month while tracking the rest of your spending. This is a budgeting exercise, not a financing test. Notice whether the number leaves you relaxed, stretched or constantly rearranging things.",
+        "Bring those observations to an advisor along with your savings and timing. The conversation becomes much more specific: not 'How much house can I get?' but 'What options fit the monthly life I want?' Use the affordability planner to explore assumptions, then confirm them for the actual property."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Ready to buy a home?",
+      "href": "https://www.consumerfinance.gov/consumer-tools/mortgages/ready-to-buy-a-home/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "First-time homebuyer guidance",
+      "href": "/buy/first-time-homebuyer"
+    }
+  ],
+  "nextStep": {
+    "label": "Try the affordability planner",
+    "href": "/tools/affordability-planner"
+  },
+  "relatedSlugs": [
+    "twenty-percent-down-is-not-the-only-start",
+    "open-house-checklist-beyond-the-kitchen",
+    "two-mortgage-quotes-one-fair-comparison"
+  ]
+}

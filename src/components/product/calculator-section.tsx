@@ -15,7 +15,7 @@ const BG = {
 
 function PrimaryCta({ cta, trustNote }: { cta: ProductCta; trustNote?: string }) {
   return (
-    <div className="mb-12 sm:mb-16" id="analyze">
+    <div className="mb-12 sm:mb-16">
       <Link href={cta.href} className={`group ${CTA_NAVY}`}>
         {cta.icon === "calendar" ? <Calendar className="w-4 h-4" /> : null}
         {cta.label}
@@ -38,7 +38,8 @@ export function CalculatorSection({ config }: { config: CalculatorSectionConfig 
 
   return (
     <section
-      className={`${bg} px-5 sm:px-8 lg:px-12 xl:px-16 ${compact ? "py-16 sm:py-22 lg:py-24" : "py-18 sm:py-28"}`}
+      id="analyze"
+      className={`${bg} scroll-mt-24 px-5 sm:px-8 lg:px-12 xl:px-16 ${compact ? "py-12 sm:py-16" : "py-18 sm:py-28"}`}
     >
       <div className="max-w-6xl mx-auto">
         <motion.div
@@ -46,14 +47,14 @@ export function CalculatorSection({ config }: { config: CalculatorSectionConfig 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl mb-10 sm:mb-14"
+          className={`max-w-2xl ${compact ? "mb-6" : "mb-10 sm:mb-14"}`}
         >
           {config.tag ? (
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 mb-4">
               {config.tag}
             </p>
           ) : null}
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-navy-900 leading-[1.05] mb-5 sm:mb-6">
+          <h2 className={`${compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-5xl"} font-bold tracking-[-0.03em] text-navy-900 leading-[1.1] mb-4`}>
             {config.title}
           </h2>
           {config.description ? (
@@ -66,13 +67,9 @@ export function CalculatorSection({ config }: { config: CalculatorSectionConfig 
           </p>
         </motion.div>
 
-        {config.primaryCta ? (
+        {!compact && config.primaryCta ? (
           <PrimaryCta cta={config.primaryCta} trustNote={config.primaryCtaTrustNote} />
-        ) : (
-          <div id="analyze" className="sr-only">
-            Analyze
-          </div>
-        )}
+        ) : null}
 
         {config.tools.length > 0 ? (
           <ul className="divide-y divide-slate-200/90 border-y border-slate-200/90">

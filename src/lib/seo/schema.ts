@@ -25,7 +25,7 @@ export function organizationSchema(): JsonLd {
     url: siteUrl,
     telephone: brand.contact.phone,
     email: brand.contact.email,
-    areaServed: ["United States", "Washington", "Seattle"],
+    areaServed: brand.licensing.licensedStates.map((state) => ({ "@type": "State", name: state.name })),
     sameAs: Object.values(brand.social).map((s) => s.href),
   };
 }

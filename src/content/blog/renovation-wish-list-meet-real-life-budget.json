@@ -1,0 +1,67 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "renovation-wish-list-meet-real-life-budget",
+  "title": "Renovation wish list, meet real-life budget",
+  "excerpt": "Before picking the perfect tile, give the project a plan that includes the unglamorous parts.",
+  "category": "Owning a Home",
+  "image": {
+    "src": "/images/blog/renovation.webp",
+    "alt": "Illustrative modest kitchen with cream cabinets, oak shelves and blue tile"
+  },
+  "takeaway": "Plan the work and the repayment together. A beautiful kitchen should not hide an uncomfortable obligation.",
+  "sections": [
+    {
+      "heading": "Separate the must-do from the would-love",
+      "paragraphs": [
+        "A repair that prevents more damage belongs in a different conversation from a kitchen you would simply enjoy more. Write two lists: what needs attention and what would make the home work better for your life.",
+        "Then get a written scope from appropriate professionals. A mood board is a lovely starting point; it is not a cost estimate. Ask what is included, what is excluded, what permits may be needed and what could change once work begins."
+      ]
+    },
+    {
+      "heading": "A home-equity line is borrowing, not found money",
+      "paragraphs": [
+        "A HELOC uses your home as collateral. The CFPB explains that these lines commonly have variable rates, so payments can change. There is usually a period for borrowing and a later repayment period with different payment requirements. Missing payments can put the home at risk.",
+        "A home equity loan is another structure to discuss; it generally provides a lump sum and usually has a fixed rate. Neither option is automatically the best way to fund a renovation. Compare costs, repayment and alternatives, including doing the project in stages."
+      ]
+    },
+    {
+      "heading": "Ask about the messy middle",
+      "paragraphs": [
+        "Where will you cook during the work? Does the schedule overlap with a move or a family event? How would you handle an unexpected repair or a delay? These are ordinary planning questions, not reasons to abandon the project.",
+        "Bring the scope, expected timing and repayment comfort level to the financing conversation. Keep projected resale value separate from the budget: a renovation does not come with a guaranteed increase in home value. Start with what the improvement does for your home and how you would pay for it."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — What is a home equity line of credit?",
+      "href": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-home-equity-line-of-credit-heloc-en-107/"
+    },
+    {
+      "label": "CFPB — What is a home equity loan?",
+      "href": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-home-equity-loan-en-106/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Explore home equity options",
+      "href": "/heloc"
+    },
+    {
+      "label": "Compare home equity loans",
+      "href": "/heloc/home-equity-loan"
+    }
+  ],
+  "nextStep": {
+    "label": "Explore home equity options",
+    "href": "/heloc"
+  },
+  "relatedSlugs": [
+    "refinancing-the-payment-isnt-the-whole-story",
+    "your-home-budget-needs-a-life-budget",
+    "open-house-checklist-beyond-the-kitchen"
+  ]
+}

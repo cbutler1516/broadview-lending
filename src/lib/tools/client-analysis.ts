@@ -21,6 +21,8 @@ export const CLIENT_ANALYSIS_SESSION_KEY = "broadview_client_analysis";
 export const CLIENT_ANALYSIS_DRAFT_VERSION = 1 as const;
 
 export type ClientAnalysisDraft = {
+  /** Remains visible in presentations and on return to the analyzer. */
+  isSample?: boolean;
   version: typeof CLIENT_ANALYSIS_DRAFT_VERSION;
   /** Reserved for a future saved / shareable scenario. */
   scenarioId?: string;
@@ -31,6 +33,7 @@ export type ClientAnalysisDraft = {
 };
 
 export type ClientAnalysisView = {
+  isSample?: boolean;
   scenarioId?: string;
   audience: AnalyzerAudience;
   shape: AnalyzerShape;
@@ -170,6 +173,7 @@ export function buildClientAnalysisView(draft: ClientAnalysisDraft): ClientAnaly
     shape: draft.shape,
     agent: draft.agent,
     scenarioId: draft.scenarioId,
+    isSample: draft.isSample,
   });
 }
 
@@ -180,6 +184,7 @@ export function buildClientAnalysisView(draft: ClientAnalysisDraft): ClientAnaly
 export function viewFromDealAnalysis(
   analysis: DealAnalysis,
   options: {
+    isSample?: boolean;
     audience?: AnalyzerAudience;
     shape: AnalyzerShape;
     agent?: AnalyzerAgent;
@@ -189,6 +194,7 @@ export function viewFromDealAnalysis(
   const flags = presentationFlags(options.shape, analysis.metrics);
   return {
     scenarioId: options.scenarioId ?? analysis.scenario.source.savedScenarioId,
+    isSample: options.isSample === true,
     audience: options.audience ?? "realtor",
     shape: options.shape,
     agent: options.agent ?? EMPTY_ANALYZER_AGENT,
@@ -213,22 +219,31 @@ export function saveClientAnalysisDraft(draft: ClientAnalysisDraft): void {
   sessionStorage.setItem(CLIENT_ANALYSIS_SESSION_KEY, JSON.stringify(draft));
 }
 
+// useSyncExternalStore requires the same object until the stored draft changes.
+let cachedDraftRaw: string | null | undefined;
+let cachedDraft: ClientAnalysisDraft | null = null;
+
 export function loadClientAnalysisDraft(): ClientAnalysisDraft | null {
   if (typeof window === "undefined") return null;
   const raw = sessionStorage.getItem(CLIENT_ANALYSIS_SESSION_KEY);
+  if (raw === cachedDraftRaw) return cachedDraft;
+  cachedDraftRaw = raw;
+  cachedDraft = null;
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Partial<ClientAnalysisDraft>;
     if (parsed.version !== CLIENT_ANALYSIS_DRAFT_VERSION) return null;
     if (!parsed.form || !parsed.audience || !parsed.shape) return null;
-    return {
+    cachedDraft = {
       version: CLIENT_ANALYSIS_DRAFT_VERSION,
       scenarioId: parsed.scenarioId,
+      isSample: parsed.isSample === true,
       audience: parsed.audience,
       shape: parsed.shape,
       form: { ...EMPTY_ANALYZER_FORM, ...parsed.form },
       agent: { ...EMPTY_ANALYZER_AGENT, ...parsed.agent },
     };
+    return cachedDraft;
   } catch {
     return null;
   }

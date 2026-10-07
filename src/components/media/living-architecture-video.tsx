@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { isPlayable, type MediaAsset } from "@/lib/media/assets";
 import { cn } from "@/lib/utils/cn";
 
 type LivingArchitectureVideoProps = {
+  /** Backgrounds are still images unless motion is explicitly requested. */
+  playback?: "still" | "motion";
   /** Motion asset. Rendered only when enabled, has a src, and motion is allowed. */
   asset?: MediaAsset;
   /** Static fallback shown when the video can't or shouldn't play. */
@@ -67,7 +70,32 @@ function BrandedFallback({ alt }: { alt?: string }) {
  * - fixed aspect ratio frame → no cumulative layout shift
  * - preload="metadata" and deferred src → does not block LCP
  */
-export function LivingArchitectureVideo({
+export function LivingArchitectureVideo(props: LivingArchitectureVideoProps) {
+  if (props.playback === "motion") return <MotionVideo {...props} />;
+
+  const { asset, fallback, className, aspectClassName = "aspect-[4/3]",
+    rounded = "rounded-[1.25rem]", overlay, caption, eager, bare } = props;
+  const imageSrc = asset?.enabled ? (asset.type === "image" ? asset.src : asset.poster) : undefined;
+
+  if (!imageSrc && fallback) return <div className={cn("relative", className)}>{fallback}</div>;
+
+  return (
+    <div className={cn("relative", className)}>
+      <div className={cn("relative overflow-hidden", aspectClassName, rounded,
+        !bare && "border border-border shadow-[var(--shadow-card)]")}>
+        {imageSrc ? (
+          <Image src={imageSrc} alt={asset?.posterAlt ?? asset?.alt ?? ""} fill
+            sizes="100vw" loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : undefined} className="object-cover" />
+        ) : <BrandedFallback alt={asset?.alt} />}
+        {overlay && <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/60 to-transparent" />}
+        {caption && <p className="absolute inset-x-4 bottom-4 rounded-xl bg-navy-950/80 p-4 text-sm text-white">{caption}</p>}
+      </div>
+    </div>
+  );
+}
+
+function MotionVideo({
   asset,
   fallback,
   className,
@@ -87,6 +115,7 @@ export function LivingArchitectureVideo({
   const [activeSrc, setActiveSrc] = useState<string | undefined>(undefined);
   const [previousSrc, setPreviousSrc] = useState<string | undefined>(undefined);
   const [crossfading, setCrossfading] = useState(false);
+  const [readySrc, setReadySrc] = useState<string | undefined>(undefined);
 
   // Lazy-load + visibility tracking. Capability detection happens inside the
   // (async) observer callback so we never call setState synchronously in an
@@ -117,7 +146,11 @@ export function LivingArchitectureVideo({
     const v = videoRef.current;
     if (!v || blocked || !shouldLoad) return;
     if (inView) {
-      void v.play().catch(() => {});
+      void v.play().catch((error: unknown) => {
+        // Scrolling away can interrupt a pending play request; that is not a
+        // playback failure and must not permanently disable the video.
+        if (!(error instanceof DOMException && error.name === "AbortError")) setBlocked(true);
+      });
     } else {
       v.pause();
     }
@@ -151,7 +184,7 @@ export function LivingArchitectureVideo({
 
   // When motion is blocked/unavailable and the caller supplied its own elegant
   // fallback, render it naturally (no forced aspect/border) to preserve layout.
-  if (useFallback && fallback) {
+  if (useFallback && fallback && !asset?.poster) {
     return <div className={cn("relative", className)}>{fallback}</div>;
   }
 
@@ -165,8 +198,18 @@ export function LivingArchitectureVideo({
         !bare && "border border-border shadow-[var(--shadow-card)]",
       )}
     >
+      {asset?.poster && (
+        <Image
+          src={asset.poster}
+          alt={asset.posterAlt ?? asset.alt}
+          fill
+          sizes="100vw"
+          loading={eager ? "eager" : "lazy"}
+          className="object-cover"
+        />
+      )}
       {useFallback ? (
-        <BrandedFallback alt={asset?.alt} />
+        !asset?.poster && <BrandedFallback alt={asset?.alt} />
       ) : (
         <>
           {previousSrc && crossfading && (
@@ -185,16 +228,18 @@ export function LivingArchitectureVideo({
             ref={videoRef}
             className={cn(
               "h-full w-full object-cover",
+              asset!.poster && "relative transition-opacity duration-500 motion-reduce:transition-none",
+              asset!.poster && readySrc !== activeSrc && "opacity-0",
               bare && previousSrc && crossfading && "video-crossfade-in absolute inset-0",
             )}
             muted
             loop
             playsInline
             autoPlay
-            preload="metadata"
-            poster={asset!.poster || undefined}
+            preload="none"
             aria-label={asset!.alt}
             src={activeSrc}
+            onPlaying={() => setReadySrc(activeSrc)}
             onError={() => setBlocked(true)}
           />
           {overlay && (

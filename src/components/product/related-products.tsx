@@ -4,14 +4,16 @@ import type { ProductRelatedLink } from "@/lib/product/types";
 
 export function RelatedProducts({
   links,
-  title = "Related paths",
-  description = "Stay in the same conversation — then choose the page closest to the next decision.",
+  resources = [],
+  title = "Compare your options",
+  description = "A few related paths worth considering.",
 }: {
   links: ProductRelatedLink[];
+  resources?: ProductRelatedLink[];
   title?: string;
   description?: string;
 }) {
-  if (links.length === 0) return null;
+  if (links.length === 0 && resources.length === 0) return null;
 
   return (
     <section className="bg-slate-50 px-5 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-20">
@@ -44,6 +46,19 @@ export function RelatedProducts({
             </li>
           ))}
         </ul>
+        {resources.length > 0 ? (
+          <div className="mt-10 border-t border-slate-200 pt-8">
+            <h3 className="text-lg font-semibold text-navy-950">Helpful guides before you decide</h3>
+            <ul className="mt-5 grid gap-6 sm:grid-cols-3">
+              {resources.map(resource => (
+                <li key={resource.href}>
+                  <Link href={resource.href} className="block rounded-sm py-2 text-sm font-semibold text-brand underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-brand">{resource.label}</Link>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -8,13 +8,14 @@ import { ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { BookingLink } from "@/components/booking-link";
 import {
+  APPLICATION_CTA,
   CONTACT,
   NAV_BUY,
-  NAV_HOME_EQUITY,
   NAV_INVEST,
   NAV_LINKS,
   NAV_PRIMARY_CTA_LABEL,
   NAV_REFINANCE,
+  NAV_RESOURCES,
   scenarioHrefForPath,
   type NavChild,
 } from "@/lib/nav/constants";
@@ -23,7 +24,7 @@ import { CTA_PRIMARY } from "@/lib/ui/styles";
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600/40 focus-visible:ring-offset-2";
 
-type DesktopMenuKey = "buy" | "refinance" | "home-equity" | "invest";
+type DesktopMenuKey = "buy" | "refinance" | "invest" | "resources";
 
 const DROPDOWNS: {
   key: DesktopMenuKey;
@@ -33,10 +34,10 @@ const DROPDOWNS: {
 }[] = [
   NAV_BUY,
   NAV_REFINANCE,
-  NAV_HOME_EQUITY,
   NAV_INVEST,
+  NAV_RESOURCES,
 ].map((group, index) => ({
-  key: (["buy", "refinance", "home-equity", "invest"] as const)[index],
+  key: (["buy", "refinance", "invest", "resources"] as const)[index],
   label: group.label,
   href: group.href,
   children: group.children,
@@ -268,16 +269,20 @@ export function Navbar() {
             <div className="hidden lg:flex items-center gap-3">
               <a
                 href={CONTACT.phoneHref}
-                className={`flex items-center gap-2 text-slate-600 hover:text-navy-800 text-sm transition-colors duration-200 font-medium ${FOCUS_RING} rounded-lg px-2 py-1.5`}
+                className={`hidden xl:flex items-center gap-2 text-slate-600 hover:text-navy-800 text-sm transition-colors duration-200 font-medium ${FOCUS_RING} rounded-lg px-2 py-1.5`}
               >
                 <Phone className="w-4 h-4" aria-hidden="true" />
                 {CONTACT.phone}
               </a>
-              <Link href={scenarioHref} className={`${CTA_PRIMARY} px-5 py-2.5`}>
-                {NAV_PRIMARY_CTA_LABEL}
-              </Link>
+              <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} px-5 py-2.5`}>
+                {APPLICATION_CTA.label}
+              </a>
             </div>
 
+            <div className="flex items-center gap-2 lg:hidden">
+              <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} min-h-11 px-4 py-2 text-sm`}>
+                {APPLICATION_CTA.label}
+              </a>
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -288,6 +293,7 @@ export function Navbar() {
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
+            </div>
           </div>
         </div>
       </header>
@@ -393,6 +399,13 @@ export function Navbar() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col gap-3">
+                <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} w-full justify-center`}>
+                  Apply Online
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </a>
+                <p className="text-center text-xs leading-relaxed text-slate-500">
+                  Ready to begin? Go directly to Broadview’s loan application.
+                </p>
                 <a
                   href={CONTACT.phoneHref}
                   className={`flex items-center gap-3 px-4 py-3 min-h-[48px] text-slate-600 hover:text-navy-800 transition-colors duration-200 font-medium rounded-xl ${FOCUS_RING}`}
@@ -403,7 +416,7 @@ export function Navbar() {
                 <Link
                   href={scenarioHref}
                   onClick={() => setMobileOpen(false)}
-                  className={`${CTA_PRIMARY} w-full justify-center`}
+                  className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-3 text-sm font-medium text-navy-700 hover:bg-slate-50"
                 >
                   {NAV_PRIMARY_CTA_LABEL}
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />

@@ -35,7 +35,7 @@ export const REFINANCE_HUB_PRODUCT: ProductDefinition = {
   slug: "refinance",
   path: "/refinance",
   group: "refinance",
-  title: "Refinance Strategy",
+  title: "Mortgage Refinance Options",
   description:
     "Rate-and-term, cash-out, FHA Streamline, and VA IRRRL conversations — reviewed with a Broadview advisor.",
   breadcrumbs: [
@@ -50,8 +50,8 @@ export const REFINANCE_HUB_PRODUCT: ProductDefinition = {
     },
     hero: productHero("refinance", {
       eyebrow: "Refinance",
-      headlineBefore: "A cleaner structure — ",
-      headlineAccent: "not a rushed refinance.",
+      headlineBefore: "Mortgage refinancing. ",
+      headlineAccent: "See what makes sense for you.",
       subheadline:
         "Rate-and-term, cash-out, streamline, or IRRRL. Start with the goal, then decide whether refinancing is even the right conversation.",
       chips: ["Advisor-led", "Rate, cash-out, streamline, IRRRL", "No credit pull to start"],
@@ -138,8 +138,8 @@ export const RATE_TERM_PRODUCT: ProductDefinition = {
     },
     hero: productHero("refinance", {
       eyebrow: "Rate & Term",
-      headlineBefore: "A cleaner payment ",
-      headlineAccent: "without taking cash.",
+      headlineBefore: "Rate-and-term refinancing. ",
+      headlineAccent: "Review your next step.",
       subheadline:
         "Change the rate or the term. Keep the conversation about structure — not a headline rate.",
       chips: ["No cash-out", "Advisor review", "Break-even conversation"],
@@ -205,8 +205,8 @@ export const CASH_OUT_PRODUCT: ProductDefinition = {
       "refinance",
       {
         eyebrow: "Cash-Out",
-        headlineBefore: "Access equity ",
-        headlineAccent: "without assuming cash-out is the answer.",
+        headlineBefore: "Cash-out refinancing. ",
+        headlineAccent: "Compare your equity options.",
         subheadline:
           "Replacing the first mortgage is one path. A HELOC may keep a rate you already like. We compare both.",
         chips: ["Cash-out vs HELOC", "Advisor comparison", "Educational first"],
@@ -282,8 +282,8 @@ export const FHA_STREAMLINE_PRODUCT: ProductDefinition = {
       "refinance",
       {
         eyebrow: "FHA Streamline",
-        headlineBefore: "A narrower refinance ",
-        headlineAccent: "if you already have FHA.",
+        headlineBefore: "FHA Streamline refinance. ",
+        headlineAccent: "Review your existing FHA loan.",
         subheadline:
           "Streamline is not a shortcut around judgment. An advisor confirms whether it is even the right conversation.",
         chips: ["Existing FHA loan", "Advisor review", "Educational first"],
@@ -358,8 +358,8 @@ export const VA_IRRRL_PRODUCT: ProductDefinition = {
       "refinance",
       {
         eyebrow: "VA IRRRL",
-        headlineBefore: "A VA streamline ",
-        headlineAccent: "when you already have VA financing.",
+        headlineBefore: "VA IRRRL refinancing. ",
+        headlineAccent: "Explore your next step.",
         subheadline:
           "IRRRL is a specific refinance conversation — not a general VA purchase path. An advisor confirms fit.",
         chips: ["Existing VA loan", "Advisor review", "Educational first"],

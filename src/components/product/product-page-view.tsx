@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
+import { MortgagePlanningLinks } from "@/components/content/mortgage-planning-links";
 import { ProductPage } from "@/components/product/product-page";
 import { siteUrl } from "@/lib/brand/config";
 import type { ProductDefinition } from "@/lib/product/types";
+import { productResources } from "@/lib/product/resources";
 import {
-  breadcrumbSchema,
   faqSchema,
   financialProductSchema,
   jsonLdString,
 } from "@/lib/seo/schema";
 
 export function productMetadata(product: ProductDefinition): Metadata {
+  const url = `${siteUrl}${product.canonicalPath ?? product.path}`;
+  const image = product.page.hero?.video;
   return {
     title: product.title,
     description: product.description,
+    alternates: { canonical: url },
     openGraph: {
       title: product.title,
       description: product.description,
-      url: `${siteUrl}${product.path}`,
+      url,
+      type: "website",
+      ...(image ? { images: [{ url: image.src, alt: image.alt }] } : {}),
     },
   };
 }
@@ -39,15 +45,15 @@ export function ProductPageView({ product }: { product: ProductDefinition }) {
             financialProductSchema({
               name: product.title,
               description: product.description,
-              path: product.path,
+              path: product.canonicalPath ?? product.path,
               category,
             }),
-            breadcrumbSchema(product.breadcrumbs),
             ...(faqs.length > 0 ? [faqSchema(faqs)] : []),
           ),
         }}
       />
-      <ProductPage config={product.page} />
+      <ProductPage config={{ ...product.page, breadcrumbs: product.breadcrumbs, resources: productResources(product.group) }} />
+      {(product.path === "/buy" || product.path === "/refinance") && <MortgagePlanningLinks />}
     </>
   );
 }

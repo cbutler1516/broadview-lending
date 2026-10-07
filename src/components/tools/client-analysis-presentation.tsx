@@ -19,6 +19,7 @@ import {
   shapeLabel,
 } from "@/lib/tools/investor-deal-analyzer";
 import type { ClientAnalysisView } from "@/lib/tools/client-analysis";
+import { SAMPLE_NOTICE } from "@/lib/tools/sample-scenarios";
 import { CTA_PRIMARY, CTA_SECONDARY } from "@/lib/ui/styles";
 
 function Row({
@@ -104,7 +105,7 @@ export function ClientAnalysisPresentation({
           <div className="flex flex-wrap items-start justify-between gap-4">
             <BrandLogo className="lg:h-10" showParent={false} href={false} />
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">
-              Client analysis
+              {view.isSample ? "Sample client analysis" : "Client analysis"}
             </p>
           </div>
           <h1 className="mt-8 text-3xl sm:text-4xl font-bold tracking-[-0.035em] text-navy-900">
@@ -115,6 +116,7 @@ export function ClientAnalysisPresentation({
             {property.propertyType ? ` · ${propertyTypeLabel(property.propertyType)}` : ""}
             {` · Prepared ${prepared}`}
           </p>
+          {view.isSample && <p className="mt-4 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-relaxed text-navy-900"><strong>Illustrative sample. </strong>{SAMPLE_NOTICE}</p>}
         </div>
       </header>
 

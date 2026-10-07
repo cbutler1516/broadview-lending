@@ -1,0 +1,59 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "open-house-checklist-beyond-the-kitchen",
+  "title": "Love the kitchen. Check the rest of the house.",
+  "excerpt": "A quick open-house checklist for the things a beautiful backsplash can make you forget.",
+  "category": "Buying a Home",
+  "image": {
+    "src": "/images/blog/home-inspection.webp",
+    "alt": "Illustrative sunlit attic with exposed wooden rafters and a small inspection flashlight"
+  },
+  "takeaway": "Use the same questions at every showing, then let qualified professionals investigate the condition.",
+  "sections": [
+    {
+      "heading": "Enjoy the tour—and bring a tiny checklist",
+      "paragraphs": [
+        "You are allowed to love the light, the porch and the place where the sofa would go. Just give the practical side a few minutes too. Make a phone note with the questions you want to ask at every home.",
+        "Try three headings: daily life, known costs and things to investigate. Under daily life, note storage, stairs, workspace and your commute. These observations help compare homes without asking your memory to compete with listing photos."
+      ]
+    },
+    {
+      "heading": "Ask what the listing does not answer",
+      "paragraphs": [
+        "What information is available about the roof, major systems and past repairs? Are there association documents to review? Which costs have been estimated rather than confirmed? Ask your agent which disclosures and professional inspections are appropriate for the property.",
+        "An open-house visit is not a substitute for an inspection, and a fresh coat of paint does not establish the condition behind it. Record questions rather than diagnosing problems yourself. Local requirements and purchase contracts differ, so get property-specific guidance."
+      ]
+    },
+    {
+      "heading": "Give the home its own budget",
+      "paragraphs": [
+        "The CFPB reminds prospective buyers to plan for repairs, moving and other ownership costs. A listing that fits your price search may still require spending immediately after the move. Put that next to the proposed monthly housing cost before choosing your favorite.",
+        "After the tour, write one sentence about why the home fits and one about what still needs checking. If it stays on your shortlist, bring the property details to an advisor. You can be excited about a home and thoughtful about the commitment at the same time."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Ready to buy a home?",
+      "href": "https://www.consumerfinance.gov/consumer-tools/mortgages/ready-to-buy-a-home/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Plan your first home purchase",
+      "href": "/buy/first-time-homebuyer"
+    }
+  ],
+  "nextStep": {
+    "label": "Explore homebuying options",
+    "href": "/buy"
+  },
+  "relatedSlugs": [
+    "your-home-budget-needs-a-life-budget",
+    "twenty-percent-down-is-not-the-only-start",
+    "more-homes-to-tour-not-a-clearance-sale"
+  ]
+}

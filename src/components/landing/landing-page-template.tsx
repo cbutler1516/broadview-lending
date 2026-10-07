@@ -16,6 +16,8 @@ import {
   type LandingPage,
 } from "@/lib/content/landing-pages";
 import { brand } from "@/lib/brand/config";
+import { loanImages } from "@/lib/media/assets";
+import { ComplianceDisclaimer } from "@/components/compliance-disclaimer";
 
 type LandingPageTemplateProps = {
   page: LandingPage;
@@ -46,6 +48,7 @@ export function LandingPageTemplate({ page }: LandingPageTemplateProps) {
 
       <CinematicHero
         theme={page.ecosystem}
+        video={page.ecosystem === "buy" ? loanImages.purchase : loanImages.refinance}
         breadcrumbs={[
           { name: "Home", path: "/" },
           { name: ecosystem.title, path: ecosystem.path },
@@ -65,6 +68,28 @@ export function LandingPageTemplate({ page }: LandingPageTemplateProps) {
           },
         ]}
       />
+
+      {page.sections && (
+        <section className="section-container py-12 md:py-16" aria-label="Planning guide">
+          <div className="mx-auto max-w-3xl space-y-8">
+            {page.sections.map((section) => (
+              <section key={section.heading}>
+                <h2 className="text-2xl font-semibold tracking-tight">{section.heading}</h2>
+                {section.body.map((paragraph) => <p key={paragraph} className="mt-3 leading-relaxed text-muted">{paragraph}</p>)}
+              </section>
+            ))}
+            {page.sources && (
+              <div className="border-t border-border pt-6">
+                <h2 className="text-base font-semibold">Sources and further reading</h2>
+                <ul className="mt-3 space-y-3">
+                  {page.sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noopener noreferrer" className="text-sm text-brand underline underline-offset-4">{source.label}<span className="sr-only"> (opens in a new tab)</span></a></li>)}
+                </ul>
+                <ComplianceDisclaimer className="mt-5" />
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <ConversationPreview
         topics={page.advisorNotes.slice(0, 4)}

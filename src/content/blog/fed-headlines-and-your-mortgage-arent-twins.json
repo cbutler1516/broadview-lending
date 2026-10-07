@@ -1,0 +1,67 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "fed-headlines-and-your-mortgage-arent-twins",
+  "title": "Fed headlines and your mortgage aren't twins",
+  "excerpt": "Why a central-bank announcement is not a coupon you can carry into a mortgage conversation.",
+  "category": "Rates, Simply",
+  "image": {
+    "src": "/images/blog/fed-news.webp",
+    "alt": "Illustrative folded newspaper, reading glasses and radio beside a sunlit window"
+  },
+  "takeaway": "A policy-rate headline is context—not an instruction to lock, wait or refinance.",
+  "sections": [
+    {
+      "heading": "Different numbers, different jobs",
+      "paragraphs": [
+        "When the Federal Reserve talks about its policy rate, it is referring to a target for a short-term interest rate. The Fed explains that changes influence other short-term rates and broader economic activity. That is not the same thing as setting the rate on your individual home loan.",
+        "So a headline about a policy change does not tell you exactly what a particular lender will offer, or when. Keep the two questions separate: what happened in the broader economy, and what terms are available for your situation?"
+      ]
+    },
+    {
+      "heading": "Don't turn a headline into a household deadline",
+      "paragraphs": [
+        "It is tempting to read a big announcement as a signal that everyone should act now—or that everyone should wait. A home purchase has its own timing: your plans, the property, the contract and the budget.",
+        "If you are actively shopping, ask for an updated comparison and an explanation of the rate-lock options. If you are simply planning, make a note of the development without treating it as a promise about next month. This article is an explainer, not a forecast or a report of a new Fed decision."
+      ]
+    },
+    {
+      "heading": "Ask the question that gets you an answer",
+      "paragraphs": [
+        "Instead of 'What will the Fed do to my mortgage?' try 'What has changed in the options you can show me, and what assumptions are behind them?' Ask about upfront costs, timing and whether the quoted terms are locked.",
+        "That conversation can be short and practical. You do not need to follow every policy speech to compare a loan thoughtfully. Keep the news in the background and your actual plans in the foreground. When a decision is getting closer, current written terms matter more than a confident prediction."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Federal Reserve — The policy rate, explained",
+      "href": "https://www.federalreserve.gov/economy-at-a-glance-policy-rate.htm"
+    },
+    {
+      "label": "CFPB — Choosing a loan offer",
+      "href": "https://www.consumerfinance.gov/owning-a-home/compare/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Explore conventional home loans",
+      "href": "/buy/conventional-loans"
+    },
+    {
+      "label": "Review refinancing options",
+      "href": "/refinance"
+    }
+  ],
+  "nextStep": {
+    "label": "Ask a Broadview advisor",
+    "href": "/contact"
+  },
+  "relatedSlugs": [
+    "october-rate-check-without-the-drama",
+    "two-mortgage-quotes-one-fair-comparison",
+    "refinancing-the-payment-isnt-the-whole-story"
+  ]
+}

@@ -14,6 +14,31 @@ export function FundingProcess({ config }: { config: FundingProcessConfig }) {
   const compact = config.compact ?? false;
   const reduceMotion = useReducedMotion();
 
+  if (compact) {
+    return (
+      <section className={`${bg} px-5 py-10 sm:px-8 lg:px-12 xl:px-16`}>
+        <details className="group/process mx-auto max-w-6xl border-y border-slate-200">
+          <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-6 py-5 focus-visible:outline-2 focus-visible:outline-brand [&::-webkit-details-marker]:hidden">
+            <span>
+              <span className="block text-xl font-semibold tracking-tight text-navy-900">{config.title}</span>
+              <span className="mt-2 block text-sm text-slate-500">{config.description}</span>
+            </span>
+            <span aria-hidden="true" className="text-2xl text-brand group-open/process:rotate-45">+</span>
+          </summary>
+          <ol className="grid gap-8 pb-8 pt-4 sm:grid-cols-3">
+            {config.steps.map((step) => (
+              <li key={step.step}>
+                <p className="text-xs font-semibold text-brand">Step {step.step}</p>
+                <h3 className="mt-3 font-semibold text-navy-900">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </details>
+      </section>
+    );
+  }
+
   return (
     <section
       className={`${bg} px-5 sm:px-8 lg:px-12 xl:px-16 ${compact ? "py-16 sm:py-22 lg:py-24" : "py-18 sm:py-28"}`}

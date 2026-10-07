@@ -1,0 +1,67 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "twenty-percent-down-is-not-the-only-start",
+  "title": "Twenty percent down is not the only starting line",
+  "excerpt": "Your down payment matters. So does the money left after the moving truck pulls away.",
+  "category": "Buying a Home",
+  "image": {
+    "src": "/images/blog/down-payment.webp",
+    "alt": "Illustrative glass savings jar and house key on a wooden shelf"
+  },
+  "takeaway": "Compare the monthly cost and the cash you keep—not just the percentage you put down.",
+  "sections": [
+    {
+      "heading": "A milestone, not a universal rule",
+      "paragraphs": [
+        "You do not always need a 20% down payment to buy a home. The CFPB explains that smaller-down-payment options exist, with different costs and requirements. Eligibility depends on the program and your situation; no single percentage tells the whole story.",
+        "Putting more down can reduce the amount borrowed. Putting less down may preserve cash, but can increase the monthly cost, including mortgage insurance when it applies. The useful comparison is between complete options, not one 'good' number and one 'bad' number."
+      ]
+    },
+    {
+      "heading": "Don't spend the furniture money twice",
+      "paragraphs": [
+        "Separate your savings into three planning buckets: money for the purchase, money for the move, and money you want to keep available afterward. It is surprisingly easy to count the same dollars as both a bigger down payment and a comfortable cushion.",
+        "Think about what happens immediately after closing. Does the house need appliances? Will a move change commuting costs? Is a known repair waiting? Write these down before deciding that every available dollar belongs in the transaction."
+      ]
+    },
+    {
+      "heading": "Ask for a side-by-side view",
+      "paragraphs": [
+        "Ask an advisor to compare a few down-payment choices using the same property, timing and loan type where possible. Look at cash needed to close, the full monthly housing cost, any mortgage insurance and the money remaining afterward.",
+        "You do not need to arrive with the answer already chosen. A useful first conversation can simply start with your savings range and your priorities. The point is not to chase the smallest down payment or the biggest one—it is to understand the trade-offs before choosing a direction."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Determine your down payment",
+      "href": "https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/"
+    },
+    {
+      "label": "CFPB — Loan Estimate explainer",
+      "href": "https://www.consumerfinance.gov/owning-a-home/loan-estimate/"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Compare conventional loans",
+      "href": "/buy/conventional-loans"
+    },
+    {
+      "label": "Explore FHA loans",
+      "href": "/buy/fha-loans"
+    }
+  ],
+  "nextStep": {
+    "label": "Start my homebuying strategy",
+    "href": "/funnel/purchase"
+  },
+  "relatedSlugs": [
+    "your-home-budget-needs-a-life-budget",
+    "two-mortgage-quotes-one-fair-comparison",
+    "open-house-checklist-beyond-the-kitchen"
+  ]
+}

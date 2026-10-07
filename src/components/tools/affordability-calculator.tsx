@@ -4,6 +4,9 @@ import { useRef, useState } from "react";
 import { CalculatorResult } from "@/components/tools/calculator-result";
 import { trackConversionEvent } from "@/lib/analytics/events";
 import { recordCalcSnapshot, recordCalculator } from "@/lib/strategy/workspace";
+import { SampleScenarioControls } from "./sample-scenario-controls";
+import { useSampleScenario } from "@/lib/tools/use-sample-scenario";
+import { AFFORDABILITY_SAMPLE } from "@/lib/tools/sample-scenarios";
 
 const TOOL_SLUG = "affordability-planner";
 
@@ -29,10 +32,10 @@ const usd = new Intl.NumberFormat("en-US", {
 
 export function AffordabilityCalculator() {
   const [values, setValues] = useState<Record<string, string>>({
-    payment: "3000",
-    down: "40000",
-    rate: "6.5",
-    taxIns: "1.4",
+    payment: "",
+    down: "",
+    rate: "",
+    taxIns: "",
   });
   const [result, setResult] = useState<{
     price: number;
@@ -41,20 +44,28 @@ export function AffordabilityCalculator() {
     ti: number;
   } | null>(null);
   const started = useRef(false);
+  const sample = useSampleScenario<{ values: Record<string, string>; result: typeof result }>();
+  const valid = fields.every(({ key }) => values[key].trim() !== "" && Number.isFinite(Number(values[key])) && Number(values[key]) >= 0) && Number(values.payment) > 0;
+
+  function clear() {
+    setValues({ payment: "", down: "", rate: "", taxIns: "" });
+    setResult(null); sample.clear();
+  }
 
   function update(key: string, value: string) {
-    if (!started.current) {
+    if (!sample.isSample && !started.current) {
       started.current = true;
       trackConversionEvent("calculator_started", { tool: TOOL_SLUG });
     }
     setValues((v) => ({ ...v, [key]: value }));
+    setResult(null);
   }
 
-  function calculate() {
-    const payment = Number(values.payment) || 0;
-    const down = Number(values.down) || 0;
-    const annualRate = (Number(values.rate) || 0) / 100;
-    const tIns = (Number(values.taxIns) || 0) / 100;
+  function calculate(inputs = values, isSample = sample.isSample) {
+    const payment = Number(inputs.payment) || 0;
+    const down = Number(inputs.down) || 0;
+    const annualRate = (Number(inputs.rate) || 0) / 100;
+    const tIns = (Number(inputs.taxIns) || 0) / 100;
     const n = 360;
     const r = annualRate / 12;
 
@@ -72,6 +83,7 @@ export function AffordabilityCalculator() {
     const ti = price * monthlyTi;
 
     setResult({ price, loan, pi, ti });
+    if (isSample) return;
     trackConversionEvent("calculator_completed", {
       tool: TOOL_SLUG,
       price: Math.round(price),
@@ -84,6 +96,12 @@ export function AffordabilityCalculator() {
   }
 
   return (
+    <div className="space-y-6">
+      <SampleScenarioControls active={sample.isSample}
+        description="Explore a fictional monthly budget and down payment, with the estimated price range already calculated."
+        onLoad={() => { sample.load({ values, result }); setValues({ ...AFFORDABILITY_SAMPLE }); calculate(AFFORDABILITY_SAMPLE, true); }}
+        onClear={clear}
+        onRestore={sample.canRestore ? () => sample.restore((previous) => { setValues(previous.values); setResult(previous.result); }) : undefined} />
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <div className="card-elevated p-6 md:p-7">
         <div className="space-y-4">
@@ -107,8 +125,8 @@ export function AffordabilityCalculator() {
               </div>
             </label>
           ))}
-          <button type="button" onClick={calculate} className="btn-primary w-full">
-            Calculate My Range
+          <button type="button" disabled={!valid} onClick={() => calculate()} className="btn-primary w-full disabled:opacity-40">
+            {sample.isSample ? "Recalculate Sample" : "Calculate My Range"}
           </button>
         </div>
       </div>
@@ -116,6 +134,7 @@ export function AffordabilityCalculator() {
       <div>
         {result ? (
           <CalculatorResult
+            isSample={sample.isSample}
             toolSlug={TOOL_SLUG}
             stats={[
               { label: "Estimated home price", value: usd.format(result.price) },
@@ -147,6 +166,7 @@ export function AffordabilityCalculator() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

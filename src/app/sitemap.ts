@@ -9,9 +9,9 @@ import { comparisons } from "@/lib/content/comparisons";
 import { lifeEvents } from "@/lib/content/life-events";
 import { locationPages } from "@/lib/content/locations";
 import { PRODUCT_DEFINITIONS } from "@/lib/product/configs";
+import { getPublishedPosts } from "@/lib/blog/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
 
   const staticRoutes = [
     "",
@@ -21,6 +21,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/commercial",
     "/invest",
     "/learn",
+    "/learn/realtor-academy",
+    "/learn/homebuyer-center",
+    "/blog",
+    "/completed-financing",
     "/tools",
     "/guides",
     "/compare",
@@ -49,9 +53,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...PRODUCT_DEFINITIONS.map((product) => product.path),
   ];
 
-  return [...staticRoutes, ...dynamicRoutes].map((path) => ({
+  const aliases = new Set(PRODUCT_DEFINITIONS.filter(product => product.canonicalPath && product.canonicalPath !== product.path).map(product => product.path));
+  const existing: MetadataRoute.Sitemap = [...new Set([...staticRoutes, ...dynamicRoutes])].filter(path => !aliases.has(path)).map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified,
     changeFrequency: path === "" ? "weekly" : "monthly",
     priority:
       path === ""
@@ -63,4 +67,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? 0.9
           : 0.7,
   }));
+  return [...existing, ...getPublishedPosts().map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(`${post.updatedAt}T12:00:00Z`),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))];
 }

@@ -35,7 +35,7 @@ export const PURCHASE_PRODUCT: ProductDefinition = {
   slug: "purchase",
   path: "/buy",
   group: "buy",
-  title: "Purchase Mortgage Strategy",
+  title: "Home Purchase Loans & Mortgage Options",
   description:
     "Start with the home you want to buy. Broadview helps you understand conventional, FHA, VA, and jumbo paths with a licensed advisor.",
   breadcrumbs: [
@@ -54,8 +54,8 @@ export const PURCHASE_PRODUCT: ProductDefinition = {
     },
     hero: productHero("buy", {
       eyebrow: "Home Purchase",
-      headlineBefore: "Strategy for the ",
-      headlineAccent: "home you want to buy.",
+      headlineBefore: "Home purchase loans. ",
+      headlineAccent: "A plan built around you.",
       subheadline:
         "First home, move-up, or a more complex purchase — start with the goal, then build the financing around your life.",
       chips: ["Advisor-led guidance", "Conventional, FHA, VA, Jumbo", "No credit pull to start"],
@@ -158,7 +158,7 @@ export const FIRST_TIME_PRODUCT: ProductDefinition = {
   slug: "first-time-homebuyer",
   path: "/buy/first-time-homebuyer",
   group: "buy",
-  title: "First-Time Homebuyer Strategy",
+  title: "First-Time Homebuyer Loans & Guidance",
   description:
     "First-home guidance from Broadview — down payment options, program fit, and a licensed advisor before you write an offer.",
   breadcrumbs: buyCrumbs("First-Time Buyer", "/buy/first-time-homebuyer"),
@@ -172,8 +172,8 @@ export const FIRST_TIME_PRODUCT: ProductDefinition = {
       "buy",
       {
         eyebrow: "First-Time Buyer",
-        headlineBefore: "Buy your first home ",
-        headlineAccent: "with a plan.",
+        headlineBefore: "First-time homebuyer loans. ",
+        headlineAccent: "Guidance at every step.",
         subheadline:
           "Down payment, monthly comfort, and program options — reviewed with an advisor before the offer.",
         chips: ["Advisor-led", "FHA, conventional, and VA conversations", "About 60 seconds to start"],
@@ -249,8 +249,8 @@ export const CONVENTIONAL_PRODUCT: ProductDefinition = {
     },
     hero: productHero("buy", {
       eyebrow: "Conventional",
-      headlineBefore: "Conventional financing ",
-      headlineAccent: "with advisor judgment.",
+      headlineBefore: "Conventional home loans. ",
+      headlineAccent: "Personal guidance.",
       subheadline:
         "A standard purchase path — still reviewed around your down payment, reserves, and the life you are planning.",
       chips: ["Advisor review", "Purchase strategy", "Educational first"],
@@ -315,8 +315,8 @@ export const FHA_PRODUCT: ProductDefinition = {
       "buy",
       {
         eyebrow: "FHA",
-        headlineBefore: "An FHA conversation ",
-        headlineAccent: "when flexibility matters.",
+        headlineBefore: "FHA home loans. ",
+        headlineAccent: "Explore your options.",
         subheadline:
           "Lower down-payment structure can be useful. An advisor still reviews whether FHA, conventional, or another path fits.",
         chips: ["Advisor-led", "First-time and repeat buyers", "Educational comparison"],
@@ -382,8 +382,8 @@ export const VA_PRODUCT: ProductDefinition = {
       "buy",
       {
         eyebrow: "VA",
-        headlineBefore: "VA financing, ",
-        headlineAccent: "reviewed with respect.",
+        headlineBefore: "VA home loans. ",
+        headlineAccent: "Guidance for your next move.",
         subheadline:
           "Eligibility, occupancy, and entitlement are not website checkboxes. A Broadview advisor walks through the real conversation.",
         chips: ["Advisor-led", "Purchase and IRRRL conversations", "No product-first pitch"],
@@ -449,8 +449,8 @@ export const JUMBO_PRODUCT: ProductDefinition = {
     },
     hero: productHero("buy", {
       eyebrow: "Jumbo",
-      headlineBefore: "When loan size ",
-      headlineAccent: "changes the strategy.",
+      headlineBefore: "Jumbo home loans. ",
+      headlineAccent: "A plan for a larger purchase.",
       subheadline:
         "High-balance and jumbo purchases need a calmer conversation about reserves, structure, and timing.",
       chips: ["Advisor-led", "High-balance conversations", "Educational first"],

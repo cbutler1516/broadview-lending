@@ -26,6 +26,12 @@ export type CalculatorMeta = {
 
 export const calculators: CalculatorMeta[] = [
   {
+    slug: "offer-comparison", title: "Offer Comparison", category: "buy", status: "live",
+    tagline: "Compare price, payment, eligible seller credits, and upfront cash across two offers.",
+    related: { articles: ["seller-credit-or-price-reduction", "buying-when-rates-feel-high", "prepare-an-offer-with-your-lender"], funnels: ["purchase"] },
+    seo: { title: "Compare Home Purchase Offers | Payment & Cash to Close", description: "Compare two home purchase scenarios using your own price, interest rate, down payment, costs, and seller-credit assumptions." },
+  },
+  {
     slug: "affordability-planner",
     title: "Affordability Planner",
     tagline:

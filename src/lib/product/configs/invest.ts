@@ -55,8 +55,8 @@ export const DSCR_PRODUCT: ProductDefinition = {
       "invest",
       {
         eyebrow: "DSCR Rental",
-        headlineBefore: "Analyze the rental. ",
-        headlineAccent: "Then the financing.",
+        headlineBefore: "DSCR rental loans. ",
+        headlineAccent: "Start with the property.",
         subheadline:
           "Debt-service coverage conversations for investors who buy or refinance income property. An advisor reviews the deal — not just a ratio.",
         chips: ["Purchase and refinance", "Advisor desk", "Realtor-ready framing"],
@@ -142,8 +142,8 @@ export const FIX_FLIP_PRODUCT: ProductDefinition = {
     },
     hero: productHero("invest", {
       eyebrow: "Fix & Flip",
-      headlineBefore: "Buy it. Improve it. ",
-      headlineAccent: "Understand the exit.",
+      headlineBefore: "Fix-and-flip financing. ",
+      headlineAccent: "Plan the purchase and renovation.",
       subheadline:
         "Acquisition and renovation conversations for investors. An advisor reviews budget, timeline, and takeout — not just a purchase price.",
       chips: ["Acquisition + rehab", "Advisor desk", "Exit-aware"],
@@ -212,8 +212,8 @@ export const BRIDGE_PRODUCT: ProductDefinition = {
       "invest",
       {
         eyebrow: "Bridge",
-        headlineBefore: "When timing ",
-        headlineAccent: "is the constraint.",
+        headlineBefore: "Investor bridge loans. ",
+        headlineAccent: "Plan for the next step.",
         subheadline:
           "Short-term capital conversations for acquisitions, gaps, and refinance exits. The takeout is part of the first discussion.",
         chips: ["Timing-aware", "Advisor desk", "Exit first"],
@@ -294,8 +294,8 @@ export const CONSTRUCTION_PRODUCT: ProductDefinition = {
     },
     hero: productHero("invest", {
       eyebrow: "New Construction",
-      headlineBefore: "The project is ",
-      headlineAccent: "the underwriting.",
+      headlineBefore: "New construction financing. ",
+      headlineAccent: "Build a clear plan.",
       subheadline:
         "Ground-up and substantial rebuild conversations. Draws, budget, and takeout are reviewed together with an advisor.",
       chips: ["Project-aware", "Advisor desk", "Draw conversations"],
@@ -362,8 +362,8 @@ export const BRRRR_PRODUCT: ProductDefinition = {
     },
     hero: productHero("invest", {
       eyebrow: "BRRRR",
-      headlineBefore: "A sequence. ",
-      headlineAccent: "Not a single product.",
+      headlineBefore: "BRRRR financing strategy. ",
+      headlineAccent: "Plan each stage.",
       subheadline:
         "Buy, rehab, rent, refinance, repeat. Broadview helps you see which financing conversation belongs at each step.",
       chips: ["Sequence-aware", "Advisor desk", "Refinance last, not first"],
@@ -432,8 +432,8 @@ export const INVESTOR_HELOC_PRODUCT: ProductDefinition = {
       "invest",
       {
         eyebrow: "Investor HELOC",
-        headlineBefore: "Equity on the investment — ",
-        headlineAccent: "reviewed with care.",
+        headlineBefore: "Investor HELOC options. ",
+        headlineAccent: "Explore your property equity.",
         subheadline:
           "A HELOC conversation on rental or investment property. Occupancy, liens, and use of funds stay in the same advisor review.",
         chips: ["Investment property", "Existing HELOC experience", "Advisor desk"],
@@ -526,8 +526,8 @@ export const MULTIFAMILY_PRODUCT: ProductDefinition = {
       "invest",
       {
         eyebrow: "Multifamily / Commercial",
-        headlineBefore: "Larger assets. ",
-        headlineAccent: "Calmer underwriting language.",
+        headlineBefore: "Multifamily and commercial loans. ",
+        headlineAccent: "Start with the asset.",
         subheadline:
           "Multifamily, mixed-use, and commercial investment conversations. NOI, occupancy, and entity structure — reviewed with an advisor.",
         chips: ["Institutional tone", "Advisor desk", "Partner-ready"],
@@ -596,6 +596,7 @@ export const COMMERCIAL_PRODUCT: ProductDefinition = {
   ...MULTIFAMILY_PRODUCT,
   slug: "commercial",
   path: "/commercial",
+  canonicalPath: "/invest/multifamily",
   breadcrumbs: [
     { name: "Home", path: "/" },
     { name: "Invest", path: "/invest" },

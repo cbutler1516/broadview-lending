@@ -6,6 +6,7 @@ import { ComplianceFooter } from "@/components/compliance-footer";
 import { CalculatorShell } from "@/components/tools/calculator-shell";
 import { AffordabilityCalculator } from "@/components/tools/affordability-calculator";
 import { CashOutVsHelocCalculator } from "@/components/tools/cash-out-vs-heloc-calculator";
+import { OfferComparison } from "@/components/tools/offer-comparison";
 import { getCalculator, getLiveCalculators } from "@/lib/content/calculators";
 import { siteUrl } from "@/lib/brand/config";
 
@@ -14,6 +15,7 @@ type PageProps = {
 };
 
 const calculatorComponents: Record<string, ReactNode> = {
+  "offer-comparison": <OfferComparison />,
   "affordability-planner": <AffordabilityCalculator />,
   "cash-out-vs-heloc": <CashOutVsHelocCalculator />,
 };

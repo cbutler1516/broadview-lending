@@ -1,4 +1,5 @@
 import type { Faq, RelatedRefs, SeoMeta } from "@/lib/content/types";
+import { searchLandingPages } from "./search-landings";
 
 /**
  * Data-driven landing-page system. Every paid + organic landing page renders
@@ -27,9 +28,12 @@ export type LandingPage = {
   related: RelatedRefs;
   seo: SeoMeta;
   schema: "FinancialProduct" | "WebPage";
+  sections?: { heading: string; body: string[] }[];
+  sources?: { label: string; href: string }[];
 };
 
 export const landingPages: LandingPage[] = [
+  ...searchLandingPages,
   // ---------------------------------------------------------------- BUY
   {
     ecosystem: "buy",

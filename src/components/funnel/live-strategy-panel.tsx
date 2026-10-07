@@ -18,6 +18,7 @@ type LiveStrategyPanelProps = {
   creditProfileCaptured?: boolean;
   cashTargetCaptured?: boolean;
   contactCaptured?: boolean;
+  equityFocused?: boolean;
 };
 
 export function LiveStrategyPanel({
@@ -34,6 +35,7 @@ export function LiveStrategyPanel({
   creditProfileCaptured,
   cashTargetCaptured,
   contactCaptured,
+  equityFocused = true,
 }: LiveStrategyPanelProps) {
   let equityPreparation = "We'll note the equity range that would be most useful.";
   if (estimatedEquity) {
@@ -46,7 +48,7 @@ export function LiveStrategyPanel({
     propertyAddress
       ? "Property located for advisor review."
       : "We'll start by confirming the property.",
-    equityPreparation,
+    equityFocused ? equityPreparation : "We'll review your budget and financing needs together.",
   ];
 
   const learnedItems = [

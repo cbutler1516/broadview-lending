@@ -1,0 +1,60 @@
+{
+  "publishedAt": "2026-10-05",
+  "updatedAt": "2026-10-05",
+  "sourcesCheckedAt": "2026-10-05",
+  "status": "published",
+  "slug": "more-homes-to-tour-not-a-clearance-sale",
+  "title": "More homes to tour. Not necessarily a clearance sale.",
+  "excerpt": "The latest national housing report offers a little more choice—and a good reason to keep your local market in view.",
+  "category": "Market Notes",
+  "image": {
+    "src": "/images/blog/neighborhood.webp",
+    "alt": "Illustrative tree-lined neighborhood with welcoming front porches and autumn light"
+  },
+  "dataAsOf": "August 2026 national existing-home sales; released September 10, 2026",
+  "takeaway": "More choice can improve the conversation. It does not make every listing a bargain.",
+  "sections": [
+    {
+      "heading": "What changed",
+      "paragraphs": [
+        "The National Association of REALTORS® reported that existing-home sales fell 2.0% in August 2026 from July. Inventory reached 1.62 million homes, representing 4.9 months of supply at that month's sales pace. The national median sale price was still up 1.6% from a year earlier.",
+        "Those numbers describe the national market for previously owned homes. They do not establish what a particular house is worth, and they are not an October sales report. Housing releases arrive after the month they measure."
+      ]
+    },
+    {
+      "heading": "Trade the big headline for three local questions",
+      "paragraphs": [
+        "Our read: a larger menu is a reason to compare carefully, not to assume every seller will negotiate. Ask your agent which similar homes have actually closed nearby, how long the homes you like have been available, and whether their asking prices have changed.",
+        "A house needing a roof is not automatically a better deal than the more expensive one with fewer immediate projects. Compare the purchase, the repairs and the monthly commitment together. Take the same short checklist to every showing so the wonderful kitchen does not erase the practical questions."
+      ]
+    },
+    {
+      "heading": "Use the breathing room well",
+      "paragraphs": [
+        "Before a second tour, choose your must-haves, your nice-to-haves and the work you would rather not take on. That makes it easier to notice a good fit without turning every listing into a weekend-long debate.",
+        "Then ask your advisor to revisit the financing with the actual property in mind. More inventory may change your search experience; your budget still deserves its own review. Neither national sales data nor a listing's time on the market guarantees a discount."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "National Association of REALTORS® — August 2026 existing-home sales, released September 10",
+      "href": "https://www.nar.realtor/research-and-statistics/housing-statistics/existing-home-sales"
+    }
+  ],
+  "productLinks": [
+    {
+      "label": "Plan your home purchase",
+      "href": "/buy"
+    }
+  ],
+  "nextStep": {
+    "label": "Explore the affordability planner",
+    "href": "/tools/affordability-planner"
+  },
+  "relatedSlugs": [
+    "october-rate-check-without-the-drama",
+    "your-home-budget-needs-a-life-budget",
+    "open-house-checklist-beyond-the-kitchen"
+  ]
+}

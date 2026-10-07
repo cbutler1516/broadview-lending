@@ -3,8 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import Link from "next/link";
-import { LivingArchitectureVideo } from "@/components/media/living-architecture-video";
-import { ctaBackgroundVideo } from "@/lib/media/assets";
 import type { LoanCtaConfig, ProductCta } from "@/lib/product/types";
 
 function CtaButton({ cta }: { cta: ProductCta }) {
@@ -30,29 +28,11 @@ function CtaButton({ cta }: { cta: ProductCta }) {
 
 export function LoanCTA({ config }: { config: LoanCtaConfig }) {
   const reduceMotion = useReducedMotion();
-  const video = config.backgroundVideo ?? ctaBackgroundVideo;
 
   return (
-    <section className="relative min-h-[72svh] sm:min-h-[78svh] lg:min-h-[84svh] flex items-end sm:items-center overflow-hidden bg-navy-950">
-      <motion.div
-        initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-0"
-      >
-        <LivingArchitectureVideo
-          asset={video}
-          bare
-          overlay={false}
-          rounded=""
-          aspectClassName="absolute inset-0 h-full w-full"
-          className="absolute inset-0"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/60 to-navy-950/35" />
+    <section className="bg-navy-950">
 
-      <div className="relative w-full px-5 sm:px-8 lg:px-12 xl:px-16 py-20 sm:py-28 lg:py-32">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

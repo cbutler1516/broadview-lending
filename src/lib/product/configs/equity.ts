@@ -27,7 +27,7 @@ export const HELOC_PRODUCT: ProductDefinition = {
   slug: "heloc",
   path: "/heloc",
   group: "equity",
-  title: "HELOC and Home Equity Strategy",
+  title: "HELOC & Home Equity Options",
   description:
     "Explore HELOC and home-equity options with Broadview. Start online, then a licensed advisor reviews the details before recommendations.",
   breadcrumbs: [
@@ -48,8 +48,8 @@ export const HELOC_PRODUCT: ProductDefinition = {
       "equity",
       {
         eyebrow: "Home Equity",
-        headlineBefore: "Find the right equity ",
-        headlineAccent: "strategy for your goal.",
+        headlineBefore: "HELOC and home equity options. ",
+        headlineAccent: "Start with your goal.",
         subheadline:
           "HELOC, home equity loan, or cash-out. Start with the reason you need the funds — then compare structure.",
         chips: ["Advisor-led", "Keep or replace the first mortgage", "About 60 seconds to start"],
@@ -160,8 +160,8 @@ export const HOME_EQUITY_LOAN_PRODUCT: ProductDefinition = {
       "equity",
       {
         eyebrow: "Home Equity Loan",
-        headlineBefore: "A defined amount. ",
-        headlineAccent: "A defined payment.",
+        headlineBefore: "Home equity loans. ",
+        headlineAccent: "Plan your next move.",
         subheadline:
           "A home equity loan is a closed-end second — useful when you know the amount and want a payment, not a revolving line.",
         chips: ["Second-lien conversation", "Advisor review", "Compared with HELOC and cash-out"],

@@ -39,6 +39,8 @@ export type MediaAsset = {
   src: string;
   /** Poster/fallback image for videos (and required for good UX). */
   poster?: string;
+  /** Description of the editorial still when it differs from the motion asset. */
+  posterAlt?: string;
   /** Accessible description. */
   alt: string;
   type: MediaType;
@@ -61,6 +63,16 @@ export function isViewable(asset?: MediaAsset | null): asset is MediaAsset {
   return Boolean(asset && asset.enabled && asset.src.trim().length > 0);
 }
 
+/** Editorial illustrations, not actual listings or properties financed by Broadview. */
+export const loanImages = {
+  purchase: { id: "loan-purchase", title: "A place to call home", src: "/images/loans/purchase.webp", alt: "Illustrative Craftsman home with a welcoming porch and garden", type: "image", placement: "buy-background", enabled: true },
+  equity: { id: "loan-equity", title: "Room for what comes next", src: "/images/loans/equity.webp", alt: "Illustrative renovated oak kitchen opening onto a garden", type: "image", placement: "home-equity-background", enabled: true },
+  refinance: { id: "loan-refinance", title: "Make room in your plans", src: "/images/loans/refinance.webp", alt: "Illustrative sunlit living room with a linen sofa and garden views", type: "image", placement: "refinance-background", enabled: true },
+  rental: { id: "loan-rental", title: "A property with a plan", src: "/images/loans/rental.webp", alt: "Illustrative rental townhomes with individual entrances and landscaped gardens", type: "image", placement: "commercial", enabled: true },
+  construction: { id: "loan-construction", title: "Build the next chapter", src: "/images/loans/construction.webp", alt: "Illustrative timber-framed home under construction beside evergreen trees", type: "image", placement: "commercial", enabled: true },
+  multifamily: { id: "loan-multifamily", title: "Think beyond one front door", src: "/images/loans/multifamily.webp", alt: "Illustrative neighborhood apartment building with brick walls and balconies", type: "image", placement: "commercial", enabled: true },
+} as const satisfies Record<string, MediaAsset>;
+
 /** Filter a list down to renderable entries. */
 export function enabledMedia(list: MediaAsset[]): MediaAsset[] {
   return list.filter((a) => a.enabled && a.src.trim().length > 0);
@@ -81,6 +93,8 @@ export const heroBackgroundVideo: MediaAsset = {
   id: "hero-living-blueprint",
   title: "A living blueprint of your mortgage strategy",
   src: "/media/hero/living-blueprint.mp4",
+  poster: "/images/blog/neighborhood.webp",
+  posterAlt: "Illustrative residential neighborhood in warm natural light",
   alt: "An abstract architectural blueprint coming to life, representing a mortgage strategy taking shape.",
   type: "video",
   placement: "hero-background",
@@ -91,6 +105,8 @@ export const homeEquityBackgroundVideo: MediaAsset = {
   id: "home-equity-equity-flow",
   title: "Equity flow — turning home value into options",
   src: "/media/home-equity/equity-flow.mp4",
+  poster: "/images/blog/renovation.webp",
+  posterAlt: "Illustrative renovated kitchen with cream cabinetry and blue tile",
   alt: "Flowing motion representing home equity creating new financial options.",
   type: "video",
   placement: "home-equity-background",
@@ -101,6 +117,8 @@ export const buyBackgroundVideo: MediaAsset = {
   id: "buy-future-being-built",
   title: "The future, being built",
   src: "/media/hero/future-being-built.mp4",
+  poster: "/images/blog/neighborhood.webp",
+  posterAlt: "Illustrative tree-lined street with welcoming front porches",
   alt: "A home and future taking shape, representing the home buying journey.",
   type: "video",
   placement: "buy-background",
@@ -111,6 +129,8 @@ export const refinanceBackgroundVideo: MediaAsset = {
   id: "refinance-transformation",
   title: "Refinance transformation",
   src: "/media/refinance/refinance-transformation.mp4",
+  poster: "/images/blog/planning.webp",
+  posterAlt: "Illustrative house keys and notebook on a sunlit table",
   alt: "A smooth transformation representing refinancing into a better position.",
   type: "video",
   placement: "refinance-background",
@@ -121,6 +141,8 @@ export const commercialBackgroundVideo: MediaAsset = {
   id: "commercial-district",
   title: "Commercial district",
   src: "/media/commercial/commercial-district.mp4",
+  poster: "/images/blog/rental.webp",
+  posterAlt: "Illustrative duplex with two front porches",
   alt: "A modern commercial district representing commercial lending.",
   type: "video",
   placement: "commercial",
@@ -131,6 +153,8 @@ export const funnelJourneyVideo: MediaAsset = {
   id: "journey-decision-pathways",
   title: "Decision pathways",
   src: "/media/journey/decision-pathways.mp4",
+  poster: "/images/blog/planning.webp",
+  posterAlt: "Illustrative notebook and coffee on a table, ready for planning",
   alt: "Branching pathways representing guided mortgage decisions.",
   type: "video",
   placement: "funnel",
@@ -141,6 +165,8 @@ export const learningStrategyVideo: MediaAsset = {
   id: "systems-living-strategy",
   title: "Living strategy",
   src: "/media/systems/living-strategy.mp4",
+  poster: "/images/blog/planning.webp",
+  posterAlt: "Illustrative coffee, house keys and notebook in morning light",
   alt: "An evolving strategy system representing thinking through mortgage decisions.",
   type: "video",
   placement: "learning",
@@ -151,6 +177,8 @@ export const ctaBackgroundVideo: MediaAsset = {
   id: "systems-possibility-engine",
   title: "Possibility engine",
   src: "/media/systems/possibility-engine.mp4",
+  poster: "/images/blog/neighborhood.webp",
+  posterAlt: "Illustrative homes along a sunny neighborhood sidewalk",
   alt: "An ambient system of moving possibilities behind a call to action.",
   type: "video",
   placement: "cta-background",

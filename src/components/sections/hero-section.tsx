@@ -32,13 +32,13 @@ export function HeroSection() {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3 mb-5">
-        <Link
+        <a
           href={HOMEPAGE_HERO.primaryHref}
           className="inline-flex items-center justify-center gap-2 bg-white text-navy-900 hover:bg-slate-100 px-7 py-3.5 min-h-[52px] rounded-full text-sm font-semibold transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
         >
           {HOMEPAGE_HERO.primaryCta}
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
-        </Link>
+        </a>
         <BookingLink
           location="homepage_hero"
           className="inline-flex items-center justify-center gap-2 border border-white/35 text-white hover:bg-white/10 px-7 py-3.5 min-h-[52px] rounded-full text-sm font-medium transition-colors duration-200 ease-out"
@@ -47,6 +47,14 @@ export function HeroSection() {
           Talk With An Advisor
         </BookingLink>
       </div>
+
+      <Link
+        href="#financing-paths"
+        className="inline-flex min-h-11 items-center gap-2 text-sm text-white/85 underline underline-offset-4 hover:text-white mb-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+      >
+        Explore home loan options
+        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+      </Link>
 
       <p className="text-xs text-white/45 max-w-sm leading-relaxed">
         {HOMEPAGE_HERO.trustNote}
