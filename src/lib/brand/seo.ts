@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { brand, siteUrl } from "./config";
 
+const socialImage = { url: "/brand/broadview-social-card.png", width: 1200, height: 630, alt: "Broadview Lending powered by Barrett Financial Group" };
+
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -27,7 +29,9 @@ export const defaultMetadata: Metadata = {
     url: siteUrl,
     title: `${brand.companyName} | Residential Mortgage Strategy`,
     description: brand.positioning.description,
+    images: [socialImage],
   },
+  twitter: { card: "summary_large_image", images: [socialImage] },
   robots: { index: true, follow: true },
 };
 
@@ -101,6 +105,7 @@ export function buildPageMetadata(
       title: page.title,
       description: page.description,
       url: siteUrl,
+      images: [socialImage],
     },
     ...overrides,
   };

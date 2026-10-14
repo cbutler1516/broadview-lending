@@ -93,19 +93,23 @@ export const brand = {
   social: {
     facebook: {
       label: "Facebook",
-      href: "https://www.facebook.com/broadviewlending",
+      href: "https://www.facebook.com/theloanplaybook/",
     },
     instagram: {
       label: "Instagram",
-      href: "https://www.instagram.com/broadviewlending",
+      href: "https://www.instagram.com/theloanplaybook/",
     },
     linkedin: {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/company/broadviewlending",
+      href: "https://www.linkedin.com/company/112741091/",
     },
     youtube: {
       label: "YouTube",
-      href: "https://www.youtube.com/@broadviewlending",
+      href: "https://www.youtube.com/@TheLoanPlaybook",
+    },
+    tiktok: {
+      label: "TikTok",
+      href: "https://www.tiktok.com/@theloanplaybook",
     },
   } satisfies Record<string, SocialLink>,
 

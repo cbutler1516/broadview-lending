@@ -1,10 +1,6 @@
-const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/theloanplaybook/" },
-  { label: "TikTok", href: "https://www.tiktok.com/@theloanplaybook" },
-  { label: "YouTube", href: "https://www.youtube.com/@TheLoanPlaybook" },
-  { label: "Facebook", href: "https://www.facebook.com/theloanplaybook/" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/112741091/" },
-] as const;
+import { brand } from "@/lib/brand/config";
+
+const socialLinks = [brand.social.instagram, brand.social.tiktok, brand.social.youtube, brand.social.facebook, brand.social.linkedin];
 
 function SocialIcon({ platform }: { platform: (typeof socialLinks)[number]["label"] }) {
   return (
