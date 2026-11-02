@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container } from '@/components/ui/container';
@@ -78,7 +79,7 @@ export default async function CompletedFinancingPage({ searchParams }: Props) {
         <section className="mb-16 rounded-2xl bg-navy-950 p-7 text-white sm:p-9">
           <h2 className="text-2xl font-semibold tracking-tight">Your plans deserve their own conversation.</h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/75">Tell us what you have in mind. We’ll help you explore the next step.</p>
-          <Link href="/contact" className="mt-5 inline-flex min-h-12 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-950">Talk with an advisor →</Link>
+          <Link href={getBookingUrl()} className="mt-5 inline-flex min-h-12 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-950">Talk with an advisor →</Link>
         </section>
       </Container>
     </main>

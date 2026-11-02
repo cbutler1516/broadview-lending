@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import { advisorSection, productHero } from "@/lib/product/shared";
 import { HOMEBRIDGE_HELOC } from "@/lib/heloc/homebridge";
 import type { ProductCta, ProductDefinition } from "@/lib/product/types";
@@ -9,7 +10,7 @@ const applicationCta: ProductCta = {
   icon: "arrow",
 };
 const ctas: ProductCta[] = [applicationCta, {
-  label: "Talk With Chris First", href: "/contact", variant: "secondary", icon: "calendar",
+  label: "Talk With Chris First", href: getBookingUrl(), variant: "secondary", icon: "calendar",
 }];
 
 export const HELOC_PRODUCT: ProductDefinition = {
@@ -63,7 +64,7 @@ export const HELOC_PRODUCT: ProductDefinition = {
       description: "An online application is convenient. A conversation can help you decide whether borrowing against your home makes sense for your plans.",
       benefits: ["Talk through your goal and budget.", "Compare a HELOC with other financing options.", "Ask questions before making a commitment."],
       primaryCta: applicationCta,
-      secondaryLink: { label: "Talk With Chris First", href: "/contact" },
+      secondaryLink: { label: "Talk With Chris First", href: getBookingUrl() },
       trustNote: HOMEBRIDGE_HELOC.notice,
     },
     faq: {

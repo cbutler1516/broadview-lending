@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import type { DealEngineMode, ProductCta, ProductGroup } from "@/lib/product/types";
 
 export const PRODUCT_CTA_LABEL = {
@@ -43,7 +44,7 @@ export function productCtas(
     },
     {
       label: "Talk With An Advisor",
-      href: "/contact",
+      href: getBookingUrl(),
       variant: "secondary",
       icon: "calendar",
     },

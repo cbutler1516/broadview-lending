@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Link from "next/link";
+import { getBookingUrl } from "@/lib/brand/booking";
 import { X, ArrowUp, MessageCircle } from "lucide-react";
 import { APPLICATION_CTA } from "@/lib/nav/constants";
 import type { GuideResource } from "@/lib/assistant/resources";
@@ -84,7 +85,7 @@ export default function GuidePanel({ open, onClose }: { open: boolean; onClose: 
       <div className="border-t border-slate-200 px-5 py-4">
         {aiAvailable && <label className="mb-3 flex items-start gap-2 text-xs leading-relaxed text-slate-600"><input type="checkbox" checked={allowAI} onChange={(e) => setAllowAI(e.target.checked)} className="mt-1 h-4 w-4 shrink-0" /><span>Use AI answers. My questions and recent chat will be sent to OpenAI. Provider retention may apply. <a className="underline" href="https://developers.openai.com/api/docs/guides/your-data" target="_blank" rel="noopener noreferrer">Data details (new tab)</a>. Leave unchecked for resource-only help.</span></label>}
         <form onSubmit={submit} className="flex gap-2"><label className="sr-only" htmlFor="guide-question">Ask a general question</label><textarea id="guide-question" value={input} onChange={(e) => setInput(e.target.value)} maxLength={800} rows={2} enterKeyHint="send" placeholder="Ask a general question…" className="input-field min-w-0 flex-1 resize-none text-sm" onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); void send(input); } }} /><button type="submit" disabled={pending || !input.trim()} aria-label="Send question" className="flex min-h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-white disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button></form>
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs"><Link href="/contact" onClick={onClose} className="inline-flex min-h-9 items-center font-semibold text-brand">Talk to an advisor</Link><a href={APPLICATION_CTA.href} className="inline-flex min-h-9 items-center font-semibold text-brand">Apply Online</a><button type="button" disabled={pending} onClick={() => { setMessages([]); setInput(""); setError(""); }} className="min-h-9 underline text-slate-500 disabled:opacity-40">Clear chat</button></div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs"><Link href={getBookingUrl()} onClick={onClose} className="inline-flex min-h-9 items-center font-semibold text-brand">Talk to an advisor</Link><a href={APPLICATION_CTA.href} className="inline-flex min-h-9 items-center font-semibold text-brand">Apply Online</a><button type="button" disabled={pending} onClick={() => { setMessages([]); setInput(""); setError(""); }} className="min-h-9 underline text-slate-500 disabled:opacity-40">Clear chat</button></div>
         <p className="mt-1 text-[10px] leading-relaxed text-slate-500">No rates, eligibility decisions, or guaranteed outcomes. Chat is not a lead request. <Link href="/privacy" onClick={onClose} className="underline">Privacy</Link></p>
       </div>
     </div>

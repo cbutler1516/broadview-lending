@@ -1,9 +1,7 @@
-const CONTACT_FALLBACK = "/contact";
+export const BOOKING_URL = "https://viato.ai/book/u/christopher-butler";
 
 export function getBookingUrl(): string {
-  const configured = process.env.NEXT_PUBLIC_BOOKING_URL?.trim();
-  if (configured) return configured;
-  return CONTACT_FALLBACK;
+  return BOOKING_URL;
 }
 
 export function isExternalBookingUrl(url: string = getBookingUrl()): boolean {

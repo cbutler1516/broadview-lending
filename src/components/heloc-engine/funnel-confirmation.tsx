@@ -23,7 +23,7 @@ import type {
   PropertyTypeId,
   RoutingTier,
 } from "@/lib/heloc-engine/types";
-import { brand } from "@/lib/brand/config";
+import { BookingLink } from "@/components/booking-link";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -145,12 +145,11 @@ export function FunnelConfirmation({
             <SummaryRow label="Profile strength" value={`${profileStrength}%`} />
           </div>
 
-          <a
-            href={brand.contact.phoneHref}
+          <BookingLink location="heloc_confirmation" funnelType="heloc"
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-brand-gradient px-7 py-3 text-base font-semibold text-white shadow-[0_2px_8px_rgba(26,86,219,0.35)] transition hover:brightness-110"
           >
             Talk with a Broadview advisor
-          </a>
+          </BookingLink>
         </div>
         <ComplianceFooter />
       </motion.div>

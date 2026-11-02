@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CinematicHero } from "@/components/media/cinematic-hero";
@@ -50,7 +51,7 @@ export default function ToolsPage() {
       <section className="rounded-2xl border border-border bg-surface-muted p-7">
         <h2 className="text-xl font-semibold">Want help with the results?</h2>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">Results are estimates based on the information you enter, not an offer, approval, appraisal, or guarantee of returns. No tool predicts future rates or automatically submits a loan application.</p>
-        <Link href="/contact" className="btn-primary mt-5">Review my assumptions with an advisor</Link>
+        <Link href={getBookingUrl()} className="btn-primary mt-5">Review my assumptions with an advisor</Link>
       </section>
     </div>
   </main>;

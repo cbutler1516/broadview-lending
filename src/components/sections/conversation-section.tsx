@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { getBookingUrl } from "@/lib/brand/booking";
 import { motion, useReducedMotion } from "framer-motion";
 import { CONTACT } from "@/lib/nav/constants";
 
@@ -37,7 +38,7 @@ export function ConversationSection() {
             </a>
             {" · "}
             <Link
-              href="/contact"
+              href={getBookingUrl()}
               className="text-navy-900 underline underline-offset-4 hover:text-teal-700 transition-colors"
             >
               Meet a Broadview advisor

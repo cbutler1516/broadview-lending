@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import { brand } from "@/lib/brand/config";
 import {
   ADVISOR_POSITIONING,
@@ -129,7 +130,7 @@ export function advisorSection(
     primaryCta: productCtas(group, options)[0],
     phoneLabel: brand.contact.phone,
     phoneHref: brand.contact.phoneHref,
-    secondaryLink: { label: "Talk With An Advisor", href: "/contact" },
+    secondaryLink: { label: "Talk With An Advisor", href: getBookingUrl() },
     trustNote: CTA_TRUST_NOTE,
     imageSide: investor ? "right" : "left",
   };

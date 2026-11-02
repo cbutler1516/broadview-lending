@@ -1,3 +1,4 @@
+import { getBookingUrl } from "@/lib/brand/booking";
 import type { StrategyWorkspace } from "@/lib/strategy/workspace";
 
 export function getEvolvingCta(ws: StrategyWorkspace): {
@@ -9,14 +10,14 @@ export function getEvolvingCta(ws: StrategyWorkspace): {
     return {
       primary: "Schedule My Strategy Session",
       secondary: "Review My Plan",
-      href: ws.goal?.journey === "home-equity" ? "/funnel/heloc" : "/funnel/purchase",
+      href: getBookingUrl(),
     };
   }
   if (ws.progress >= 45) {
     return {
       primary: "Talk Through My Options",
       secondary: "See My Next Step",
-      href: "/#start",
+      href: getBookingUrl(),
     };
   }
   if (ws.progress >= 20) {
