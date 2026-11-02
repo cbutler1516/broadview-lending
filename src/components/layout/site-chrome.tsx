@@ -26,7 +26,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <div id="main-content" className="pt-16 lg:pt-[72px] flex-1 print:pt-0">
         {children}
       </div>
-      <Footer />
+      <Footer helocApplication={pathname === "/heloc"} />
       <StickyBottomCTA />
       <GuideMount />
     </>

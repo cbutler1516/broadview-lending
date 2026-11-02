@@ -1,3 +1,4 @@
+import { HOMEBRIDGE_HELOC } from "@/lib/heloc/homebridge";
 import Image from "next/image";
 import { LoanPlaybookLinks } from "@/components/loan-playbook-links";
 import Link from "next/link";
@@ -52,7 +53,7 @@ const footerSections = [
   },
 ];
 
-export function Footer() {
+export function Footer({ helocApplication = false }: { helocApplication?: boolean }) {
   return (
     <footer className="bg-navy-950 text-slate-300 pb-20 lg:pb-6 print:hidden">
       <Container>
@@ -98,12 +99,12 @@ export function Footer() {
               </p>
               <ul className="flex flex-col gap-2.5">
                 {section.links.map((link) => (
-                  <li key={`${link.href}-${link.label}`}>
+                  <li key={`${link.href}-${helocApplication && link.href === APPLICATION_CTA.href ? HOMEBRIDGE_HELOC.label : link.label}`}>
                     <Link
-                      href={link.href}
+                      href={helocApplication && link.href === APPLICATION_CTA.href ? HOMEBRIDGE_HELOC.href : link.href}
                       className="inline-flex min-h-[44px] items-center text-sm text-slate-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:text-white focus-visible:underline rounded-sm"
                     >
-                      {link.label}
+                      {helocApplication && link.href === APPLICATION_CTA.href ? HOMEBRIDGE_HELOC.label : link.label}
                     </Link>
                   </li>
                 ))}

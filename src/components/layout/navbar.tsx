@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { HOMEBRIDGE_HELOC } from "@/lib/heloc/homebridge";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react";
@@ -168,12 +169,14 @@ function DesktopDropdown({
 
 export function Navbar() {
   const pathname = usePathname();
+  const onHelocPage = pathname === "/heloc";
+  const application = onHelocPage ? { href: HOMEBRIDGE_HELOC.href, label: "Start HELOC" } : APPLICATION_CTA;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<DesktopMenuKey | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<DesktopMenuKey | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-  const scenarioHref = scenarioHrefForPath(pathname);
+  const scenarioHref = onHelocPage ? HOMEBRIDGE_HELOC.href : scenarioHrefForPath(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -274,14 +277,14 @@ export function Navbar() {
                 <Phone className="w-4 h-4" aria-hidden="true" />
                 {CONTACT.phone}
               </a>
-              <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} px-5 py-2.5`}>
-                {APPLICATION_CTA.label}
+              <a href={application.href} className={`${CTA_PRIMARY} px-5 py-2.5`}>
+                {application.label}
               </a>
             </div>
 
             <div className="flex items-center gap-2 lg:hidden">
-              <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} min-h-11 px-4 py-2 text-sm`}>
-                {APPLICATION_CTA.label}
+              <a href={application.href} className={`${CTA_PRIMARY} min-h-11 px-4 py-2 text-sm`}>
+                {application.label}
               </a>
             <button
               type="button"
@@ -399,12 +402,12 @@ export function Navbar() {
               </div>
 
               <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col gap-3">
-                <a href={APPLICATION_CTA.href} className={`${CTA_PRIMARY} w-full justify-center`}>
-                  Apply Online
+                <a href={application.href} className={`${CTA_PRIMARY} w-full justify-center`}>
+                  {onHelocPage ? HOMEBRIDGE_HELOC.label : "Apply Online"}
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </a>
                 <p className="text-center text-xs leading-relaxed text-slate-500">
-                  Ready to begin? Go directly to Broadview’s loan application.
+                  {onHelocPage ? HOMEBRIDGE_HELOC.notice : "Ready to begin? Go directly to Broadview’s loan application."}
                 </p>
                 <a
                   href={CONTACT.phoneHref}
@@ -418,7 +421,7 @@ export function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-3 text-sm font-medium text-navy-700 hover:bg-slate-50"
                 >
-                  {NAV_PRIMARY_CTA_LABEL}
+                  {onHelocPage ? HOMEBRIDGE_HELOC.label : NAV_PRIMARY_CTA_LABEL}
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
                 <BookingLink
