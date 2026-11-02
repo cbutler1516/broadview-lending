@@ -1,7 +1,7 @@
 export const BOOKING_URL = "https://viato.ai/book/u/christopher-butler";
 
 export function getBookingUrl(): string {
-  return BOOKING_URL;
+  return "/contact";
 }
 
 export function isExternalBookingUrl(url: string = getBookingUrl()): boolean {
