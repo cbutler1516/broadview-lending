@@ -36,7 +36,6 @@ export const NAV_REFINANCE = {
     { href: "/refinance", label: "Explore refinancing options" },
     { href: "/refinance/cash-out-refinance", label: "Cash-Out" },
     { href: "/heloc", label: "HELOC" },
-    { href: "/heloc/home-equity-loan", label: "Home Equity Loan" },
     { href: "/refinance/fha-streamline", label: "FHA Streamline" },
     { href: "/refinance/va-irrrl", label: "VA IRRRL" },
   ],
@@ -47,7 +46,6 @@ export const NAV_HOME_EQUITY = {
   href: "/heloc",
   children: [
     { href: "/heloc", label: "HELOC" },
-    { href: "/heloc/home-equity-loan", label: "Home Equity Loan" },
     { href: "/heloc/heloc-vs-cash-out", label: "Cash Access" },
   ],
 } as const satisfies { label: string; href: string; children: readonly NavChild[] };
