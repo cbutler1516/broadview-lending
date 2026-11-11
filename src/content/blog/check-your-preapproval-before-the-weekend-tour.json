@@ -1,0 +1,65 @@
+{
+  "slug": "check-your-preapproval-before-the-weekend-tour",
+  "title": "Check your preapproval before the weekend tour",
+  "excerpt": "A quick look at your letter and a short conversation can help you head into your next home tour with fewer loose ends.",
+  "category": "Buying a Home",
+  "publishedAt": "2026-11-10",
+  "updatedAt": "2026-11-10",
+  "sourcesCheckedAt": "2026-11-10",
+  "status": "published",
+  "featured": false,
+  "image": {
+    "src": "/images/blog/preapproval-tour-check.webp",
+    "alt": "AI-created illustration of a cream and brick home with wood shutters, a curved stone walkway and palm trees"
+  },
+  "takeaway": "Before a busy home-shopping weekend, check the letter's date, outstanding conditions and the budget you actually want to use.",
+  "sections": [
+    {
+      "heading": "Read the date before you head out",
+      "paragraphs": [
+        "Before your next round of home tours, open your preapproval letter and check whether it has an expiration date. The CFPB notes that these letters can expire and that lenders handle preapproval differently. Your own letter and lender are the right places to confirm what still applies.",
+        "Think of this as a small preparation task, like checking the address before leaving. Put any expiration date on your calendar and ask what the lender needs if your search continues beyond it. A preapproval is conditional, not a guarantee that the loan will close."
+      ]
+    },
+    {
+      "heading": "Make one short list of questions",
+      "paragraphs": [
+        "Imagine finding a promising home on Saturday afternoon, then discovering the letter in your inbox is older than you remembered. A little preparation earlier in the week gives you more room to ask questions without an offer deadline hanging over the conversation.",
+        "Keep three questions in a note on your phone: Is this letter still current? What information remains to be confirmed? If I find a property, what should I send you next? Save the answers beside the letter so you and your real estate agent can refer to the same information.",
+        "If something about your finances has changed since the original discussion, bring it up. Ask whether the lender needs updated documents, and use its approved secure method for sending them. Keep a simple list of what you supplied and what is still outstanding."
+      ]
+    },
+    {
+      "heading": "Keep your shopping budget beside the letter",
+      "paragraphs": [
+        "The amount on a preapproval does not have to become your shopping target. The CFPB encourages buyers to stick with the spending level they are comfortable with, even when a lender is willing to consider more.",
+        "Before the weekend, write down the monthly payment and upfront spending you want to discuss for any property you like. Bring those preferences to Chris and your agent. The goal is to make the next conversation easier: current paperwork, clear questions and a home search that still fits your life."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — Get a preapproval letter",
+      "href": "https://www.consumerfinance.gov/owning-a-home/explore/get-a-preapproval-letter/"
+    }
+  ],
+  "relatedSlugs": [
+    "open-house-checklist-beyond-the-kitchen",
+    "your-home-budget-needs-a-life-budget",
+    "twenty-percent-down-is-not-the-only-start"
+  ],
+  "productLinks": [
+    {
+      "label": "First-time homebuyer guidance",
+      "href": "/buy/first-time-homebuyer"
+    },
+    {
+      "label": "Explore a comfortable home budget",
+      "href": "/tools/affordability-planner"
+    }
+  ],
+  "nextStep": {
+    "label": "Talk with Chris before you tour",
+    "href": "/contact"
+  }
+}
