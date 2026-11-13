@@ -1,0 +1,60 @@
+{
+  "slug": "before-you-send-an-extra-mortgage-payment",
+  "title": "Before you send an extra mortgage payment",
+  "excerpt": "Have a little extra room in the budget? Ask how an additional payment will be handled before you click send.",
+  "category": "Owning a Home",
+  "publishedAt": "2026-11-13",
+  "updatedAt": "2026-11-13",
+  "sourcesCheckedAt": "2026-11-13",
+  "status": "published",
+  "featured": false,
+  "image": {
+    "src": "/images/blog/extra-mortgage-payment.webp",
+    "alt": "AI-created illustration of a modern wood-sided home with front steps, a garage and evergreen landscaping"
+  },
+  "takeaway": "Confirm the payment instructions and your loan's terms, then check the account activity after the extra money arrives.",
+  "sections": [
+    {
+      "heading": "Give the extra dollars a clear purpose",
+      "paragraphs": [
+        "Before sending extra money toward your mortgage, ask your servicer how to direct it toward principal, the amount you still owe on the loan. A quick conversation can help you understand which payment option to select and how to confirm the money reached its intended destination.",
+        "Start with your goal. Are you considering a one-time payment after a bonus, or a smaller amount when the monthly budget allows? Write that down before calling. You can ask a much clearer question when you know what you want the payment to accomplish."
+      ]
+    },
+    {
+      "heading": "Check the terms before sending a lump sum",
+      "paragraphs": [
+        "The CFPB explains that some mortgages include a prepayment penalty. Small extra principal payments normally do not trigger one, but a large payment or early payoff can in some cases. Check your own loan documents and ask the servicer which rules apply to the amount you are considering.",
+        "Imagine setting aside money after finishing a home project under budget. Before sending the entire remainder, look at the expenses already coming up on your calendar. Consider how much cash you want to keep available for repairs and other surprises. You can discuss that choice with an advisor without committing to a payment on the spot."
+      ]
+    },
+    {
+      "heading": "Close the loop with a statement check",
+      "paragraphs": [
+        "Keep the payment confirmation with the instructions you received. When the transaction appears in your account, compare the entry with what you asked the servicer to do. If the description is unclear, ask for an explanation instead of assuming it was applied correctly.",
+        "Ask whether your next scheduled payment remains due as usual, and keep following the required payment schedule. An extra payment is a planning decision, not a reason to guess at next month's obligations. Chris can help you frame the questions and consider how paying down your mortgage fits alongside other home-financing options."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "CFPB — What is a prepayment penalty?",
+      "href": "https://www.consumerfinance.gov/ask-cfpb/what-is-a-prepayment-penalty-en-1957/"
+    }
+  ],
+  "relatedSlugs": [
+    "fixed-rate-changing-payment",
+    "your-home-budget-needs-a-life-budget",
+    "refinancing-the-payment-isnt-the-whole-story"
+  ],
+  "productLinks": [
+    {
+      "label": "Explore refinancing options",
+      "href": "/refinance"
+    }
+  ],
+  "nextStep": {
+    "label": "Talk with Chris about your mortgage goals",
+    "href": "/contact"
+  }
+}
